@@ -1,0 +1,33 @@
+.card-header {
+    background-color: rgb(92, 20, 20); /* สีพื้นหลังที่ต้องการ */
+    color: white; /* สีข้อความที่ต้องการ */
+    text-align: center;
+}
+.btn{
+    background-color: rgb(92, 20, 20);
+    color: white;
+}
+
+.card{
+    max-width: 500px;
+}
+
+.btn:hover{
+    color: black;
+    background-color: gray;
+}
+
+.header{
+    text-align: center;
+    background-color: rgb(92, 20, 20);
+    color: white;
+    padding: 30px;
+}
+
+.footer{
+    margin-top: 50px;
+    text-align: center;
+    background-color: rgb(92, 20, 20);
+    color: white;
+    padding: 30px;
+}
