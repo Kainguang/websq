@@ -6,7 +6,7 @@
     <title>WellNessWave</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styleforindex.css">
+    <link rel="stylesheet" href="css/styleforindex.css">
 </head>
 <body>
     <!-- Haeder -->
