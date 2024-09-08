@@ -67,34 +67,6 @@
                 </div>
             </div>
     </div>
-
-    <!-- ฟอร์มสำหรับเพิ่มแพ็กเกจ -->
-        <div class="add-package-form">
-            <h5>เพิ่มแพ็กเกจใหม่</h5>
-            <form>
-                <div class="mb-3">
-                    <label for="className" class="form-label">ชื่อคอร์ด</label>
-                    <input type="text" class="form-control" id="className" placeholder="ชื่อคอร์ด">
-                </div>
-                <div class="mb-3">
-                    <label for="classDay" class="form-label">วัน</label>
-                    <input type="text" class="form-control" id="classDay" placeholder="วันของคอร์ด">
-                </div>
-                <div class="mb-3">
-                    <label for="classTime" class="form-label">เวลา</label>
-                    <input type="text" class="form-control" id="classTime" placeholder="เวลาเริ่ม - เวลาสิ้นสุด">
-                </div>
-                <div class="mb-3">
-                    <label for="classInstructor" class="form-label">ผู้ฝึก</label>
-                    <input type="text" class="form-control" id="classInstructor" placeholder="ชื่อผู้ฝึก">
-                </div>
-                
-                <button type="submit" class="btn btn-primary">เพิ่มแพ็กเกจ</button>
-            </form>
-        </div>
-    </div>
-       
-
     <!-- ลิงก์ไปที่ Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
