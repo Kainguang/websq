@@ -1,0 +1,11 @@
+.booking-summary {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 8px;
+}
+.booking-summary h5, .booking-summary p {
+    margin-bottom: 15px;
+}
+.class-item-img {
+    max-width: 100px; 
+}
