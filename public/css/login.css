@@ -1,0 +1,70 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center; /* จัดให้อยู่กึ่งกลางแนวนอน */
+    align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
+    height: 100vh; /* ทำให้ความสูงของ body เท่ากับความสูงของหน้าต่างเบราว์เซอร์ */
+    /*background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgO4A6g2-mQM-qsHzIW6X5QR3lJKgDLpPWBQ&s');  พื้นหลัง */
+    background-color: #c52129;
+    background-size: cover;
+    background-position: center;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+.logo img {
+    width: 100px; /* ขนาดของโลโก้ */
+}
+
+h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+p {
+    margin-bottom: 5px;
+    color: black;
+    text-align: left;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #e50914;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.forgotpassword_links a {
+    color: red;
+    margin-top: 0;
+    margin-bottom: 10px;
+    display: flex;
+    text-decoration: none;
+    justify-content: right;
+}
+
+.signup_links a {
+    color: red;
+    text-decoration: none;
+}
