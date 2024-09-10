@@ -1,0 +1,106 @@
+.sidebar {
+    height: 200vh;
+    background-color: #343a40;
+}
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.profile-picture {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.profile-name {
+    color: white;
+    margin-top: 10px;
+}
+
+.nav-link {
+    color: white;
+    font-size: 18px;
+    padding: 10px 0;
+    text-align: center;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.nav-link:hover {
+    background-color: #495057;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link.active {
+    background-color: #6c757d; /* สีพื้นหลังเมื่อ active */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4); /* เพิ่มเงา */
+    border-radius: 5px;
+}
+
+/* Main Content Styling */
+.course-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+.info-box {
+    background-color: #343a40;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 1.5rem;
+}
+
+.chart-container {
+    background-color: white;
+    border: 1px solid #ced4da;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.search-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.btn-add {
+    background-color: #343a40;
+    color: white;
+}
+
+.course-card {
+    margin-bottom: 20px;
+}
+
+.course-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+
+.card-header {
+    background-color: #343a40;
+    color: white;
+}
+
+.badge {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+}

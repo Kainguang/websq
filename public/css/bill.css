@@ -1,0 +1,115 @@
+.sidebar {
+    height: 200vh;
+    background-color: #343a40;
+}
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.profile-picture {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.profile-name {
+    color: white;
+    margin-top: 10px;
+}
+
+.nav-link {
+    color: white;
+    font-size: 18px;
+    padding: 10px 0;
+    text-align: center;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.nav-link:hover {
+    background-color: #495057;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link.active {
+    background-color: #6c757d; /* สีพื้นหลังเมื่อ active */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4); /* เพิ่มเงา */
+    border-radius: 5px;
+}
+
+/* Main Content Styling */
+.dashboard-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+.search-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.btn-add {
+    background-color: #343a40;
+    color: white;
+}
+
+/* Bill Section Styling */
+.bill-card {
+    margin-bottom: 20px;
+}
+
+.bill-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.bill-buttons button {
+    margin-left: 5px;
+}
+
+.card-header {
+    background-color: #343a40;
+    color: white;
+}
+
+.badge {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+
+    .form-container {
+        display: flex;
+        flex-direction: column;
+    }
+    .form-group {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .form-group label {
+        width: 100px; /* ความกว้างของ label */
+        text-align: right; /* จัดข้อความชิดขวา */
+        margin-right: 10px; /* เว้นระยะห่างระหว่าง label และ input */
+    }
+    .swal2-input {
+        flex-grow: 1;
+    }
+
