@@ -1,0 +1,109 @@
+body {
+    background-color: #fff;
+    color: #000;
+}
+
+/* CSS สำหรับ navbar */ 
+.navbar {
+    background-color: #fff;
+    color: #000;
+    border-bottom: 2px solid #000; /* hr effect */
+}
+
+.navbar-brand, .nav-link {
+    color: #000 !important;
+}
+
+.nav-link:hover {
+    text-decoration: underline; /* เพิ่มเส้นใต้ */
+    text-decoration-color: black; /* กำหนดสีเส้นใต้เป็นสีดำ */
+    text-decoration-thickness: 3px; /* กำหนดความหนาของเส้นใต้ */
+    text-underline-offset: 10px; /* กำหนดระยะห่างระหว่างเส้นใต้กับข้อความ */
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center; /* Center items vertically */
+}
+
+.navbar-collapse {
+    justify-content: center; /* Center items horizontally */
+    margin-left: 300px;
+}
+
+/* ให้ nav ห่างกัน */
+.nav-item {
+    padding-right: 60px;
+}
+
+/* ปุ่ม */
+.btn {
+    background-color: #000;
+    color: #fff;
+}
+
+/* การปรับขนาดและการจัดตำแหน่งของโลโก้ */
+.navbar-brand img {
+    height: 40px; /* ปรับขนาดของรูปภาพ */
+    width: auto;  /* รักษาสัดส่วนของรูปภาพ */
+}
+
+/*ภาพพื้นหลังใน section.main */
+.main {
+    background: url('/image/fitnesscover.avif') no-repeat center center/cover; /* กำหนดให้ภาพพื้นหลังไม่ทำซ้ำ, ตำแหน่งอยู่ตรงกลาง, ขยายให้ครอบคลุมพื้นที่ */
+    color: white;
+    height: 100vh; /* ใช้ความสูงเต็มหน้าจอ */
+    display: flex; /* ใช้ Flexbox */
+    align-items: center; /* จัดตำแหน่งแนวตั้งให้กึ่งกลาง */
+    justify-content: center; /* จัดตำแหน่งแนวนอนให้กึ่งกลาง */
+    text-align: center; /* จัดข้อความให้กึ่งกลาง */
+}
+
+/* ตัวหนังสือต้อนรับ */
+.container h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+/* CSS สำหรับการ์ด */ 
+/* ให้ห่างกับพื้นหลัง */
+.section-detail {
+    margin-top: 40px;
+}
+
+/* รูป */
+.class-card {
+    border: 1px solid #eee; /* กำหนดเส้นขอบการ์ดบางๆ */
+    border-radius: 10px; /* มุมโค้ง */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* เพิ่มเงาเพื่อความลึก */
+    overflow: hidden; /* ป้องกันภาพหรือเนื้อหาออกนอกขอบ */
+    text-decoration: none; /* Remove underline from the link */
+    display: block; /* ทำให้การ์ดทั้งหมดคลิกได้ */
+    color: inherit; /* ใช้สีตัวอักษรจากพาเรนต์ */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* เพิ่มความนุ่มนวลในการเปลี่ยนแปลง */
+}
+
+/* กล่องรายละเอียดด้านขวา */
+.card-body {
+    padding: 15px; /* ระยะห่างภายในการ์ด */
+    background-color: #fafafa; /* พื้นหลังสีอ่อนเพื่อความโดดเด่น */
+    border-radius: 10px; /* มุมโค้ง */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* เพิ่มเงาเพื่อความลึก */
+    line-height: 2; /* เพิ่มระยะห่างระหว่างบรรทัด */
+}
+
+/* footer */
+footer {
+    background-color: #000000;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px 0;
+    line-height: 1.5;
+    position: fixed;
+    bottom: 0;
+    width: 100%; /* ให้ footer ครอบคลุมความกว้างทั้งหมดของหน้าเว็บ */
+}
+
+.btn btn-danger{
+    margin: 50px;
+}

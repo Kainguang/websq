@@ -1,0 +1,194 @@
+body {
+    background-color: #fff;
+    color: #000;
+}
+
+/* CSS สำหรับ navbar */ 
+.navbar {
+    background-color: #fff;
+    color: #000;
+    border-bottom: 2px solid #000; /* hr effect */
+}
+
+.navbar-brand, .nav-link {
+    color: #000 !important;
+}
+
+.nav-link:hover {
+    text-decoration: underline; /* เพิ่มเส้นใต้ */
+    text-decoration-color: black; /* กำหนดสีเส้นใต้เป็นสีดำ */
+    text-decoration-thickness: 3px; /* กำหนดความหนาของเส้นใต้ */
+    text-underline-offset: 10px; /* กำหนดระยะห่างระหว่างเส้นใต้กับข้อความ */
+}
+
+
+.navbar-nav {
+    display: flex;
+    align-items: center; /* Center items vertically */
+}
+
+.navbar-collapse {
+    justify-content: center; /* Center items horizontally */
+    margin-left: 300px;
+}
+
+ /* ให้ nav ห่างกัน */
+.nav-item{
+    padding-right: 60px;
+}
+
+/* ปุ่ม */
+.btn {
+    background-color: #000;
+    color: #fff;
+}
+
+/* การปรับขนาดและการจัดตำแหน่งของโลโก้ */
+.navbar-brand img {
+    height: 40px; /* ปรับขนาดของรูปภาพ */
+    width: auto;  /* รักษาสัดส่วนของรูปภาพ */
+}
+
+/* CSS สำหรับหน้าโปรไฟล์ */
+.profile-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.profile-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.personal-info, .booking-info, .payment-info {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.payment-info{
+    margin-top: 50px;
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: block;
+    margin: 10px auto;
+    border: #000 1px solid;
+}
+
+.edit-btn, .cancel-booking-btn {
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 10px 0;
+}
+
+.edit-btn:hover, .cancel-booking-btn:hover {
+    background-color: #747474;
+}
+
+.payment-item, .booking-item, .personal-item{
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.invoice-link {
+    color: #000000;
+    text-decoration: none;
+}
+
+.invoice-link:hover {
+    text-decoration: underline;
+}
+
+/* footer */
+footer {
+    background-color: #000000;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* รูปแบบตาราง */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* รูปแบบโมดัลสำหรับแสดงข้อมูลการจอง */
+.modal {
+    display: none; /* ซ่อนไว้ก่อน */
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover, .close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logout-btn {
+    background-color: #f44336; /* สีแดงสำหรับปุ่ม */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 2px;
+    cursor: pointer;
+    border-radius: 4px; /* มุมปุ่มโค้งมน */
+}
+
+.logout-btn:hover {
+    background-color: #d32f2f; /* สีเข้มขึ้นเมื่อ hover */
+}

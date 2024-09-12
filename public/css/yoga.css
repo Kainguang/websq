@@ -1,0 +1,122 @@
+/* Basic styles */
+body {
+    background-color: #fff;
+    color: #000;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #fff;
+    color: #000;
+    border-bottom: 2px solid #000; /* hr effect */
+}
+
+.navbar-brand, .nav-link {
+    color: #000 !important;
+}
+
+.nav-link:hover {
+    text-decoration: underline; /* Add underline */
+    text-decoration-color: black; /* Set underline color */
+    text-decoration-thickness: 3px; /* Set underline thickness */
+    text-underline-offset: 10px; /* Set underline offset */
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center; /* Center items vertically */
+}
+
+.navbar-collapse {
+    justify-content: center; /* Center items horizontally */
+    margin-left: 300px;
+}
+
+.nav-item {
+    padding-right: 60px; /* Add spacing between nav items */
+}
+
+/* Button styles */
+.btn {
+    background-color: #000;
+    color: #fff;
+}
+
+/* Logo styles */
+.navbar-brand img {
+    height: 40px;
+    width: auto;
+}
+
+/* Card section spacing */
+.sectiondetail {
+    margin-top: 40px;
+}
+
+/* Card styles */
+.card {
+    border: 1px solid #eee;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    height: 100%;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Card content styles */
+.card-body {
+    padding: 15px;
+    background-color: #fafafa;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-size: 2em;
+    color: #000;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.card-text, .list-unstyled {
+    font-size: 1em;
+    line-height: 2;
+}
+
+.list-unstyled li strong {
+    color: black;
+}
+
+.list-unstyled li {
+    color: gray;
+}
+
+/* Title styles */
+.sectiondetail-title, .text-center {
+    text-align: center;
+    margin-bottom: 50px;
+    text-decoration: underline;
+    text-underline-offset: 10px;
+}
+
+/* Column and amenity title adjustments */
+.col-md-3 {
+    margin-top: 30px;
+}
+
+.card-title-amenities {
+    font-size: 1rem;
+}
+
+/* Footer styles */
+footer {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
