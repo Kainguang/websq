@@ -106,9 +106,16 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 12 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="handleRedirect()">จองคลาส</button>
                     </div>
                 </div>
+                <script>
+                    function handleRedirect() {
+                    // ใช้ route ของ Laravel ที่กำหนดไว้
+                        window.location.href = "{{ route('Orderlist') }}";
+                        }
+                </script>
+                
 
                 <!-- โยคะ หญิง 2 -->
                 <!-- คอลัมน์ซ้าย: รายละเอียด -->
@@ -126,9 +133,16 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 12 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="handleRedirect()">จองคลาส</button>
                     </div>
                 </div>
+                <script>
+                    function handleRedirect() {
+                    // ใช้ route ของ Laravel ที่กำหนดไว้
+                        window.location.href = "{{ route('Orderlist') }}";
+                        }
+                </script>
+                
 
 
                 <!-- คอลัมน์ด้านขวา: รูปภาพ -->
@@ -163,10 +177,17 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 12 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="handleRedirect()">จองคลาส</button>
                     </div>
                 </div>
-
+                <script>
+                    function handleRedirect() {
+                    // ใช้ route ของ Laravel ที่กำหนดไว้
+                        window.location.href = "{{ route('Orderlist') }}";
+                        }
+                </script>
+                
+                
                 <!-- โยคะ ชาย 2 -->
                 <div class="col-md-6 mb-4">
                     <div class="card-body">
@@ -182,7 +203,7 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 12 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="handleRedirect()">จองคลาส</button>
                     </div>
                 </div>
 
@@ -191,6 +212,13 @@
                         <img src="images/yoga2.jpg" class="card-img-top" alt="Yoga">
                     </div>
                 </div>
+                <script>
+                    function handleRedirect() {
+                    // ใช้ route ของ Laravel ที่กำหนดไว้
+                        window.location.href = "{{ route('Orderlist') }}";
+                        }
+                </script>
+                
     </section>
 
     <hr>
