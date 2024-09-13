@@ -14,26 +14,26 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <!-- โลโก้เป็นรูปภาพ -->
-            <a class="navbar-brand" href="index.html">
-                <img src="/images/logo.jpeg" alt="logo">
+            <a class="navbar-brand" href="{{route('index')}}">
+                <img src="images/logo.jpeg" alt="logo">
             </a>
             
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
-                    <!-- คลาส / อุปกรณ์ -->
+                    <!-- คลาส-->
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             คลาส
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="yoga.html#yoga">คลาสโยคะ</a></li>
+                            <li><a class="dropdown-item" href="{{route('yoga')}}">คลาสโยคะ</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="dance.html#dance">คลาสเต้น</a></li>
+                            <li><a class="dropdown-item" href="{{route('dance')}}">คลาสเต้น</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="muaythai.html#muaythai">คลาสมวยไทย</a></li>
+                            <li><a class="dropdown-item" href="{{route('muaythai')}}">คลาสมวยไทย</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="zumba.html#zumba">คลาสซุมบา</a></li>
+                            <li><a class="dropdown-item" href="{{route('zumba')}}">คลาสซุมบา</a></li>
                         </ul>
                     </li>
 
@@ -43,9 +43,9 @@
                             เวลา
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="class_time.html#morning">ช่วงเช้า</a></li>
+                            <li><a class="dropdown-item" href="{{ route('class_time') }}#morning">ช่วงเช้า</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="class_time.html#afternoon">ช่วงบ่าย</a></li>
+                            <li><a class="dropdown-item" href="{{ route('class_time') }}#afternoon">ช่วงบ่าย</a></li>
                         </ul>
                     </li>
 
@@ -55,9 +55,9 @@
                             ครูผู้สอน
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="class_gender.html#instructors-female">เพศหญิง</a></li>
+                            <li><a class="dropdown-item" href="{{ route('class_gender') }}#instructors-female">เพศหญิง</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="class_gender.html#instructors-male">เพศชาย</a></li>
+                            <li><a class="dropdown-item" href="{{ route('class_gender') }}#instructors-male">เพศชาย</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -69,12 +69,12 @@
                         <button class="btn btn-primary" type="submit">ค้นหา</button>
                     </form>
 
-                    <a class="btn btn-primary ms-3" href="#" role="button" onclick="window.location.href='login.html'">เข้าสู่ระบบ</a>
+                    <a class="btn btn-primary ms-3" href="{{ route('login') }}" role="button">เข้าสู่ระบบ</a>
 
-                    <a href="profile.html">
+                    <a href="{{ route('profile') }}">
                         <img src="images/kuromi.jpg" alt="Profile" class="rounded-circle ms-3" style="width: 40px; height: 40px;">
-                    </a>
-                </div>
+                    </a>                    
+                    
             </div>
         </div>
     </nav>
@@ -106,16 +106,9 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 12 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="handleRedirect()">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
                     </div>
                 </div>
-                <script>
-                    function handleRedirect() {
-                    // ใช้ route ของ Laravel ที่กำหนดไว้
-                        window.location.href = "{{ route('Orderlist') }}";
-                        }
-                </script>
-                
 
                 <!-- โยคะ หญิง 2 -->
                 <!-- คอลัมน์ซ้าย: รายละเอียด -->
@@ -133,16 +126,9 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 12 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="handleRedirect()">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
                     </div>
                 </div>
-                <script>
-                    function handleRedirect() {
-                    // ใช้ route ของ Laravel ที่กำหนดไว้
-                        window.location.href = "{{ route('Orderlist') }}";
-                        }
-                </script>
-                
 
 
                 <!-- คอลัมน์ด้านขวา: รูปภาพ -->
@@ -177,17 +163,10 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 12 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="handleRedirect()">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
                     </div>
                 </div>
-                <script>
-                    function handleRedirect() {
-                    // ใช้ route ของ Laravel ที่กำหนดไว้
-                        window.location.href = "{{ route('Orderlist') }}";
-                        }
-                </script>
-                
-                
+
                 <!-- โยคะ ชาย 2 -->
                 <div class="col-md-6 mb-4">
                     <div class="card-body">
@@ -203,7 +182,7 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 12 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="handleRedirect()">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
                     </div>
                 </div>
 
@@ -212,13 +191,6 @@
                         <img src="images/yoga2.jpg" class="card-img-top" alt="Yoga">
                     </div>
                 </div>
-                <script>
-                    function handleRedirect() {
-                    // ใช้ route ของ Laravel ที่กำหนดไว้
-                        window.location.href = "{{ route('Orderlist') }}";
-                        }
-                </script>
-                
     </section>
 
     <hr>

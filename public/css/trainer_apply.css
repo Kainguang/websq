@@ -1,0 +1,119 @@
+body {
+    background: #000;
+}
+
+/* CSS สำหรับ navbar */
+.navbar {
+    background-color: #fff;
+    color: #000;
+    border-bottom: 2px solid #000;
+}
+
+.navbar-brand,
+.nav-link {
+    color: #000 !important;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+    text-decoration-color: black;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 10px;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-collapse {
+    justify-content: center;
+    margin-left: 300px;
+}
+
+.nav-item {
+    padding-right: 60px;
+}
+
+.btn {
+    background-color: #000;
+    color: #fff;
+}
+
+.navbar-brand img {
+    height: 40px;
+    width: auto;
+}
+
+.btn {
+    background-color: #000;
+    color: white;
+}
+
+/* Card container for the form */
+.card {
+    max-width: 500px;
+    margin: auto;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.container.mt-5 {
+    margin-bottom: 100px;
+    padding-bottom: 50px;
+}
+
+.card-header {
+    text-align: center;
+}
+
+/* Registration form styles */
+.registration-container {
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.registration-container h1 {
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.registration-container label,
+.registration-container p {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.registration-container input,
+.registration-container select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.registration-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.registration-container button:hover {
+    background-color: #333;
+}
+
+footer {
+    background-color: #fff;
+    color: #000;
+    text-align: center;
+    padding: 10px 0;
+}

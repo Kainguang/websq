@@ -14,7 +14,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <!-- โลโก้เป็นรูปภาพ -->
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="{{route('index')}}">
                 <img src="images/logo.jpeg" alt="logo">
             </a>
             
@@ -43,9 +43,9 @@
                             เวลา
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="class_time.html#morning">ช่วงเช้า</a></li>
+                            <li><a class="dropdown-item" href="{{ route('class_time') }}#morning">ช่วงเช้า</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="class_time.html#afternoon">ช่วงบ่าย</a></li>
+                            <li><a class="dropdown-item" href="{{ route('class_time') }}#afternoon">ช่วงบ่าย</a></li>
                         </ul>
                     </li>
 
@@ -55,9 +55,9 @@
                             ครูผู้สอน
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="class_gender.html#instructors-female">เพศหญิง</a></li>
+                            <li><a class="dropdown-item" href="{{ route('class_gender') }}#instructors-female">เพศหญิง</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="class_gender.html#instructors-male">เพศชาย</a></li>
+                            <li><a class="dropdown-item" href="{{ route('class_gender') }}#instructors-male">เพศชาย</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -69,11 +69,11 @@
                         <button class="btn btn-primary" type="submit">ค้นหา</button>
                     </form>
 
-                    <a class="btn btn-primary ms-3" href="#" role="button" onclick="window.location.href='login.html'">เข้าสู่ระบบ</a>
+                    <a class="btn btn-primary ms-3" href="{{ route('login') }}" role="button">เข้าสู่ระบบ</a>
 
-                    <a href="profile.html">
+                    <a href="{{ route('profile') }}">
                         <img src="images/kuromi.jpg" alt="Profile" class="rounded-circle ms-3" style="width: 40px; height: 40px;">
-                    </a>
+                    </a>                    
                     
             </div>
         </div>
@@ -94,7 +94,7 @@
             <!-- โยคะ -->
             <!-- โยคะ -->
             <div class="col-md-3">
-                <a href="yoga.html#yoga" class="class-card">
+                <a href="{{route('yoga')}}" class="class-card">
                     <img src="images/yogamen2.jpg" class="card-img-top" alt="Yoga Class">
                     <div class="card-body">
                         <h3 class="class-title">Yoga Class</h3>
@@ -108,7 +108,7 @@
             <!-- เต้น -->
             <!-- เต้น -->
             <div class="col-md-3">
-                <a href="dance.html" class="class-card">
+                <a href="{{route('dance')}}" class="class-card">
                     <img src="images/dance.jpeg" class="card-img-top" alt="Dance Class">
                     <div class="card-body">
                         <h3 class="class-title">Dance Class</h3>
@@ -121,7 +121,7 @@
 
             <!-- มวยไทย -->
             <div class="col-md-3">
-                <a href="muaythai.html" class="class-card">
+                <a href="{{route('muaythai')}}" class="class-card">
                     <img src="images/muaythai2.jpg" class="card-img-top" alt="Muay Thai Class">
                     <div class="card-body">
                         <h3 class="class-title">Muay Thai Class</h3>
@@ -134,7 +134,7 @@
 
             <!-- ซุมบา -->
             <div class="col-md-3">
-                <a href="zumba.html" class="class-card">
+                <a href="{{route('zumba')}}" class="class-card">
                     <img src="images/zumba5.jpg" class="card-img-top" alt="Zumba Class">
                     <div class="card-body">
                         <h3 class="class-title">Zumba Class</h3>
@@ -153,7 +153,7 @@
         <div class="row">
             <!-- โยคะ (Popular) -->
             <div class="col-md-6">
-                <a href="yoga.html" class="class-card popular">
+                <a href="{{route('yoga')}}" class="class-card popular">
                     <img src="images/yogamen2.jpg" class="card-img-top" alt="Yoga Class">
                     <div class="card-body">
                         <h3 class="class-title">Yoga Class</h3>
@@ -165,7 +165,7 @@
 
             <!-- เต้น (Popular) -->
             <div class="col-md-6">
-                <a href="dance.html" class="class-card popular">
+                <a href="{{route('dance')}}" class="class-card popular">
                     <img src="images/dance.jpeg" class="card-img-top" alt="Dance Class">
                     <div class="card-body">
                         <h3 class="class-title">Dance Class</h3>
