@@ -24,10 +24,10 @@
                 <div class="forgotpassword_links">
                     <a href="#">ลืมรหัสผ่าน</a>
                 </div>
-                <button type="submit" onclick="window.location.href='index.html'">เข้าสู่ระบบ</button>
+                <button type="submit" onclick="window.location.href='{{ route('index') }}'">เข้าสู่ระบบ</button>
                 <div class="signup_links">
                     มีบัญชีแล้วหรือยัง ?<br>
-                    <a href="trainer_apply.html">สมัครสมาชิก</a>
+                    <a href="{{ route('register') }}">สมัครสมาชิก</a>
                 </div>
             </form>
         </div>

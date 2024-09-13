@@ -22,26 +22,26 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <!-- โลโก้เป็นรูปภาพ -->
-            <a class="navbar-brand" href="index.html">
-                <img src="image/logo.jpeg" alt="logo">
+            <a class="navbar-brand" href="{{route('index')}}">
+                <img src="images/logo.jpeg" alt="logo">
             </a>
             
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
-                    <!-- คลาส / อุปกรณ์ -->
+                    <!-- คลาส-->
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             คลาส
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="yoga.html#yoga">คลาสโยคะ</a></li>
+                            <li><a class="dropdown-item" href="{{route('yoga')}}">คลาสโยคะ</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="dance.html#dance">คลาสเต้น</a></li>
+                            <li><a class="dropdown-item" href="{{route('dance')}}">คลาสเต้น</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="muaythai.html#muaythai">คลาสมวยไทย</a></li>
+                            <li><a class="dropdown-item" href="{{route('muaythai')}}">คลาสมวยไทย</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="zumba.html#zumba">คลาสซุมบา</a></li>
+                            <li><a class="dropdown-item" href="{{route('zumba')}}">คลาสซุมบา</a></li>
                         </ul>
                     </li>
 
@@ -51,9 +51,9 @@
                             เวลา
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="class_time.html#morning">ช่วงเช้า</a></li>
+                            <li><a class="dropdown-item" href="{{ route('class_time') }}#morning">ช่วงเช้า</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="class_time.html#afternoon">ช่วงบ่าย</a></li>
+                            <li><a class="dropdown-item" href="{{ route('class_time') }}#afternoon">ช่วงบ่าย</a></li>
                         </ul>
                     </li>
 
@@ -63,9 +63,9 @@
                             ครูผู้สอน
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="class_gender.html#instructors-female">เพศหญิง</a></li>
+                            <li><a class="dropdown-item" href="{{ route('class_gender') }}#instructors-female">เพศหญิง</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="class_gender.html#instructors-male">เพศชาย</a></li>
+                            <li><a class="dropdown-item" href="{{ route('class_gender') }}#instructors-male">เพศชาย</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -77,13 +77,12 @@
                         <button class="btn btn-primary" type="submit">ค้นหา</button>
                     </form>
 
-                    <a class="btn btn-primary ms-3" href="#" role="button" onclick="window.location.href='login.html'">เข้าสู่ระบบ</a>
+                    <a class="btn btn-primary ms-3" href="{{ route('login') }}" role="button">เข้าสู่ระบบ</a>
 
-                    <a href="edit-profile.html">
-                        <img src="image/kuromi.jpg" alt="Profile" class="rounded-circle ms-3" style="width: 40px; height: 40px;">
-                    </a>
+                    <a href="{{ route('profile') }}">
+                        <img src="images/kuromi.jpg" alt="Profile" class="rounded-circle ms-3" style="width: 40px; height: 40px;">
+                    </a>                    
                     
-                </div>
             </div>
         </div>
     </nav>
@@ -95,13 +94,13 @@
         <!-- ส่วนข้อมูลส่วนตัว -->
         <section class="personal-info">
             <h5>ข้อมูลส่วนตัว</h5>
-            <img src="image/kuromi.jpg" alt="User Profile Picture" class="profile-pic">
+            <img src="images/kuromi.jpg" alt="User Profile Picture" class="profile-pic">
             <div class="personal-item">
                 <p><b>ชื่อ-นามสกุล:</b> <span>คุณไก่ กะต๊าก</span></p>
                 <p><b>อีเมล:</b> <span>kai@gmail.com</span></p>
                 <p><b>หมายเลขโทรศัพท์:</b> <span>081-234-5678</span></p>
                 <p><b>ที่อยู่:</b> <span>กรุงเทพมหานคร</span></p>
-                <button class="edit-btn" onclick="window.location.href='edit-profile.html'">แก้ไขข้อมูลส่วนตัว</button>
+                <button class="edit-btn" onclick="window.location.href='{{ route('edit-profile') }}'">แก้ไขข้อมูลส่วนตัว</button>
             </div>
         </section>
 
@@ -125,7 +124,7 @@
                         <td>อาทิตย์</td>
                         <td></td>
                         <td></td>
-                        <td onclick="showBookingInfo('')">Yoga</td> <!-- คลิกเพื่อแสดงข้อมูล -->
+                        <td onclick="window.location.href='{{ route('history-booking') }}'">Yoga</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -134,7 +133,7 @@
                         <td>จันทร์</td>
                         <td></td>
                         <td></td>
-                        <td onclick="showBookingInfo('')">Yoga</td> <!-- คลิกเพื่อแสดงข้อมูล -->
+                        <td onclick="window.location.href='{{ route('history-booking') }}'">Yoga</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -143,7 +142,7 @@
                         <td>อังคาร</td>
                         <td></td>
                         <td></td>
-                        <td onclick="showBookingInfo('')">Yoga</td> <!-- คลิกเพื่อแสดงข้อมูล -->
+                        <td onclick="window.location.href='{{ route('history-booking') }}'">Yoga</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -152,7 +151,7 @@
                         <td>พุธ</td>
                         <td></td>
                         <td></td>
-                        <td onclick="showBookingInfo('')">Yoga</td> <!-- คลิกเพื่อแสดงข้อมูล -->
+                        <td onclick="window.location.href='{{ route('history-booking') }}'">Yoga</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -161,7 +160,7 @@
                         <td>พฤหัสบดี</td>
                         <td></td>
                         <td></td>
-                        <td onclick="showBookingInfo('')">Yoga</td> <!-- คลิกเพื่อแสดงข้อมูล -->
+                        <td onclick="window.location.href='{{ route('history-booking') }}'">Yoga</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -170,7 +169,7 @@
                         <td>ศุกร์</td>
                         <td></td>
                         <td></td>
-                        <td onclick="showBookingInfo('')">Yoga</td> <!-- คลิกเพื่อแสดงข้อมูล -->
+                        <td onclick="window.location.href='{{ route('history-booking') }}'">Yoga</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -179,7 +178,7 @@
                         <td>เสาร์</td>
                         <td></td>
                         <td></td>
-                        <td onclick="showBookingInfo('')">Yoga</td> <!-- คลิกเพื่อแสดงข้อมูล -->
+                        <td onclick="window.location.href='{{ route('history-booking') }}'">Yoga</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -222,13 +221,10 @@
             function logout() {
                 // ลบข้อมูลของผู้ใช้ที่เก็บไว้ เช่น Token หรือข้อมูลอื่น ๆ
                 localStorage.removeItem('userToken'); // ตัวอย่างการลบ Token ที่เก็บใน Local Storage
-        
-                // เปลี่ยนเส้นทางไปยังหน้าล็อกอิน
-                window.location.href = 'login.html';
+                // เปลี่ยนเส้นทางไปยังหน้าล็อกอินโดยใช้ Laravel route
+                window.location.href = '{{ route('login') }}';
             }
-        </script>        
-
-        
+        </script> 
     </div>
 
 
