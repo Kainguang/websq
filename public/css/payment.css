@@ -132,11 +132,13 @@ footer {
     display: flex;
     justify-content: center; /* จัดภาพให้อยู่กลางแนวนอน */
     align-items: center; /* จัดภาพให้อยู่กลางแนวตั้ง (ถ้าต้องการ) */
+    
 }
 
 .images-block img {
     width: 50%;
     border-radius: 15px;
+    box-shadow: #000;
 }
 
 /*success*/
