@@ -37,12 +37,6 @@ body {
     padding-right: 60px;
 }
 
-/* ปุ่ม */
-.btn {
-    background-color: #000;
-    color: #fff;
-}
-
 /* การปรับขนาดและการจัดตำแหน่งของโลโก้ */
 .navbar-brand img {
     height: 40px; /* ปรับขนาดของรูปภาพ */
@@ -83,9 +77,14 @@ body {
     border: none;
     padding: 10px 20px;
     font-size: 18px;
-    border-radius: 25px;
+    border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 30%;
+}
+
+.btn{
+    background-color: #080808;
 }
 
 .btn-dark:hover {
