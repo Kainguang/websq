@@ -69,7 +69,7 @@
                         <button class="btn btn-primary" type="submit">ค้นหา</button>
                     </form>
 
-                    <a class="btn btn-primary ms-3" href="{{ route('register') }}" role="button">เข้าสู่ระบบ</a>
+                    <a class="btn btn-primary ms-3" href="{{ route('index') }}" role="button">เข้าสู่ระบบ</a>
                 
 
                     <a href="profile.html">
