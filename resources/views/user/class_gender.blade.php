@@ -106,7 +106,7 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 12 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="window.location.href='{{ route('Orderlist') }}'">จองคลาส</button>
                     </div>
                 </div>
 
@@ -126,7 +126,7 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 12 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary"onclick="window.location.href='Orderlist.html'">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="window.location.href='{{ route('Orderlist') }}'">จองคลาส</button>
                     </div>
                 </div>
 
@@ -163,7 +163,7 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 15 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="window.location.href='{{ route('Orderlist') }}'">จองคลาส</button>
                     </div>
                 </div>
 
@@ -183,7 +183,7 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 15 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="window.location.href='{{ route('Orderlist') }}'">จองคลาส</button>
                     </div>
                 </div>
                 <!-- คอลัมน์ด้านขวา: รูปภาพ -->
@@ -216,7 +216,7 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 10 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="window.location.href='{{ route('Orderlist') }}'">จองคลาส</button>
                     </div>
                 </div>
 
@@ -235,7 +235,7 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 10 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="window.location.href='{{ route('Orderlist') }}'">จองคลาส</button>
                     </div>
                 </div>
 
@@ -269,7 +269,7 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 20 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="window.location.href='{{ route('Orderlist') }}'">จองคลาส</button>
                     </div>
                 </div>
 
@@ -288,7 +288,7 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 20 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="window.location.href='{{ route('Orderlist') }}'">จองคลาส</button>
                     </div>
                 </div>
 
@@ -328,7 +328,7 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 12 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="window.location.href='{{ route('Orderlist') }}'">จองคลาส</button>
                     </div>
                 </div>
 
@@ -347,7 +347,7 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 12 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="window.location.href='{{ route('Orderlist') }}'">จองคลาส</button>
                     </div>
                 </div>
 
@@ -380,7 +380,7 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 15 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="window.location.href='{{ route('Orderlist') }}'">จองคลาส</button>
                     </div>
                 </div>
 
@@ -400,7 +400,7 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 15 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="window.location.href='{{ route('Orderlist') }}'">จองคลาส</button>
                     </div>
                 </div>
                 <!-- คอลัมน์ด้านขวา: รูปภาพ -->
@@ -434,7 +434,7 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 10 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="window.location.href='{{ route('Orderlist') }}'">จองคลาส</button>
                     </div>
                 </div>
                 
@@ -453,7 +453,7 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 10 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="window.location.href='{{ route('Orderlist') }}'">จองคลาส</button>
                     </div>
                 </div>
 
@@ -485,7 +485,7 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 20 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="window.location.href='{{ route('Orderlist') }}'">จองคลาส</button>
                     </div>
                 </div>
 
@@ -505,7 +505,7 @@
                             <li><strong>จำนวนคนต่อคอร์ส:</strong> สูงสุด 20 คน</li>
                             <li><strong style="color: green;">จองไปแล้ว: </strong>10 คน</li>
                         </ul>
-                        <button class="btn btn-primary" onclick="window.location.href='Orderlist.html'">จองคลาส</button>
+                        <button class="btn btn-primary" onclick="window.location.href='{{ route('Orderlist') }}'">จองคลาส</button>
                     </div>
                 </div>
                 <!-- คอลัมน์ด้านขวา: รูปภาพ -->

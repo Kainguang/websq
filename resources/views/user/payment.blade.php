@@ -16,12 +16,12 @@
 
 <body>
      <!-- Navigation -->
-     <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <!-- โลโก้เป็นรูปภาพ -->
-            <a class="navbar-brand" href="index.html">
-                <img src="images/logo.jpeg" alt="logo">
-            </a>
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                    <!-- โลโก้เป็นรูปภาพ -->
+                    <a class="navbar-brand" href="{{route('index')}}">
+                        <img src="images/logo.jpeg" alt="logo">
+                    </a>
             
 
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -74,12 +74,12 @@
                         <button class="btn btn-primary" type="submit">ค้นหา</button>
                     </form>
 
-                    <a class="btn btn-primary ms-3" href="{{ route('register') }}" role="button">เข้าสู่ระบบ</a>
+                    <a class="btn btn-primary ms-3" href="{{ route('login') }}" role="button">เข้าสู่ระบบ</a>
                 
 
-                    <a href="profile.html">
+                    <a href="{{ route('profile') }}">
                         <img src="images/kuromi.jpg" alt="Profile" class="rounded-circle ms-3" style="width: 40px; height: 40px;">
-                    </a>
+                    </a> 
                     
                 </div>    
             </div>
@@ -108,7 +108,7 @@
         </div>
     </div>
 
-                    <!-- รวม SweetAlert2 CSS -->
+<!-- รวม SweetAlert2 CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
 <!-- รวม SweetAlert2 JavaScript -->

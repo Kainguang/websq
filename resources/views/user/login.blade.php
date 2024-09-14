@@ -21,9 +21,6 @@
                 <input type="text" placeholder="ชื่อผู้ใช้ หรือ อีเมล" required>
                 <p>รหัสผ่าน</p>
                 <input type="password" placeholder="รหัสผ่าน" required>
-                <div class="forgotpassword_links">
-                    <a href="#">ลืมรหัสผ่าน</a>
-                </div>
                 <button type="submit" onclick="window.location.href='{{ route('index') }}'">เข้าสู่ระบบ</button>
                 <div class="signup_links">
                     มีบัญชีแล้วหรือยัง ?<br>

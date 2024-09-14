@@ -239,7 +239,7 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             // เปลี่ยนหน้าตอนที่กดปุ่ม "บันทึกเป็น"
-                            window.location.href = 'index.html'; // เปลี่ยนเป็น URL ที่ต้องการ
+                            window.location.href = '{{ route('index') }}';
                         } else if (result.isDismissed) {
                             // จัดการกับการคลิกปุ่มอื่น (ยกเลิก หรือ ปิดโดยไม่บันทึก) หากจำเป็น
                             console.log('ผู้ใช้คลิก ยกเลิก หรือ ปิดโดยไม่บันทึก');
