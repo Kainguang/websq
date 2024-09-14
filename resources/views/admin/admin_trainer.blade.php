@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WellnessWave Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/trainer.css">
+    <link rel="stylesheet" href="{{ asset('css/trainer.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </head>
@@ -16,23 +16,28 @@
             <nav class="col-md-2 sidebar">
                 <div class="profile-section">
                     <img src="https://via.placeholder.com/80" alt="Admin profile picture" class="profile-picture">
-                    <h3 class="profile-name">Adminja</h3>
+                    <a href="/admin/profile" class="profile-link">
+                        <h3 class="profile-name">Adminja</h3>
+                    </a>
                 </div>
                 <ul class="nav flex-column text-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="./admin_dashboard.html">แดชบอร์ด</a>
+                        <a class="nav-link" href="/admin/dashboard">สรุปภาพรวม</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./admin_course.html">คอร์ส</a>
+                        <a class="nav-link" href="/admin/course">คอร์ส</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./admin_bill.html">บิล</a>
+                        <a class="nav-link" href="/admin/bill">บิล</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="./admin_trainer.html">เทรนเนอร์</a>
+                        <a class="nav-link active" href="/admin/trainer">เทรนเนอร์</a>
                     </li>
 
                 </ul>
+                <li class="logout">
+                        <a class="nav-link" href="/user/index">ออกจากระบบ</a>
+                    </li>
             </nav>
 
             <!-- Main Content -->
@@ -69,24 +74,89 @@
                 <!-- Search and Bill Section -->
                 <div class="search-container">
                     <input type="text" class="form-control search-input" placeholder="Search">
-                    <button class="btn btn-add">Add</button>
+                    <button class="btn btn-add">เพิ่ม</button>
                 </div>
 
-                <!-- Bill Section -->
-                <div class="card trainer-card">
-                    <div class="card-header">
-                        เทรนเนอร์
-                    </div>
-                    <div class="card-body">
-                        <div class="trainer-item">
-                            <span><span class="badge"></span>Jasmine : เทรนเนอร์โยคะ </span>
-                            <div class="trainer-buttons">
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" onclick="showEditModal()">แก้ไข </button>
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteModalLabel()">ลบ </button>
-                            </div>
+                        <h2>ตารางการทำงานเทรนเนอร์</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>วัน/เวลา</th>
+                                        <th>9:00-10:00</th>
+                                        <th>10:00-11:00</th>
+                                        <th>11:00-12:00</th>
+                                        <th>12:00-13:00</th>
+                                        <th>13:00-14:00</th>
+                                        <th>14:00-15:00</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>อาทิตย์</td>
+                                        <td onclick="showBookingInfo('')">Lisa:Dance</td>
+                                        <td></td>
+                                        <td onclick="showBookingInfo('')">Kai:Yoga</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td onclick="showBookingInfo('')">Lisa:Dance</td>
+                                    </tr>
+                                    <tr>
+                                        <td>จันทร์</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td onclick="showBookingInfo('')">Yoga</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>อังคาร</td>
+                                        <td onclick="showBookingInfo('')">Kaitom:Yoga</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td onclick="showBookingInfo('')">Kaiping:Zumba</td>
+                                    </tr>
+                                    <tr>
+                                        <td>พุธ</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td onclick="showBookingInfo('')">Lisa:Dance</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>พฤหัสบดี</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td onclick="showBookingInfo('')">Kaitom:Yoga</td>
+                                        <td></td>
+                                        <td onclick="showBookingInfo('')">Kaiyang:Yoga</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>ศุกร์</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td onclick="showBookingInfo('')">Kai:Zumba</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>เสาร์</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td onclick="showBookingInfo('')">Mimi:yoka</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-
-                    </div>
                 </div>
             </main>
         </div>
@@ -140,8 +210,8 @@
                     {
                         label: 'Data Set 1',
                         data: [10, 20, 30], // ข้อมูลของแท่งแรก
-                        backgroundColor: 'rgba(39, 39, 39, 0.2)',
-                        borderColor: 'rgba(39, 39, 39, 0.4)',
+                        backgroundColor: 'rgba(201, 250, 0, 0.50)',
+                        borderColor: 'rgba(201, 250, 0, 0.70)',
                         borderWidth: 1,
                         barThickness: 60, // เพิ่มความหนาของแท่ง
                         categoryPercentage: 0.5, // ขยายขนาดของกลุ่มแท่งในหมวดหมู่
@@ -150,8 +220,8 @@
                     {
                         label: 'Data Set 2',
                         data: [15, 25, 35], // ข้อมูลของแท่งที่สอง
-                        backgroundColor: 'rgba(39, 39, 39, 0.4)',
-                        borderColor: 'rgba(39, 39, 39, 0.6)',
+                        backgroundColor: 'rgba(0, 206, 250, 0.50)',
+                        borderColor: 'rgba(0, 206, 250, 0.70)',
                         borderWidth: 1,
                         barThickness: 60,
                         categoryPercentage: 0.5,
@@ -160,8 +230,8 @@
                     {
                         label: 'Data Set 3',
                         data: [20, 30, 40], // ข้อมูลของแท่งที่สาม
-                        backgroundColor: 'rgba(39, 39, 39, 0.6)',
-                        borderColor: 'rgba(39, 39, 39, 0.8)',
+                        backgroundColor: 'rgba(250, 0, 165, 0.50)',
+                        borderColor: 'rgba(250, 0, 165, 0.70)',
                         borderWidth: 1,
                         barThickness: 60,
                         categoryPercentage: 0.5,

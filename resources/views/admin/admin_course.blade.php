@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WellnessWave Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/course.css">
+    <link rel="stylesheet" href="{{ asset('css/course.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </head>
@@ -18,22 +18,27 @@
             <nav class="col-md-2 sidebar">
                 <div class="profile-section">
                     <img src="https://via.placeholder.com/80" alt="Admin profile picture" class="profile-picture">
-                    <h3 class="profile-name">Adminja</h3>
+                    <a href="/admin/profile" class="profile-link">
+                        <h3 class="profile-name">Adminja</h3>
+                    </a>
                 </div>
                 <ul class="nav flex-column text-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="./admin_dashboard.html">แดชบอร์ด</a>
+                        <a class="nav-link" href="/admin/dashboard">สรุปภาพรวม</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="./admin_course.html">คอร์ส</a>
+                        <a class="nav-link active" href="/admin/course">คอร์ส</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./admin_bill.html">บิล</a>
+                        <a class="nav-link" href="/admin/bill">บิล</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./admin_trainer.html">เทรนเนอร์</a>
+                        <a class="nav-link" href="/admin/trainer">เทรนเนอร์</a>
                     </li>
                 </ul>
+                <li class="logout">
+                        <a class="nav-link" href="/user/index">ออกจากระบบ</a>
+                    </li>
             </nav>
 
             <!-- Main Content -->
@@ -71,35 +76,42 @@
                 <!-- Search and Course Section -->
                 <div class="search-container">
                     <input type="text" class="form-control search-input" placeholder="Search">
-                    <button class="btn btn-add">Add</button>
+                    <button class="btn btn-add">เพิ่ม</button>
                 </div>
 
                 <!-- Course Section -->
-                <div class="card course-card">
-                    <div class="card-header">
-                        คอร์ส
-                    </div>
-                    <div class="card-body">
-                        <div class="course-item">
-                            <span><span class="badge"></span>คลาสโยคะ by ...</span>
-                            <div class="bill-buttons">
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                    data-bs-target="#editModal" onclick="showEditModal()">แก้ไข </button>
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal" onclick="deleteModalLabel()">ลบ </button>
-                            </div>
-                        </div>
-                        <div class="course-item">
-                            <span><span class="badge"></span>คลาสเต้น by ...</span>
-                            <div class="bill-buttons">
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                    data-bs-target="#editModal" onclick="showEditModal()">แก้ไข</button>
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal" onclick="deleteModalLabel()">ลบ</button>
-                            </div>
-                        </div>
-                    </div>
+                <div>
+                        บิล
                 </div>
+                     <div>
+                            <table class="table table-striped table-bordered text-center">
+                                <thead>
+                                    <tr>
+                                        <th>ชื่อ</th>
+                                        <th>คลาส</th>
+                                        <th>การจัดการ</th>
+                                    </tr>
+                                </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td>Jasmin</td>
+                                        <td>จอง โยคะ</td>
+                                         <td>
+                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" id="editButton">แก้ไข</button>
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" id="deleteButton">ลบ</button>
+                                        </td>
+                                      </tr>
+                                         <tr>
+                                        <td>John Doe</td>
+                                        <td>จอง ฟิตเนส</td>
+                                        <td>
+                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" id="editButton">แก้ไข</button>
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" id="deleteButton">ลบ</button>
+                                     </td>
+                             </tr>
+                      </tbody>
+                    </table>
+                 </div>
             </main>
         </div>
     </div>
@@ -152,8 +164,8 @@
                 datasets: [{
                     label: 'จำนวนคนสมัคร',
                     data: [25, 40, 35, 20, 45],
-                    backgroundColor: 'rgba(39, 39, 39, 0.2)',
-                    borderColor: 'rgba(0, 0, 0, 1)',
+                    backgroundColor: 'rgba(250, 0, 165, 0.50)',
+                    borderColor: 'rgbargba(250, 0, 165, 0.70)',
                     borderWidth: 1
                 }]
             },

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WellnessWave Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/bill.css">
+    <link rel="stylesheet" href="{{ asset('css/bill.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -16,22 +16,27 @@
             <nav class="col-md-2 sidebar">
                 <div class="profile-section">
                     <img src="https://via.placeholder.com/80" alt="Admin profile picture" class="profile-picture">
-                    <h3 class="profile-name">Adminja</h3>
+                    <a href="/admin/profile" class="profile-link">
+                        <h3 class="profile-name">Adminja</h3>
+                    </a>
                 </div>
                 <ul class="nav flex-column text-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="./admin_dashboard.html">แดชบอร์ด</a>
+                        <a class="nav-link" href="/admin/dashboard">สรุปภาพรวม</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./admin_course.html">คอร์ส</a>
+                        <a class="nav-link" href="/admin/course">คอร์ส</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="./admin_bill.html">บิล</a>
+                        <a class="nav-link active" href="/admin/bill">บิล</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./admin_trainer.html">เทรนเนอร์</a>
+                        <a class="nav-link" href="/admin/trainer">เทรนเนอร์</a>
                     </li>
                 </ul>
+                <li class="logout">
+                        <a class="nav-link" href="/user/index">ออกจากระบบ</a>
+                    </li>
             </nav>
 
             <!-- Main Content -->
@@ -42,26 +47,44 @@
                 <!-- Search and Bill Section -->
                 <div class="search-container">
                     <input type="text" class="form-control search-input" placeholder="Search">
-                    <button class="btn btn-add">Add</button>
+                    <button class="btn btn-add">เพิ่ม</button>
                 </div>
 
                 <!-- Bill Section -->
-                <div class="card bill-card">
-                    <div class="card-header">
-                        บิล
-                    </div>
-                    <div class="card-body">
-                        <div class="bill-item">
-                            <span><span class="badge"></span>Jasmin : จอง โยคะ</span>
-                            <div class="bill-buttons">
-                                <button type="button" class="btn btn-warning"  id="editButton_db">แก้ไข </button>
-                                <button type="button" class="btn btn-danger" id="deleteButton">ลบ </button>
-                            </div>
-                        </div>
-                </div>
-            </main>
-        </div>
+                <div >
+                    <div>
+       <h4>บิล</h4> 
     </div>
+    <div>
+        <table class="table table-striped table-bordered text-center">
+            <thead>
+                <tr>
+                    <th>ชื่อ</th>
+                    <th>คลาส</th>
+                    <th>การจัดการ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Jasmin</td>
+                    <td>จอง โยคะ</td>
+                    <td>
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" id="editButton_db">แก้ไข</button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" id="deleteButton">ลบ</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>John Doe</td>
+                    <td>จอง ฟิตเนส</td>
+                    <td>
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" id="editButton_db">แก้ไข</button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" id="deleteButton">ลบ</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
     <!-- Edit Modal -->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
@@ -100,7 +123,7 @@
             </div>
         </div>
     </div>
-<script>
+    <script>
     document.getElementById('deleteButton').addEventListener('click', function () {
         Swal.fire({
             title: 'คุณแน่ใจหรือไม่?',
@@ -179,5 +202,6 @@
     });
 
     </script> 
-</body>
+    </body>
 </html>
+
