@@ -87,10 +87,18 @@
             <form>
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <label for="memberID" class="form-label">รหัสสมาชิก หรือ อีเมลสมาชิก</label>
-                        <input type="text" class="form-control" id="memberID"
-                            placeholder="กรอกข้อมูลนี้เฉพาะสมาชิกเท่านั้น">
+                        <label for="memberID" class="form-label">อีเมล</label>
+                        <input type="text" class="form-control" id="memberID" placeholder="กรอกข้อมูลนี้เฉพาะสมาชิกเท่านั้น">
                     </div>
+                    <div class="col-md-6">
+                        <label for="firstName" class="form-label">ชื่อ <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="firstName" placeholder="ชื่อกลาง (ถ้ามี) และชื่อจริง">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lastName" class="form-label">นามสกุล <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="lastName" placeholder="นามสกุล">
+                    </div>
+
                     <div class="col-md-6">
                         <label for="gender" class="form-label">เพศ <span class="text-danger">*</span></label>
                         <select class="form-select" id="gender">
@@ -99,44 +107,45 @@
                             <option value="female">หญิง</option>
                         </select>
                     </div>
+                    <div class="col-md-6">
+                        <label for="phone" class="form-label">เบอร์โทร <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="phone" placeholder="เบอร์โทร">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="address" class="form-label">ที่อยู่ <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="address" placeholder="ที่อยู่">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="birthdate" class="form-label">วันเกิด (DD/MM/YYYY) <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="birthdate" placeholder="__/__/____">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="height" class="form-label">ส่วนสูง (cm) <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="height" placeholder="ส่วนสูง">
+                    </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <label for="firstName" class="form-label">ชื่อกลาง (ถ้ามี) และชื่อ <span
-                                class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="firstName"
-                            placeholder="ชื่อกลาง (ถ้ามี) และชื่อจริง">
+                        <label for="weight" class="form-label">น้ำหนัก (kg) <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="weight" placeholder="น้ำหนัก">
+                    </div>
+                </div>
+                <hr class="mt-5">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="memberID" class="form-label">อีเมล</label>
+                        <input type="text" class="form-control" id="memberID" placeholder="กรอกข้อมูลนี้เฉพาะสมาชิกเท่านั้น">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="firstName" class="form-label">ชื่อ <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="firstName" placeholder="ชื่อกลาง (ถ้ามี) และชื่อจริง">
                     </div>
                     <div class="col-md-6">
                         <label for="lastName" class="form-label">นามสกุล <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="lastName" placeholder="นามสกุล">
                     </div>
-                </div>
 
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="birthdate" class="form-label">วันเกิด (DD/MM/YYYY) <span
-                                class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="birthdate" placeholder="__/__/____">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="nationality" class="form-label">สัญชาติ <span class="text-danger">*</span></label>
-                        <select class="form-select" id="nationality">
-                            <option selected>กรุณาเลือก</option>
-                            <option value="thai">ไทย</option>
-                            <option value="other">อื่นๆ</option>
-                        </select>
-                    </div>
-                </div>
-
-             <hr class="mt-5">
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="memberID" class="form-label">รหัสสมาชิก หรือ อีเมลสมาชิก</label>
-                        <input type="text" class="form-control" id="memberID"
-                            placeholder="กรอกข้อมูลนี้เฉพาะสมาชิกเท่านั้น">
-                    </div>
                     <div class="col-md-6">
                         <label for="gender" class="form-label">เพศ <span class="text-danger">*</span></label>
                         <select class="form-select" id="gender">
@@ -145,40 +154,35 @@
                             <option value="female">หญิง</option>
                         </select>
                     </div>
-                </div>
-
-                <div class="row mb-3">
                     <div class="col-md-6">
-                        <label for="firstName" class="form-label">ชื่อกลาง (ถ้ามี) และชื่อ <span
-                                class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="firstName"
-                            placeholder="ชื่อกลาง (ถ้ามี) และชื่อจริง">
+                        <label for="phone" class="form-label">เบอร์โทร <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="phone" placeholder="เบอร์โทร">
                     </div>
                     <div class="col-md-6">
-                        <label for="lastName" class="form-label">นามสกุล <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="lastName" placeholder="นามสกุล">
+                        <label for="address" class="form-label">ที่อยู่ <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="address" placeholder="ที่อยู่">
                     </div>
-                </div>
-
-                <div class="row mb-3">
                     <div class="col-md-6">
-                        <label for="birthdate" class="form-label">วันเกิด (DD/MM/YYYY) <span
-                                class="text-danger">*</span></label>
+                        <label for="birthdate" class="form-label">วันเกิด (DD/MM/YYYY) <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="birthdate" placeholder="__/__/____">
                     </div>
                     <div class="col-md-6">
-                        <label for="nationality" class="form-label">สัญชาติ <span class="text-danger">*</span></label>
-                        <select class="form-select" id="nationality">
-                            <option selected>กรุณาเลือก</option>
-                            <option value="thai">ไทย</option>
-                            <option value="other">อื่นๆ</option>
-                        </select>
+                        <label for="height" class="form-label">ส่วนสูง (cm) <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="height" placeholder="ส่วนสูง">
                     </div>
                 </div>
 
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="weight" class="form-label">น้ำหนัก (kg) <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="weight" placeholder="น้ำหนัก">
+                    </div>
+                </div>
                 <div class="d-flex justify-content-end">
                     <button type="button" class="btn btn-primary" onclick="handleSave()">บันทึก</button>
                 </div>
+            </form>
+        </div>
                 
                 <script>
                     function handleSave() {
