@@ -91,3 +91,22 @@ Route::get('/trainer_apply', function () {
     return view('user.trainer_apply');
 })->name('trainer_apply');
 
+Route::get('/admin/dashboard', function () {
+    return view('admin.admin_dashborad');
+})->name('admin.dashboard');
+
+Route::get('/admin/course', function () {
+    return view('admin.admin_course');
+})->name('admin.course');
+
+Route::get('/admin/bill', function () {
+    return view('admin.admin_bill');
+})->name('admin.bill');
+
+Route::get('/admin/trainer', function () {
+    return view('admin.admin_trainer');
+})->name('admin.trainer');
+
+Route::get('/admin/profile', function () {
+    return view('admin.admin_profile');
+})->name('admin.profile');
