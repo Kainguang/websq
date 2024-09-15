@@ -1,5 +1,6 @@
+/* Sidebar Styling */
 .sidebar {
-    max-height: 150vh;
+    max-height: 170vh;
     background-color: #343a40;
 }
 
@@ -35,8 +36,8 @@
 }
 
 .nav-link.active {
-    background-color: #6c757d; /* สีพื้นหลังเมื่อ active */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4); /* เพิ่มเงา */
+    background-color: #6c757d;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
     border-radius: 5px;
 }
 
@@ -80,6 +81,7 @@
     color: white;
 }
 
+/* Trainer Item and Card Styling */
 .trainer-card {
     margin-bottom: 20px;
 }
@@ -96,6 +98,7 @@
     color: white;
 }
 
+/* Badge Styling */
 .badge {
     width: 15px;
     height: 15px;
@@ -104,21 +107,49 @@
     margin-right: 10px;
 }
 
+/* Form Styling */
 .form-container {
     display: flex;
     flex-direction: column;
 }
+
 .form-group {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 10px;
 }
+
 .form-group label {
-    width: 100px; /* ความกว้างของ label */
-    text-align: right; /* จัดข้อความชิดขวา */
-    margin-right: 10px; /* เว้นระยะห่างระหว่าง label และ input */
+    width: 100px; /* Adjust label width */
+    text-align: right; /* Align label text to the right */
+    margin-right: 10px; /* Space between label and input */
 }
+
 .swal2-input {
     flex-grow: 1;
 }
+
+/* Table Styling */
+table.dataTable, th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    border-collapse: collapse; /* Ensure borders work properly */
+}
+
+table.dataTable {
+    width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+td {
+    background-color: #fff;
+}
+
