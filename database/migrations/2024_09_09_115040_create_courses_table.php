@@ -17,6 +17,8 @@ return new class extends Migration
             $table->float('course_cost');
             $table->float('course_sellprice');
             $table->integer('participant');
+            $table->time('start_time');
+            $table->time('end_time');
             $table->integer('times');
             $table->string('description',1000);
             $table->uuid('employee_id');
