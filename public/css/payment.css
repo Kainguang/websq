@@ -1,0 +1,165 @@
+body {
+    background: linear-gradient(to right, #ffffff, );
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+}
+
+/* CSS สำหรับ navbar */ 
+.navbar {
+    background-color: #fff;
+    color: #000;
+    border-bottom: 2px solid #000; /* hr effect */
+}
+
+.navbar-brand, .nav-link {
+    color: #000 !important;
+}
+
+.nav-link:hover {
+    text-decoration: underline; /* เพิ่มเส้นใต้ */
+    text-decoration-color: black; /* กำหนดสีเส้นใต้เป็นสีดำ */
+    text-decoration-thickness: 3px; /* กำหนดความหนาของเส้นใต้ */
+    text-underline-offset: 10px; /* กำหนดระยะห่างระหว่างเส้นใต้กับข้อความ */
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center; /* Center items vertically */
+}
+
+.navbar-collapse {
+    justify-content: center; /* Center items horizontally */
+    margin-left: 300px;
+}
+
+ /* ให้ nav ห่างกัน */
+.nav-item {
+    padding-right: 60px;
+}
+
+/* การปรับขนาดและการจัดตำแหน่งของโลโก้ */
+.navbar-brand img {
+    height: 40px; /* ปรับขนาดของรูปภาพ */
+    width: auto;  /* รักษาสัดส่วนของรูปภาพ */
+}
+
+
+.card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+    background-color: #000000;
+    color: white;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    text-align: center;
+    font-size: 1.5em;
+    padding: 20px;
+}
+
+.card-body {
+    padding: 30px;
+}
+
+.image img {
+    justify-content: center;
+    border-radius: 10px;
+    max-width: 100%;
+    margin-right: 100px;
+}
+
+/* Button Style */
+.btn-dark {
+    background-color: #080808;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 30%;
+}
+
+.btn{
+    background-color: #080808;
+}
+
+.btn-dark:hover {
+    background-color: #0e0e0e;
+    transform: translateY(-3px);
+}
+
+/* Footer Style */
+footer {
+    background-color: #080808;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    margin-top: 50px;
+    bottom: 0;
+    width: 100%;
+}
+
+/* SweetAlert Style */
+.swal2-popup {
+    background-color: #333;
+    color: #fff;
+    border-radius: 15px;
+}
+
+.swal2-confirm {
+    background-color: #17a2b8 !important;
+    color: #fff !important;
+}
+
+.swal2-backdrop {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+/* Image Block Style */
+.image-block {
+    position: relative;
+    max-width: 350px;
+    margin: auto;
+}
+
+.images-block {
+    display: flex;
+    justify-content: center; /* จัดภาพให้อยู่กลางแนวนอน */
+    align-items: center; /* จัดภาพให้อยู่กลางแนวตั้ง (ถ้าต้องการ) */
+    
+}
+
+.images-block img {
+    width: 50%;
+    border-radius: 15px;
+    box-shadow: #000;
+}
+
+/*success*/
+.sweetalert-popup {
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.sweetalert-title {
+    color: #000; /* Black text color */
+}
+.sweetalert-content {
+    color: #000; /* Black text color */
+}
+.sweetalert-confirm-button {
+    background-color: #000; /* Black button background */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: #fff; /* White text color on button */
+    font-size: 1em;
+}
+/* Optional: Adjust the position of the backdrop image */
+.swal2-backdrop {
+    background: rgba(0, 0, 0, 0.6) url('/image/nyan-cat.gif') center top no-repeat;
+}

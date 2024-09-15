@@ -1,0 +1,83 @@
+body {
+    background-color: #fff;
+    color: #000;
+}
+
+/* CSS สำหรับ navbar */ 
+.navbar {
+    background-color: #fff;
+    color: #000;
+    border-bottom: 2px solid #000; /* hr effect */
+}
+
+.navbar-brand, .nav-link {
+    color: #000 !important;
+}
+
+.nav-link:hover {
+    text-decoration: underline; /* เพิ่มเส้นใต้ */
+    text-decoration-color: black; /* กำหนดสีเส้นใต้เป็นสีดำ */
+    text-decoration-thickness: 3px; /* กำหนดความหนาของเส้นใต้ */
+    text-underline-offset: 10px; /* กำหนดระยะห่างระหว่างเส้นใต้กับข้อความ */
+}
+
+
+.navbar-nav {
+    display: flex;
+    align-items: center; /* Center items vertically */
+}
+
+.navbar-collapse {
+    justify-content: center; /* Center items horizontally */
+    margin-left: 300px;
+}
+
+ /* ให้ nav ห่างกัน */
+.nav-item{
+    padding-right: 60px;
+}
+
+/* ปุ่ม */
+.btn {
+    background-color: #000;
+    color: #fff;
+}
+
+/* การปรับขนาดและการจัดตำแหน่งของโลโก้ */
+.navbar-brand img {
+    height: 40px; /* ปรับขนาดของรูปภาพ */
+    width: auto;  /* รักษาสัดส่วนของรูปภาพ */
+}
+
+.edit-body {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    border: #000 solid 0.5px;
+    margin-bottom: 50px;
+}
+
+.edit-body h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+    color: #333;
+    text-align: center;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.form-control, .form-select {
+    border-radius: 0.375rem;
+    border: 1px solid #989ca1;
+}
+
+/* footer */
+footer {
+    background-color: #000000;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px 0;
+}

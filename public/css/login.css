@@ -7,13 +7,13 @@ body {
     align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
     height: 100vh; /* ทำให้ความสูงของ body เท่ากับความสูงของหน้าต่างเบราว์เซอร์ */
     /*background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgO4A6g2-mQM-qsHzIW6X5QR3lJKgDLpPWBQ&s');  พื้นหลัง */
-    background-color: #c52129;
+    background-color: #000;
     background-size: cover;
     background-position: center;
 }
 
 .container {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: #fff;
     padding: 40px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -48,7 +48,7 @@ form input {
 form button {
     width: 100%;
     padding: 10px;
-    background-color: #e50914;
+    background-color: #000;
     color: #fff;
     border: none;
     border-radius: 6px;
@@ -56,15 +56,18 @@ form button {
 }
 
 .forgotpassword_links a {
-    color: red;
+    color: #000;
     margin-top: 0;
     margin-bottom: 10px;
     display: flex;
-    text-decoration: none;
+    text-decoration: underline;
     justify-content: right;
 }
 
 .signup_links a {
-    color: red;
-    text-decoration: none;
+    color: #000;
+    text-decoration: underline;
+}
+img{
+    text-align: center;
 }
