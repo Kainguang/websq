@@ -14,7 +14,7 @@
             <!-- Sidebar -->
             <nav class="col-md-2 sidebar">
                 <div class="profile-section">
-                    <img src="https://via.placeholder.com/80" alt="Admin profile picture" class="profile-picture">
+                    <img src="https://i.pinimg.com/564x/a7/00/79/a7007909daf4cbe86433b4072ffdc6d0.jpg" alt="Admin profile picture" class="profile-picture">
                     <a class="nav-link active" href="/admin/profile" class="profile-link">
                         <h3 class="profile-name">Adminja</h3>
                     </a>
@@ -32,14 +32,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/admin/trainer">เทรนเนอร์</a>
                     </li>
-                    </ul>
-                    <li class="logout">
-                        <a class="nav-link" href="/user/index">ออกจากระบบ</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/index" style="color: red;">ออกจากระบบ</a>
                     </li>
-                    <div class="logout-button-container text-center mt-4">
-    <a href="/logout" class="btn btn-danger">ล็อกเอ้าท์</a>
-</div>
-            </nav>
+            </ul>
+        </nav>
 
             <!-- Main Content -->
             <main class="col-md-10 ms-sm-auto px-md-4 py-4">
