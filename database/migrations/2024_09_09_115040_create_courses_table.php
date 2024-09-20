@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('course_name');
             $table->float('course_cost');
             $table->float('course_sellprice');
-            $table->integer('participant');
             $table->time('start_time');
             $table->time('end_time');
             $table->integer('times');
-            $table->string('description',1000);
+            $table->integer('max_participant');
+            $table->string('description');
             $table->uuid('employee_id');
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('CASCADE');
             $table->timestamps();

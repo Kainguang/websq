@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('facility_name');
             $table->integer('facility_amount');
+            $table->string('description');
             $table->timestamps();
             $table->softDeletes();
         });

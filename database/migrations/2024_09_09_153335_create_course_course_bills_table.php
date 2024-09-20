@@ -18,7 +18,7 @@ return new class extends Migration
             $table->float('discount');
             $table->integer('amount');
             $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');;
-            $table->foreignId('course_bilss_id')->constrained('course_bills')->onDelete('cascade');;
+            $table->foreignId('course_bill_id')->constrained('course_bills')->onDelete('cascade');;
             $table->timestamps();
             $table->softDeletes();
         });

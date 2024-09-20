@@ -29,7 +29,7 @@ return new class extends Migration
             $table->float('weight');
             $table->integer('height');
             $table->string('gender');
-            $table->string('salary');
+            $table->float('salary');
             $table->time('workstart');
             $table->time('workend');
             $table->string('profile_picture');
