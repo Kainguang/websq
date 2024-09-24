@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/admin_profile.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <div class="container-fluid">
@@ -21,19 +22,19 @@
                 </div>
                 <ul class="nav flex-column text-center">
                     <li class="nav-item">
-                        <a class="nav-link active" href="/admin/dashboard">สรุปภาพรวม</a>
+                        <a class="nav-link active" href="/admin/dashboard"><i class="fas fa-chart-line"></i>สรุปภาพรวม</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/course">คอร์ส</a>
+                        <a class="nav-link" href="/admin/course"><i class="fas fa-book"></i>คอร์ส</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/bill">บิล</a>
+                        <a class="nav-link" href="/admin/bill"><i class="fas fa-file-invoice"></i>บิล</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/trainer">เทรนเนอร์</a>
+                        <a class="nav-link" href="/admin/trainer"><i class="fas fa-user-tie"></i>เทรนเนอร์</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/user/index" style="color: red;">ออกจากระบบ</a>
+                        <a class="nav-link" href="/user/index" style="color: red;"><i class="fas fa-sign-out-alt"></i>ออกจากระบบ</a>
                     </li>
             </ul>
         </nav>

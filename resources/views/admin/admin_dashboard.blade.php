@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WellnessWave Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/bill.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
+
 <body>
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
-            <nav class="col-md-2 sidebar">
+            <nav class="col-md-2 d-none d-md-block sidebar">
                 <div class="profile-section">
                     <img src="https://i.pinimg.com/564x/a7/00/79/a7007909daf4cbe86433b4072ffdc6d0.jpg" alt="Admin profile picture" class="profile-picture">
                     <a href="/admin/profile" class="profile-link">
@@ -26,82 +28,168 @@
                 </div>
                 <ul class="nav flex-column text-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/dashboard"><i class="fas fa-chart-line"></i>สรุปภาพรวม</a>
+                        <a class="nav-link active" href="/admin/dashboard"><i class="fas fa-chart-line"></i>สรุปภาพรวม</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/admin/course"><i class="fas fa-book"></i>คอร์ส</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/admin/bill"><i class="fas fa-file-invoice"></i>บิล</a>
+                    <a class="nav-link" href="/admin/bill"><i class="fas fa-file-invoice"></i>บิล</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/admin/trainer"><i class="fas fa-user-tie"></i>เทรนเนอร์</a>
                     </li>
-                    <li class="logout">
+                    <li class="nav-item">
                         <a class="nav-link" href="/user/index" style="color: red;"><i class="fas fa-sign-out-alt"></i>ออกจากระบบ</a>
                     </li>
                 </ul>
             </nav>
 
             <!-- Main Content -->
-            <main class="col-md-10 ms-sm-auto px-md-4 py-4">
-                <!-- Search and Bill Section -->
-                     <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h1 class="bill-title">บิล</h1>
-                            <button class="btn btn-dark addButton">เพิ่ม</button>
-                        </div>
-                     <!-- Bill Section -->  
-                         <div>
-                                <table id="billTable" class="table table-striped table-bordered text-center">
-                                <thead>
-                                    <tr>
-                                        <th>ลำดับ</th> <!-- เพิ่มคอลัมน์สำหรับลำดับ -->
-                                        <th>ชื่อ</th>
-                                        <th>คลาส</th>
-                                        <th>การจัดการ</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($bills as $bill)
-                                    <tr>
-                                        <td></td> <!-- คอลัมน์สำหรับลำดับ -->
-                                        <td>{{ $bill->firstname }} {{ $bill->lastname }}</td> <!-- ชื่อลูกค้า -->
-                                        <td>{{ $bill->course_name }}</td> <!-- ชื่อคอร์ส -->
-                                        <td>
-                                            <button type="button" class="btn btn-warning editButton">แก้ไข</button>
-                                            <button type="button" class="btn btn-danger deleteButton">ลบ</button>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                        </table>
-                  </div>
+            <main class="col-md-10 ms-sm-auto px-md-4 py-4 main-content">
+                <h1 class="dashboard-title">สรุปภาพรวม</h1>
 
+                <!-- Info Boxes -->
+                <div class="row text-center mb-4">
+                    <div class="col-md-4">
+                        <div class="info-box">
+                            <h5>คอร์สทั้งหมด</h5>
+                            <h2>{{ $totalCourses }}</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="info-box">
+                            <h5>เทรนเนอร์ทั้งหมด</h5>
+                            <h2>{{ $totalEmployees }}</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="info-box">
+                            <h5>รายได้ทั้งหมด</h5>
+                            <h2>{{ number_format($totalRevenue, 2) }} ฿</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bar Chart -->
+                <div class="chart-container">
+                    <h3>รายได้ต่อคอร์ส</h3>
+                    <canvas id="revenueChart"></canvas>
+                </div>
+
+                <div class="chart-container">
+                    <h3>จำนวนนักเรียนต่อคอร์ส</h3>
+                    <canvas id="studentsChart"></canvas>
+                </div>
+
+                <!-- Bill Section -->
+                <div class="table-container">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4>บิล</h4>
+                        <button class="btn btn-dark addButton">เพิ่ม</button>
+                    </div>
+
+                    <table id="billTable" class="table table-striped table-bordered text-center">
+                        <thead>
+                            <tr>
+                                <th>ลำดับ</th>
+                                <th>ชื่อ</th>
+                                <th>คลาส</th>
+                                <th>การจัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($bills as $bill)
+                            <tr>
+                                <td></td>
+                                <td>{{ $bill->firstname }} {{ $bill->lastname }}</td>
+                                <td>{{ $bill->course_name }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-warning editButton">แก้ไข</button>
+                                    <button type="button" class="btn btn-danger deleteButton">ลบ</button>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
 <!-- DataTable Initialization -->
-<script>
-    $(document).ready(function () {
-    var table = $('#billTable').DataTable({
-        "columnDefs": [{
-            "searchable": false, // ไม่ต้องค้นหาที่คอลัมน์ลำดับ
-            "orderable": true,  // เปิดใช้งานการเรียงลำดับที่คอลัมน์ลำดับ
-            "targets": 0, // คอลัมน์แรก (ลำดับ)
-        }],
-        "order": [[1, 'asc']], // เรียงลำดับตามชื่อ (คอลัมน์ที่ 2)
-        "paging": true, // เปิดใช้งานการแบ่งหน้า
-        "drawCallback": function (settings) {
-            var api = this.api();
-            var start = api.page.info().start; // ดึงข้อมูลการเริ่มต้นของแต่ละหน้า
-            api.column(0, { page: 'current' }).nodes().each(function (cell, i) {
-                cell.innerHTML = start + i + 1; // เพิ่มลำดับให้กับแต่ละแถว
+            <script>
+                $(document).ready(function () {
+                var table = $('#billTable').DataTable({
+                    "columnDefs": [{
+                        "searchable": false, // ไม่ต้องค้นหาที่คอลัมน์ลำดับ
+                        "orderable": true,  // เปิดใช้งานการเรียงลำดับที่คอลัมน์ลำดับ
+                        "targets": 0, // คอลัมน์แรก (ลำดับ)
+                    }],
+                    "order": [[1, 'asc']], // เรียงลำดับตามชื่อ (คอลัมน์ที่ 2)
+                    "paging": true, // เปิดใช้งานการแบ่งหน้า
+                    "drawCallback": function (settings) {
+                        var api = this.api();
+                        var start = api.page.info().start; // ดึงข้อมูลการเริ่มต้นของแต่ละหน้า
+                        api.column(0, { page: 'current' }).nodes().each(function (cell, i) {
+                            cell.innerHTML = start + i + 1; // เพิ่มลำดับให้กับแต่ละแถว
+                        });
+                    }
+                });
             });
+            </script>
+         </div>
+
+
+                <script>
+// ข้อมูลสำหรับกราฟรายได้ต่อคอร์ส
+const revenueChartCtx = document.getElementById('revenueChart').getContext('2d');
+const revenueChart = new Chart(revenueChartCtx, {
+    type: 'bar',
+    data: {
+        labels: @json($courseNames), // รายชื่อคอร์ส
+        datasets: [{
+            label: 'รายได้ต่อคอร์ส (฿)',
+            data: @json($revenuePerCourse), // ข้อมูลรายได้ของแต่ละคอร์ส
+            backgroundColor: 'rgba(75, 192, 192, 0.5)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: { beginAtZero: true }
         }
-    });
+    }
 });
 
+// ข้อมูลสำหรับกราฟจำนวนนักเรียนต่อคอร์ส
+const studentsChartCtx = document.getElementById('studentsChart').getContext('2d');
+const studentsChart = new Chart(studentsChartCtx, {
+    type: 'bar',
+    data: {
+        labels: @json($courseNames), // รายชื่อคอร์ส
+        datasets: [{
+            label: 'จำนวนนักเรียนต่อคอร์ส',
+            data: @json($studentsPerCourse), // ข้อมูลจำนวนนักเรียนของแต่ละคอร์ส
+            backgroundColor: 'rgba(255, 159, 64, 0.5)',
+            borderColor: 'rgba(255, 159, 64, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: { beginAtZero: true }
+        }
+    }
+});
 
 </script>
 
-                <script>
+
+                
+
+                <!-- Edit Modal (SweetAlert2) -->
+        <script>
             document.querySelectorAll('.editButton').forEach(button => {
                 button.addEventListener('click', function () {
                     Swal.fire({
@@ -158,6 +246,7 @@
                     });
                 });
             });
+            //delete
 
             document.querySelectorAll('.deleteButton').forEach(button => {
                 button.addEventListener('click', function () {
@@ -181,7 +270,7 @@
                     });
                 });
             });
-                //add
+            //add
             document.querySelectorAll('.addButton').forEach(button => {
                 button.addEventListener('click', function () {
                     Swal.fire({
@@ -238,5 +327,10 @@
                     });
                 });
             });
-        </script></body>
- </html>
+        </script>
+
+</main>
+</div>
+</div>
+</body>
+</html>

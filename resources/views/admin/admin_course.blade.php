@@ -12,6 +12,8 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 
 </head>
 
@@ -28,45 +30,45 @@
                 </div>
                 <ul class="nav flex-column text-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/dashboard">สรุปภาพรวม</a>
+                        <a class="nav-link" href="/admin/dashboard"><i class="fas fa-chart-line"></i>สรุปภาพรวม</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/admin/course">คอร์ส</a>
+                        <a class="nav-link active" href="/admin/course"><i class="fas fa-book"></i>คอร์ส</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/bill">บิล</a>
+                        <a class="nav-link" href="/admin/bill"><i class="fas fa-file-invoice"></i>บิล</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/trainer">เทรนเนอร์</a>
+                        <a class="nav-link" href="/admin/trainer"><i class="fas fa-user-tie"></i>เทรนเนอร์</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/user/index" style="color: red;">ออกจากระบบ</a>
+                        <a class="nav-link" href="/user/index" style="color: red;"><i class="fas fa-sign-out-alt"></i>ออกจากระบบ</a>
                     </li>
                 </ul>
             </nav>
 
             <!-- Main Content -->
             <main class="col-md-10 ms-sm-auto px-md-4 py-4">
-                <h1 class="dashboard-title">คอร์ส</h1>
+                <h1 class="course-title">คอร์ส</h1>
 
                 <!-- Info Boxes -->
                 <div class="row text-center mb-4">
                     <div class="col-md-4">
                         <div class="info-box">
                             <h5>คอร์สทั้งหมด</h5>
-                            <h2>30</h2>
+                            <h2>{{ $totalCourses }}</h2>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="info-box">
-                            <h5>คอร์สที่ยังไม่เสร็จ</h5>
-                            <h2>15</h2>
+                        <h5>รายได้เฉลี่ยต่อคอร์ส</h5>
+                        <h2>{{ number_format($averageRevenue, 2) }} ฿</h2>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="info-box">
                             <h5>รายได้</h5>
-                            <h2>15,000 ฿</h2>
+                            <h2>{{ number_format($totalRevenue, 2) }} ฿</h2>
                         </div>
                     </div>
                 </div>
@@ -74,87 +76,75 @@
                 <!-- Bar Chart -->
                 <div class="chart-container">
                     <canvas id="courseChart"></canvas>
-                </div>
+                </div> <!-- ตำแหน่งที่ต้องการแสดงกราฟ -->
+
+                <!-- สคริปต์สำหรับ Chart.js -->
+                <script>
+                    // เตรียมข้อมูลจาก Controller
+                    const courseNames = @json($coursesData->pluck('course_name'));
+                    const totalParticipants = @json($coursesData->pluck('total_participants'));
+
+                    // สร้างกราฟ Bar chart ด้วย Chart.js
+                    const courseCtx = document.getElementById('courseChart').getContext('2d');
+                    const courseChart = new Chart(courseCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: courseNames, // ชื่อคอร์ส
+                            datasets: [{
+                                label: 'จำนวนคนสมัคร',
+                                data: totalParticipants, // จำนวนคนที่สมัครในแต่ละคอร์ส
+                                backgroundColor: 'rgba(250, 0, 165, 0.50)',
+                                borderColor: 'rgba(250, 0, 165, 0.70)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            },
+                            barThickness: 60
+                        }
+                    });
+                </script>
 
                 <!-- Search and Course Section -->
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4>ตารางการทำงานเทรนเนอร์</h4>
+                    <h4>คอร์สทั้งหมด</h4>
                     <button class="btn btn-dark addButton">เพิ่ม</button>
                 </div>
 
-                <table id="trainerSchedule" class="display table table-striped">
+                <table id="coursesTable" class="display table table-striped">
                     <thead>
-                        <tr style="color:black">
+                        <tr>
                             <th>ลำดับ</th>
                             <th>ชื่อคอร์ส</th>
                             <th>การจัดการ</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($courses as $course)
                         <tr>
-                            <td>1</td>
-                            <td>โยคะ</td>
-                            <td>
-                            <button type="button" class="btn btn-warning editButton">แก้ไข</button>
-                            <button type="button" class="btn btn-danger deleteButton">ลบ</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>ซุมบา</td>
+                            <td>{{ $course->id }}</td> <!-- แสดง ID ของคอร์ส -->
+                            <td>{{ $course->course_name }}</td> <!-- แสดงชื่อคอร์ส -->
                             <td>
                                 <button type="button" class="btn btn-warning editButton">แก้ไข</button>
                                 <button type="button" class="btn btn-danger deleteButton">ลบ</button>
                             </td>
                         </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>มวยไทย</td>
-                            <td>
-                                <button type="button" class="btn btn-warning editButton">แก้ไข</button>
-                                <button type="button" class="btn btn-danger deleteButton">ลบ</button>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>เต้น</td>
-                            <td>
-                                <button type="button" class="btn btn-warning editButton">แก้ไข</button>
-                                <button type="button" class="btn btn-danger deleteButton">ลบ</button>
-                            </td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
+
             </main>
         </div>
     </div>
 
     <script>
-        // Bar chart using Chart.js
-        const courseCtx = document.getElementById('courseChart').getContext('2d');
-        const courseChart = new Chart(courseCtx, {
-            type: 'bar',
-            data: {
-                labels: ['คลาสโยคะ', 'คลาสเต้น', 'คลาสมวยไทย', 'คลาสซุมบา'],
-                datasets: [{
-                    label: 'จำนวนคนสมัคร',
-                    data: [25, 40, 35, 20],
-                    backgroundColor: 'rgba(250, 0, 165, 0.50)',
-                    borderColor: 'rgba(250, 0, 165, 0.70)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                barThickness: 60
-            }
-        });
-
         $(document).ready(function() {
-            $('#trainerSchedule').DataTable({
+            // DataTable Initialization
+            $('#coursesTable').DataTable({
                 "paging": true,
                 "searching": true,
                 "ordering": true,
@@ -179,30 +169,68 @@
         });
     </script>
     <script>
-                    $(document).ready(function() {
-                // SweetAlert2 for edit button
-                $('.editButton').on('click', function() {
+         document.querySelectorAll('.addButton').forEach(button => {
+                button.addEventListener('click', function () {
                     Swal.fire({
-                        title: 'แก้ไขข้อมูล',
+                        title: 'เพิ่มคอร์ส',
                         html: `
-                            <div class="form-container">
-                                <div class="form-group">
-                                    <label for="name">ชื่อ :</label>
-                                    <input type="text" id="name" class="swal2-input" placeholder="ชื่อ">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">อีเมล :</label>
-                                    <input type="email" id="email" class="swal2-input" placeholder="อีเมล">
-                                </div>
-                                <div class="form-group">
-                                    <label for="phone">เบอร์โทร :</label>
-                                    <input type="text" id="phone" class="swal2-input" placeholder="เบอร์โทร">
-                                </div>
-                                <div class="form-group">
-                                    <label for="course">คอร์สเรียน :</label>
-                                    <input type="text" id="course" class="swal2-input" placeholder="คอร์สเรียน">
-                                </div>
+                         <div class="modal-body">
+                                <form id="courseForm">
+                                    <div class="form-group">
+                                        <label for="courseName">ชื่อคอร์ส:</label>
+                                        <input type="text" id="courseName" class="form-control" placeholder="ชื่อคอร์ส">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="startTime">เวลาที่คอร์สเริ่ม:</label>
+                                        <input type="time" id="startTime" class="form-control">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="endTime">เวลาที่คอร์สสิ้นสุด:</label>
+                                        <input type="time" id="endTime" class="form-control">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="price">ราคาคอร์ส:</label>
+                                        <input type="number" id="price" class="form-control" placeholder="ราคาคอร์ส">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="sessions">จำนวนครั้งที่เรียน:</label>
+                                        <input type="number" id="sessions" class="form-control" placeholder="จำนวนครั้งที่เรียน">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="trainer">เทรนเนอร์:</label>
+                                        <input type="text" id="trainer" class="form-control" placeholder="ชื่อเทรนเนอร์">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="maxStudents">จำนวนคนสูงสุดต่อคอร์ส:</label>
+                                        <input type="number" id="maxStudents" class="form-control" placeholder="จำนวนคนสูงสุดต่อคอร์ส">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="description">คำอธิบาย:</label>
+                                        <textarea id="description" class="form-control" rows="3" placeholder="อธิบายรายละเอียดคอร์ส"></textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="days">เลือกวัน:</label>
+                                        <select id="days" class="form-select" multiple>
+                                            <option value="1">อาทิตย์</option>
+                                            <option value="2">จันทร์</option>
+                                            <option value="3">อังคาร</option>
+                                            <option value="4">พุธ</option>
+                                            <option value="5">พฤหัสบดี</option>
+                                            <option value="6">ศุกร์</option>
+                                            <option value="7">เสาร์</option>
+                                        </select>
+                                    </div>
+                                </form>
                             </div>
+
                         `,
                         focusConfirm: false,
                         showCancelButton: true,
@@ -235,72 +263,7 @@
                         }
                     });
                 });
-
-                // SweetAlert2 for delete button
-                $('.deleteButton').on('click', function() {
-                    Swal.fire({
-                        title: 'คุณแน่ใจหรือไม่?',
-                        text: "คุณจะไม่สามารถย้อนกลับการกระทำนี้ได้!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'ใช่',
-                        cancelButtonText: 'ยกเลิก',
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire(
-                                'ลบเรียบร้อย!',
-                                'ข้อมูลของคุณถูกลบแล้ว.',
-                                'success'
-                            );
-                        }
-                    });
-                });
             });
-             //add
-             document.querySelectorAll('.addButton').forEach(button => {
-                button.addEventListener('click', function () {
-                    Swal.fire({
-                        title: 'เพิ่มข้อมูล',
-                        html: `
-                            <div class="form-container">
-                                <div class="form-group">
-                                    <label for="name">ชื่อคอร์ส:</label>
-                                    <input type="text" id="name" class="swal2-input" placeholder="ชื่อ">
-                                </div>
-                            </div>
-                        `,
-                        focusConfirm: false,
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'บันทึก',
-                        cancelButtonText: 'ยกเลิก',
-                        preConfirm: () => {
-                            const name = document.getElementById('name').value;
-
-                            if (!name ) {
-                                Swal.showValidationMessage('กรุณากรอกข้อมูลให้ครบถ้วน');
-                                return false;
-                            }
-
-                            return { name: name};
-                        }
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire({
-                                icon: "success",
-                                title: 'เพิ่มคอร์สเรียบร้อย!',
-                                text: 'เพิ่มคอร์สเรียบร้อยแล้ว'
-                            });
-
-                            console.log(result.value);
-                        }
-                    });
-                });
-            });
-
         </script>
 </body>
 
