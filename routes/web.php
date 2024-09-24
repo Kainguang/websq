@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\AdminController;
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('user.index');
 });
 
 Route::middleware([
@@ -110,3 +112,15 @@ Route::get('/admin/trainer', function () {
 Route::get('/admin/profile', function () {
     return view('admin.admin_profile');
 })->name('admin.profile');
+
+
+
+
+
+
+
+//Adminnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+Route::get('/admin/dashboard', [AdminController::class, 'showAll'])->name('admin_dashboard');
+Route::get('/admin/course', [AdminController::class, 'showcourse'])->name('admin_course');
+Route::get('/admin/trainer', [AdminController::class, 'showtrainer'])->name('admin_trainer');
+Route::get('/admin/bill', [AdminController::class, 'showbill'])->name('admin_trainer');
