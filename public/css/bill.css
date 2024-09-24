@@ -39,9 +39,12 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4); /* เพิ่มเงา */
     border-radius: 5px;
 }
+.nav-link i {
+    margin-right: 8px;
+}
 
 /* Main Content Styling */
-.dashboard-title {
+.bill-title {
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 1.5rem;
@@ -113,3 +116,26 @@
         flex-grow: 1;
     }
 
+    table.dataTable {
+        border-collapse: collapse; /* Ensure borders collapse properly */
+        width: 100%;
+    }
+    
+    table.dataTable th, table.dataTable td {
+        border: 1px solid #9a9a9a; /* Make borders visible */
+        padding: 10px; /* Add padding for better readability */
+        text-align: center; /* Center the text */
+    }
+    
+    table.dataTable th {
+        background-color: #f2f2f2; /* Light gray background for header */
+        font-weight: bold;
+    }
+    
+    table.dataTable td {
+        background-color: #fff; /* White background for rows */
+    }
+    
+    table.dataTable tr:nth-child(even) {
+        background-color: #f9f9f9; /* Light gray background for alternate rows */
+    }
