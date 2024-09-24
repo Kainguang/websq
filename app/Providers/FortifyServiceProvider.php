@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
+use App\Models\Customer;
+use Illuminate\Support\Facades\Hash;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -32,6 +34,26 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
+
+        // Custom login view (ถ้ามี)
+        Fortify::loginView(function () {
+            return view('user.login');
+        });
+
+        // Custom register view (ถ้ามี)
+        Fortify::registerView(function () {
+            return view('user.register');
+        });
+
+        Fortify::authenticateUsing(function (Request $request) {
+            $customer = Customer::where('email', $request->email)->first();
+
+            if ($customer && Hash::check($request->password, $customer->password)) {
+                return $customer;
+            }
+
+            return null;
+        });
 
         RateLimiter::for('login', function (Request $request) {
             $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
