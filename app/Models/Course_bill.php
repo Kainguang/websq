@@ -16,11 +16,13 @@ class Course_bill extends Model
     }
 
     public function courses() {
-        return $this->belongsToMany(Course::class);
+        return $this->belongsToMany(Course::class, 'course_course_bills', 'course_bill_id', 'course_id')
+        ->withPivot('amount')
+        ->withTimestamps();
     }
 
-    public function customers() {
-        return $this->belongsToMany(Customer::class);
+    public function course_participants() {
+        return $this->hasMany(Course_participant::class, 'course_bill_id');
     }
 
 }

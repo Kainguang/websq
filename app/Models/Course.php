@@ -20,7 +20,9 @@ class Course extends Model
     }
 
     public function course_bills() {
-        return $this->belongsToMany(Course_bill::class);
+        return $this->belongsToMany(Course_bill::class, 'course_course_bills', 'course_id', 'course_bill_id')
+                    ->withPivot('price', 'amount')
+                    ->withTimestamps();
     }
 
     public function facilities() {
@@ -28,7 +30,7 @@ class Course extends Model
     }
 
     public function days() {
-        return $this->belongsToMany(Day::class);
+        return $this->belongsToMany(Day::class, 'course_days', 'course_id', 'day_id');
     }
 
 }
