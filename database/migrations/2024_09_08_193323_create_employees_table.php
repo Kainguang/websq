@@ -33,7 +33,6 @@ return new class extends Migration
             $table->time('workstart');
             $table->time('workend');
             $table->string('profile_picture');
-            $table->string('class');
             $table->unsignedInteger('role_id');
             $table->timestamps();
             $table->softDeletes();

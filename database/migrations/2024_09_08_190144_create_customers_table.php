@@ -23,7 +23,7 @@ return new class extends Migration
             $table->float('weight');
             $table->integer('height');
             $table->string('gender');
-            $table->string('profile_picture');
+            $table->string('profile_picture')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

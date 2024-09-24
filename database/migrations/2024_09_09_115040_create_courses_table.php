@@ -18,6 +18,7 @@ return new class extends Migration
             $table->float('course_sellprice');
             $table->time('start_time');
             $table->time('end_time');
+            $table->integer('period');
             $table->integer('times');
             $table->integer('max_participant');
             $table->string('description');
