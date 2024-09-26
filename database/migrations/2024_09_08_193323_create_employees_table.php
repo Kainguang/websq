@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('role_name');
             $table->timestamps();
             $table->softDeletes();
         });
         Schema::create('employees', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->string('firstname');
             $table->string('lastname');
             $table->string('email');
@@ -33,11 +33,9 @@ return new class extends Migration
             $table->time('workstart');
             $table->time('workend');
             $table->string('profile_picture');
-            $table->unsignedInteger('role_id');
+            $table->foreignId('role_id')->constrained('roles');
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('CASCADE');
         });
     }
 

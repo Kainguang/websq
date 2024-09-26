@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('slip_picture');
             $table->string('payment_status',1);
-            $table->uuid('customer_id');
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('CASCADE');
+            $table->foreignId('customer_id')->constrained('customers');
             $table->timestamps();
             $table->softDeletes();
         });

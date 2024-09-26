@@ -22,8 +22,7 @@ return new class extends Migration
             $table->integer('times');
             $table->integer('max_participant');
             $table->string('description');
-            $table->uuid('employee_id');
-            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('CASCADE');
+            $table->foreignId('employee_id')->constrained('employees');
             $table->timestamps();
             $table->softDeletes();
         });
