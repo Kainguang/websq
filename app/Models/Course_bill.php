@@ -11,6 +11,8 @@ class Course_bill extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $fillable = [ 'customer_id', 'slip_picture', 'payment_status'];
+
     public function customer() {
         return $this->belongsTo(Customer::class);
     }

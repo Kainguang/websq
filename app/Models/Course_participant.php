@@ -11,6 +11,17 @@ class Course_participant extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $fillable = [
+        'course_bill_id',  // เพิ่มบรรทัดนี้
+        'firstname',
+        'lastname',
+        'email',
+        'phonenum',
+        'height',
+        'weight',
+        'gender',
+    ];
+    
     public function course_bill() {
         return $this->belongsTo(Course_bill::class);
     }
