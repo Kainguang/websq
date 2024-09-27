@@ -21,7 +21,8 @@ return new class extends Migration
             $table->integer('height');
             $table->string('gender');
             $table->foreignId('course_bill_id')->constrained('course_bills')->onDelete('cascade');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->softDeletes();
         });
     }

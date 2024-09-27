@@ -24,7 +24,8 @@ return new class extends Migration
             $table->integer('height');
             $table->string('gender');
             $table->string('profile_picture')->nullable();
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->softDeletes();
         });
     }

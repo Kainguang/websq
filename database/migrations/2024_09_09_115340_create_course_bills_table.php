@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('slip_picture');
             $table->string('payment_status',1);
             $table->foreignId('customer_id')->constrained('customers');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->softDeletes();
         });
     }

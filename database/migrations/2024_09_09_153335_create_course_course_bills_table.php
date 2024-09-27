@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('course_course_bills', function (Blueprint $table) {
             $table->id();
-            $table->string('course_status',1);
             $table->float('price');
             $table->integer('amount');
             $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');

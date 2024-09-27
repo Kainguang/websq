@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('facility_name');
             $table->integer('facility_amount');
             $table->string('description');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->softDeletes();
         });
     }

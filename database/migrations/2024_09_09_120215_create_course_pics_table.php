@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('picture');
             $table->foreignId('course_id')->constrained('courses');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->softDeletes();
         });
     }

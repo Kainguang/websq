@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
             $table->string('role_name');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->softDeletes();
         });
         Schema::create('employees', function (Blueprint $table) {
@@ -30,11 +31,10 @@ return new class extends Migration
             $table->integer('height');
             $table->string('gender');
             $table->float('salary');
-            $table->time('workstart');
-            $table->time('workend');
             $table->string('profile_picture');
             $table->foreignId('role_id')->constrained('roles');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->softDeletes();
         });
     }

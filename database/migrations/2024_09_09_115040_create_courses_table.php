@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('course_name');
             $table->float('course_cost');
             $table->float('course_sellprice');
+            $table->string('course_status',1);
             $table->time('start_time');
             $table->time('end_time');
             $table->integer('period');
