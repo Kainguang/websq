@@ -24,11 +24,7 @@ class Customer extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function course_bills() {
-        return $this->hasMany(Course_bill::class);
-    }
-
     public function courses() {
-        return $this->belongsToMany(Course::class);
+        return $this->belongsToMany(Course::class, 'enrolls');
     }
 }

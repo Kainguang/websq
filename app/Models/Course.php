@@ -19,10 +19,8 @@ class Course extends Model
         return $this->hasMany(Course_pic::class);
     }
 
-    public function course_bills() {
-        return $this->belongsToMany(Course_bill::class, 'course_course_bills', 'course_id', 'course_bill_id')
-                    ->withPivot('price', 'amount')
-                    ->withTimestamps();
+    public function customers() {
+        return $this->belongsToMany(Customer::class, 'enrolls');
     }
 
     public function facilities() {
