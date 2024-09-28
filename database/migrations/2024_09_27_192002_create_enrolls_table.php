@@ -11,19 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('courses', function (Blueprint $table) {
+        Schema::create('enrolls', function (Blueprint $table) {
             $table->id();
-            $table->string('course_name');
-            $table->float('course_cost');
-            $table->float('course_sellprice');
+            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
+            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
+            $table->date('start_day');
+            $table->date('end_day');
+            $table->integer('totalprice');
+            $table->string('payment_status',1);
             $table->string('course_status',1);
-            $table->time('start_time');
-            $table->time('end_time');
-            $table->integer('period');
-            $table->integer('times');
-            $table->integer('max_participant');
-            $table->string('description');
-            $table->foreignId('employee_id')->constrained('employees');
+            $table->string('slip_picture');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->softDeletes();
@@ -35,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('courses');
+        Schema::dropIfExists('enrolls');
     }
 };
