@@ -1,7 +1,13 @@
-.sidebar {
-    height: 200vh;
+.sidebar {/* กำหนดความกว้าง Sidebar */
     background-color: #343a40;
+    height: 200vh; /* Sidebar สูงเต็มหน้าจอ */
+    position: fixed; /* Sidebar อยู่กับที่ ไม่เลื่อน */
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    z-index: 1000; /* เพื่อให้ Sidebar อยู่เหนือ Main Content */
 }
+
 
 .profile-section {
     display: flex;
@@ -16,9 +22,10 @@
     border-radius: 50%;
 }
 
-.profile-name {
+.profile-name ,.profile-link{
     color: white;
-    margin-top: 10px;
+    margin-top: 5px;
+    text-decoration: none;
 }
 
 .nav-link {
@@ -75,18 +82,6 @@
     max-width: 600px; /* กำหนดขนาดสูงสุดให้เหมาะสม */
     box-sizing: border-box;
 }
-
-/* ปรับแต่งเพิ่มเติมสำหรับหน้าจอขนาดเล็ก */
-@media (max-width: 768px) {
-    .row.text-center.mb-4 {
-        flex-wrap: wrap; /* ให้กล่องแตกบรรทัดบนหน้าจอขนาดเล็ก */
-    }
-
-    .info-box {
-        flex-basis: 100%; /* ให้กล่องยืดเต็มความกว้างของหน้าจอในมือถือ */
-    }
-}
-
 .chart-container {
     background-color: white;
     border: 1px solid #ced4da;
@@ -231,20 +226,4 @@ button:hover {
     justify-content: flex-end;
     padding: 10px;
     border-top: 1px solid #dee2e6;
-}
-
-/* สำหรับหน้าจอขนาดเล็ก */
-@media (max-width: 768px) {
-    .modal-body {
-        padding: 15px;
-    }
-
-    input, select {
-        font-size: 16px;
-    }
-
-    button {
-        font-size: 16px;
-        padding: 10px;
-    }
 }

@@ -1,0 +1,122 @@
+
+/* Sidebar Styling */
+.sidebar {/* กำหนดความกว้าง Sidebar */
+    background-color: #343a40;
+    height: 200vh; /* Sidebar สูงเต็มหน้าจอ */
+    position: fixed; /* Sidebar อยู่กับที่ ไม่เลื่อน */
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    z-index: 1000; /* เพื่อให้ Sidebar อยู่เหนือ Main Content */
+}
+
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.profile-picture {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.profile-name ,.profile-link{
+    color: white;
+    margin-top: 5px;
+    text-decoration: none;
+}
+
+.nav-link {
+    color: white;
+    font-size: 18px;
+    padding: 10px 0;
+    text-align: center;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.nav-link:hover {
+    background-color: #495057;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link.active {
+    background-color: #6c757d;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+}
+.nav-link i {
+    margin-right: 8px;
+}
+
+/* จัดสไตล์สำหรับฟอร์มในโมดอล */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* เพิ่มช่องว่างระหว่างแต่ละ input */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px; /* เพิ่มช่องว่างระหว่างกลุ่มฟอร์ม */
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px; /* เพิ่มช่องว่างระหว่าง label และ input */
+    color: #343a40;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease-in-out;
+}
+
+input:focus, select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #343a40;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #495057;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.modal-body {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 0 0 5px 5px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    border-top: 1px solid #dee2e6;
+}
