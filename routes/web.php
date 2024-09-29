@@ -1,126 +1,105 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
-    return view('user.index');
+    return view('welcome');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
-
-Route::get('/Orderlist', function () {
-    return view('user.Orderlist');
-});
-Route::get('/payment', function () {
-    return view('user.payment');
-});
-// Route::get('/Increasethenumber', function () {
-//     return view('user.Increasethenumber');
+// Route::middleware([
+//     'auth:sanctum',
+//     config('jetstream.auth_session'),
+//     'verified',
+// ])->group(function () {
+//     Route::get('/dashboard', function () {
+//         return view('dashboard');
+//     })->name('dashboard');
 // });
 
+// เส้นทางสำหรับ Customer
+Route::middleware(['authenticateCustomer'])->group(function () {
+    Route::get('/customer/dashboard', function () {
+        return view('customer.dashboard');
+    });
+});
 
-Route::get('/Increasethenumber', function () {
-    return view('user.Increasethenumber');
-})->name('Increasethenumber');
+// เส้นทางสำหรับ Admin (Employee with role_id = 2)
+Route::middleware(['auth:employee', 'checkAdminRole'])->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return view('admin.dashboard');
+    });
+});
 
-Route::get('/Orderlist', function () {
-    return view('user.Orderlist');
-})->name('Orderlist');
+Route::middleware(['auth:customer'])->group(function () {
+    //user
+    Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
+    Route::get('/profile/edit/{id}', [UserController::class, 'editProfile'])->name('profile_edit');
+    Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile_update');
+    Route::get('/history-booking', [UserController::class, 'showBookingHistory'])->name('history-booking');
+    Route::post('/cancel-booking/{id}', [UserController::class, 'cancelBooking'])->name('cancel_booking');
+    //booking
+    Route::get('/orderlist/{course_id}', [BookingController::class, 'showOrderList'])->name('orderlist');
+    Route::post('/storeOrder', [BookingController::class, 'storeOrder'])->name('storeOrder');
+    Route::get('/payment', [BookingController::class, 'showPayment'])->name('payment');
+    Route::post('/store-booking', [BookingController::class, 'storeBooking'])->name('booking.store');
+    Route::get('/clearsession', [BookingController::class, 'clearSession'])->name('clearsession');
 
-Route::get('/payment', function () {
-    return view('user.payment');
-})->name('payment');
 
-Route::get('/index', function () {
-    return view('user.index');
-})->name('index');
- 
-Route::get('/yoga', function () {
-    return view('user.yoga');
-})->name('yoga');
+});
 
-Route::get('/dance', function () {
-    return view('user.dance');
-})->name('dance');
+Route::middleware('auth:employee')->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'showAll'])->name('admin_dashboard');
+});
 
-Route::get('/zumba', function () {
-    return view('user.zumba');
-})->name('zumba');
+// user
+Route::get('/home', [CourseController::class, 'showClass'])->name('index');
 
-Route::get('/muaythai', function () {
-    return view('user.muaythai');
-})->name('muaythai');
 
-Route::get('/class_time', function () {
-    return view('user.class_time');
-})->name('class_time');
+//login/out/register
+Route::get('/register', [UserController::class, 'showRegister'])->name('show_register');
+Route::post('/register_success', [UserController::class, 'register'])->name('register');
+Route::get('/login', [UserController::class, 'showLogin'])->name('show_login');
+Route::post('/login_seccess', [UserController::class, 'login'])->name('login');
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
-Route::get('/class_gender', function () {
-    return view('user.class_gender');
-})->name('class_gender');
 
-Route::get('/edit-profile', function () {
-    return view('user.edit-profile');
-})->name('edit-profile');
+// show class
+Route::get('/yoga', [CourseController::class, 'showYoga'])->name('yoga');
+Route::get('/dance', [CourseController::class, 'showDance'])->name('dance');
+Route::get('/muaythai', [CourseController::class, 'showMuaythai'])->name('muaythai');
+Route::get('/zumba', [CourseController::class, 'showZumba'])->name('zumba');
+Route::get('/course_time', [CourseController::class, 'showCoursesTime'])->name('course_time');
+Route::get('/course_gender', [CourseController::class, 'showCoursesGender'])->name('course_gender');
 
-Route::get('/history-booking', function () {
-    return view('user.history-booking');
-})->name('history-booking');
+// Route::get('/edit-profile', function () {
+//     return view('user.edit-profile');
+// })->name('edit-profile');
+// Route::get('/profile', function () {
+//     return view('user.profile');
+// })->name('profile');
 
-Route::get('/login', function () {
-    return view('user.login');
-})->name('login');
 
-Route::get('/profile', function () {
-    return view('user.profile');
-})->name('profile');
+// Route::get('/history-booking', function () {
+//     return view('user.history-booking');
+// })->name('history-booking');
 
-Route::get('/register', function () {
-    return view('user.register');
-})->name('register');
+// Route::get('/login', function () {
+//     return view('user.login');
+// })->name('login');
+
+// Route::get('/register', function () {
+//     return view('user.register');
+// })->name('register');
 
 Route::get('/trainer_apply', function () {
     return view('user.trainer_apply');
 })->name('trainer_apply');
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.admin_dashborad');
-})->name('admin.dashboard');
-
-Route::get('/admin/course', function () {
-    return view('admin.admin_course');
-})->name('admin.course');
-
-Route::get('/admin/bill', function () {
-    return view('admin.admin_bill');
-})->name('admin.bill');
-
-Route::get('/admin/trainer', function () {
-    return view('admin.admin_trainer');
-})->name('admin.trainer');
-
-Route::get('/admin/profile', function () {
-    return view('admin.admin_profile');
-})->name('admin.profile');
-
-
-
-
-
-
-
-//Adminnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
-Route::get('/admin/dashboard', [AdminController::class, 'showAll'])->name('admin_dashboard');
+//Admin
 Route::get('/admin/course', [AdminController::class, 'showcourse'])->name('admin_course');
 Route::get('/admin/trainer', [AdminController::class, 'showtrainer'])->name('admin_trainer');
 Route::get('/admin/bill', [AdminController::class, 'showbill'])->name('admin_trainer');

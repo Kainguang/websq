@@ -40,7 +40,11 @@
                         <a class="nav-link" href="/admin/trainer"><i class="fas fa-user-tie"></i>เทรนเนอร์</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/user/index" style="color: red;"><i class="fas fa-sign-out-alt"></i>ออกจากระบบ</a>
+                        <!-- <a class="nav-link"  style="color: red;"><i class="fas fa-sign-out-alt"></i>ออกจากระบบ</a> -->
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="logout-btn btn btn-danger">ออกจากระบบ</button>
+                        </form>
                     </li>
                 </ul>
             </nav>

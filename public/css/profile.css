@@ -3,44 +3,7 @@ body {
     color: #000;
 }
 
-/* CSS สำหรับ navbar */ 
-.navbar {
-    background-color: #fff;
-    color: #000;
-    border-bottom: 2px solid #000; /* hr effect */
-}
 
-.navbar-brand, .nav-link {
-    color: #000 !important;
-}
-
-.nav-link:hover {
-    text-decoration: underline; /* เพิ่มเส้นใต้ */
-    text-decoration-color: black; /* กำหนดสีเส้นใต้เป็นสีดำ */
-    text-decoration-thickness: 3px; /* กำหนดความหนาของเส้นใต้ */
-    text-underline-offset: 10px; /* กำหนดระยะห่างระหว่างเส้นใต้กับข้อความ */
-}
-
-.nav-link i {
-    margin-right: 8px;
-}
-
-
-
-.navbar-nav {
-    display: flex;
-    align-items: center; /* Center items vertically */
-}
-
-.navbar-collapse {
-    justify-content: center; /* Center items horizontally */
-    margin-left: 300px;
-}
-
- /* ให้ nav ห่างกัน */
-.nav-item{
-    padding-right: 60px;
-}
 
 /* ปุ่ม */
 .btn {
@@ -88,6 +51,7 @@ body {
     display: block;
     margin: 10px auto;
     border: #000 1px solid;
+    object-fit: cover;
 }
 
 .edit-btn, .cancel-booking-btn {
@@ -196,4 +160,14 @@ th {
 
 .logout-btn:hover {
     background-color: #d32f2f; /* สีเข้มขึ้นเมื่อ hover */
+}
+.button-history {
+    display: flex;
+    gap: 10px; /* ระยะห่างระหว่างปุ่ม */
+    align-items: center; /* จัดแนวปุ่มให้อยู่ในแนวเดียวกันในแนวตั้ง */
+    margin-bottom: 50px;
+}
+
+.btn {
+    padding: 10px 20px;
 }

@@ -1,116 +1,43 @@
+@extends('layouts.nav')
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>profile</title>
+    <title>Profile</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/profile.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="css/profile.css">
-    <script>
-        function showBookingInfo(activity) {
-            // เปลี่ยนเส้นทางไปยังหน้ารายละเอียดการจองและส่งข้อมูลกิจกรรมเป็น fragment
-            window.location.href = 'history-booking.html';
-        }
-    </script>
-    
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <!-- โลโก้เป็นรูปภาพ -->
-            <a class="navbar-brand" href="{{route('index')}}">
-                <img src="images/logo.jpeg" alt="logo">
-            </a>
-            
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <!-- คลาส-->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            คลาส
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{route('yoga')}}">คลาสโยคะ</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{route('dance')}}">คลาสเต้น</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{route('muaythai')}}">คลาสมวยไทย</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{route('zumba')}}">คลาสซุมบา</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- เวลา -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            เวลา
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ route('class_time') }}#morning">ช่วงเช้า</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ route('class_time') }}#afternoon">ช่วงบ่าย</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- ครูผู้สอน -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            ครูผู้สอน
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ route('class_gender') }}#instructors-female">เพศหญิง</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ route('class_gender') }}#instructors-male">เพศชาย</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                
-                <!-- ช่องค้นหา และ ลิงก์เข้าสู่ระบบ -->
-                <div class="d-flex align-items-center ms-3">
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="ค้นหา" aria-label="Search">
-                        <button class="btn btn-primary" type="submit">ค้นหา</button>
-                    </form>
-
-                    <a class="btn btn-primary ms-3" href="{{ route('login') }}" role="button">เข้าสู่ระบบ</a>
-
-                    <a href="{{ route('profile') }}">
-                        <img src="images/kuromi.jpg" alt="Profile" class="rounded-circle ms-3" style="width: 40px; height: 40px;">
-                    </a>                    
-                    
-            </div>
-        </div>
-    </nav>
-
     <!-- HTML สำหรับหน้าโปรไฟล์ -->
-    <div class="profile-container">
+    <div class="profile-container container mt-4">
         <h2>Your Fitness Journey</h2>
 
         <!-- ส่วนข้อมูลส่วนตัว -->
-        <section class="personal-info">
+        <section class="personal-info mb-4">
             <h5>ข้อมูลส่วนตัว</h5>
-            <img src="images/kuromi.jpg" alt="User Profile Picture" class="profile-pic">
-            <div class="personal-item">
-                <p><b>ชื่อ-นามสกุล:</b> <span>คุณไก่ กะต๊าก</span></p>
-                <p><b>อีเมล:</b> <span>kai@gmail.com</span></p>
-                <p><b>หมายเลขโทรศัพท์:</b> <span>081-234-5678</span></p>
-                <p><b>ที่อยู่:</b> <span>กรุงเทพมหานคร</span></p>
-                <button class="edit-btn" onclick="window.location.href='{{ route('edit-profile') }}'">แก้ไขข้อมูลส่วนตัว</button>
+            <img src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('profile_picture/default-profile.jpg') }}" alt="User Profile Picture" class="profile-pic rounded-circle" style="width: 150px; height: 150px;">
+            <div class="personal-item mt-3">
+                <p><b>ชื่อ:</b> <span>{{ $customer->firstname }}</span></p>
+                <p><b>นามสกุล:</b> <span>{{ $customer->lastname }}</span></p>
+                <p><b>อีเมล:</b> <span>{{ $customer->email }}</span></p>
+                <p><b>หมายเลขโทรศัพท์:</b> <span>{{ $customer->phonenum }}</span></p>
+                <p><b>ที่อยู่:</b> <span>{{ $customer->address }}</span></p>
+                <a href="/profile/edit/{{$customer->id}}" class="edit-btn btn btn-warning">แก้ไขข้อมูลส่วนตัว</a>
             </div>
         </section>
 
-
-        <section class="booking-schedule">
+        <!-- ตารางการจองคลาส -->
+        <section class="booking-schedule mb-4">
             <h5>ตารางการจองคลาส</h5>
-            <table>
+            <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Day/Time</th>
+                        <th>วัน/เวลา</th>
                         <th>9:00-10:00</th>
                         <th>10:00-11:00</th>
                         <th>11:00-12:00</th>
@@ -120,120 +47,147 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach (['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'] as $day)
                     <tr>
-                        <td>อาทิตย์</td>
-                        <td></td>
-                        <td></td>
-                        <td onclick="window.location.href='{{ route('history-booking') }}'">Yoga</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{ $day }}</td>
+                        @php $hour = 9; @endphp
+                        @while ($hour < 15)
+                            @php $courseFound = false; @endphp
+                            @foreach ($bookings as $booking)
+                                <!-- ตรวจสอบวันและช่วงเวลาของการจอง -->
+                                @if (strpos($booking->class_days, $day) !== false)
+                                    @php
+                                        $startHour = date('H', strtotime($booking->start_time));
+                                        $endHour = date('H', strtotime($booking->end_time));
+                                    @endphp
+                                    @if ($hour == $startHour)
+                                        <td colspan="{{ $endHour - $startHour }}" style="background-color: #e0f7fa; color: #00796b;">
+                                            {{ $booking->course_name }} ({{ date('H:i', strtotime($booking->start_time)) }} - {{ date('H:i', strtotime($booking->end_time)) }})
+                                        </td>
+                                        @php
+                                            $hour += ($endHour - $startHour);
+                                            $courseFound = true;
+                                            break;
+                                        @endphp
+                                    @endif
+                                @endif
+                            @endforeach
+                            @if (!$courseFound)
+                                <td>&nbsp;</td>
+                                @php $hour++; @endphp
+                            @endif
+                        @endwhile
                     </tr>
-                    <tr>
-                        <td>จันทร์</td>
-                        <td></td>
-                        <td></td>
-                        <td onclick="window.location.href='{{ route('history-booking') }}'">Yoga</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>อังคาร</td>
-                        <td></td>
-                        <td></td>
-                        <td onclick="window.location.href='{{ route('history-booking') }}'">Yoga</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>พุธ</td>
-                        <td></td>
-                        <td></td>
-                        <td onclick="window.location.href='{{ route('history-booking') }}'">Yoga</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>พฤหัสบดี</td>
-                        <td></td>
-                        <td></td>
-                        <td onclick="window.location.href='{{ route('history-booking') }}'">Yoga</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>ศุกร์</td>
-                        <td></td>
-                        <td></td>
-                        <td onclick="window.location.href='{{ route('history-booking') }}'">Yoga</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>เสาร์</td>
-                        <td></td>
-                        <td></td>
-                        <td onclick="window.location.href='{{ route('history-booking') }}'">Yoga</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <!-- เพิ่มแถวและเซลล์อื่น ๆ ตามต้องการ -->
+                    @endforeach
                 </tbody>
             </table>
-
-            <script>
-                function showBookingInfo(activity) {
-                    // เปลี่ยนเส้นทางไปยังหน้ารายละเอียดการจอง
-                    window.location.href = activity + 'history-booking.html';
-                }
-            </script>
         </section>
-        
-        
-        <div id="booking-info-modal" class="modal">
-            <!-- ที่จะแสดงข้อมูลการจอง -->
-            <div class="modal-content">
-                <span class="close-btn" onclick="closeBookingInfo()">&times;</span>
-                <div id="booking-details"></div>
-            </div>
+
+        <!-- ประวัติการจองล่าสุด -->
+        <h5>ประวัติการจองล่าสุด</h5>
+        <section class="booking-info mb-5 p-4 bg-light shadow-sm rounded">
+            @if ($latestBooking)
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <img src="{{ $latestBooking->course_picture }}" alt="Course Image" class="img-fluid rounded">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <h3 class="mb-3">{{ $latestBooking->course_name }}</h3>
+                            <ul class="list-unstyled">
+                                <li><strong>ชื่อครูผู้สอน:</strong> {{ $latestBooking->instructor_name }}</li>
+                                <li><strong>วันที่เรียน:</strong> {{ $latestBooking->class_days }}</li>
+                                <li><strong>ระยะเวลาคอร์ส:</strong> {{ $latestBooking->period }} สัปดาห์ (สัปดาห์ละ {{ $latestBooking->times }} ครั้ง)</li>
+                                <!-- ตรวจสอบสถานะการชำระเงิน -->
+                                @if($latestBooking->payment_status == 0)
+                                    <li><strong>วันที่จอง:</strong> 
+                                        <span class="text-warning">รอยืนยันการชำระเงิน</span>
+                                    </li>
+                                    <li><strong>วันที่คอร์สสิ้นสุด:</strong> 
+                                        <span class="text-warning">รอยืนยันการชำระเงิน</span>
+                                    </li>
+                                @else
+                                    <li><strong>วันที่จอง:</strong> {{ $latestBooking->start_day }}</li>
+                                    <li><strong>วันที่คอร์สสิ้นสุด:</strong> {{ $latestBooking->end_day }}</li>
+                                @endif
+                                <li><strong>ราคา:</strong> ฿{{ number_format($latestBooking->price, 2) }}</li>
+                                <hr>
+                                <li><strong>คอร์ส:</strong> 
+                                    @if($latestBooking->course_status == 1)
+                                        <span class="text-success">ดำเนินการอยู่</span>
+                                    @else
+                                        <span class="text-danger">หมดอายุแล้ว</span>
+                                    @endif
+                                </li>
+                                <li><strong>การชำระเงิน:</strong> 
+                                    @if($latestBooking->payment_status == 1)
+                                        <span class="text-success">ยืนยันการชำระเงินแล้ว</span>
+                                    @else
+                                        <span class="text-warning">รอยืนยันการชำระเงิน</span>
+                                    @endif
+                                </li>
+                            </ul>
+                            
+                            <!-- ปุ่มยกเลิกการจอง -->
+                            <form method="POST" action="{{ route('cancel_booking', ['id' => $latestBooking->id]) }}">
+                                @csrf
+                                <button type="submit" class="btn btn-danger w-100">ยกเลิกการจอง</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            @else
+                <p class="text-center">ไม่มีประวัติการจองล่าสุด</p>
+            @endif
+        </section>
+
+        <!-- ลิงก์ไปยังประวัติการจองทั้งหมด -->
+        <div class="button-history">
+            <a href="{{ route('history-booking') }}" class="btn btn-primary">ดูประวัติการจองทั้งหมด</a>
+
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="btn btn-danger">ออกจากระบบ</button>
+            </form>
         </div>
-        
-        
-        <!-- ส่วนข้อมูลการชำระเงิน -->
-        <section class="payment-info">
-            <h5>ประวัติการชำระเงิน</h5>
-            <!-- ตัวอย่างข้อมูลการชำระเงิน -->
-            <div class="payment-item">
-                <p><b>วันที่:</b> 10/09/2024</p>
-                <p><b>จำนวนเงิน:</b> 500 บาท</p>
-            </div>
-        </section>
 
-        <!-- ปุ่มออกจากระบบ -->
-        <button onclick="logout()" class="logout-btn">ออกจากระบบ</button>
-        <script>
-            function logout() {
-                // ลบข้อมูลของผู้ใช้ที่เก็บไว้ เช่น Token หรือข้อมูลอื่น ๆ
-                localStorage.removeItem('userToken'); // ตัวอย่างการลบ Token ที่เก็บใน Local Storage
-                // เปลี่ยนเส้นทางไปยังหน้าล็อกอินโดยใช้ Laravel route
-                window.location.href = '{{ route('login') }}';
-            }
-        </script> 
+
+
+    <!-- SweetAlert สำหรับยกเลิกการจอง -->
+    <script>
+        document.querySelectorAll('#cancelButton').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault(); // ป้องกันการ submit ฟอร์มทันที
+
+                Swal.fire({
+                    title: 'ยืนยันการยกเลิกการจอง?',
+                    text: "คุณต้องการยกเลิกการจองคอร์สนี้ใช่หรือไม่?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'ยืนยัน',
+                    cancelButtonText: 'ยกเลิก'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // ถ้ายืนยัน ให้ทำการ submit ฟอร์ม
+                        this.closest('form').submit();
+                    }
+                });
+            });
+        });
+    </script>
     </div>
 
+  <!-- Inline CSS สำหรับ Footer -->
+<footer style="background-color: #000000; color: #ffffff; text-align: center; padding: 10px 0; bottom: -15px; width: 100%;">
+    <p>&copy; 2024 Fitness Center. All rights reserved.</p>
+</footer>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 Fitness Center. All rights reserved.</p>
-    </footer>
-
-    <!-- Bootstrap JS and dependencies -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+@endsection

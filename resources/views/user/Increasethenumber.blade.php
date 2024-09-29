@@ -1,3 +1,5 @@
+@extends('layouts.nav')
+@section('content')
 <!DOCTYPE html>
 <html lang="th">
 
@@ -6,192 +8,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Example</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-   <link rel="stylesheet" href="/css/Increasethenumber.css">
+    <link rel="stylesheet" href="/css/Increasethenumber.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
-       <!-- Navigation -->
-       <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <!-- โลโก้เป็นรูปภาพ -->
-            <a class="navbar-brand" href="index.html">
-                <img src="images/logo.jpeg" alt="logo">
-            </a>
-            
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <!-- คลาส-->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            คลาส
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{route('yoga')}}">คลาสโยคะ</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{route('dance')}}">คลาสเต้น</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{route('muaythai')}}">คลาสมวยไทย</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{route('zumba')}}">คลาสซุมบา</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- เวลา -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            เวลา
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ route('class_time') }}#morning">ช่วงเช้า</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{{ route('class_time') }}#afternoon">ช่วงบ่าย</a></li>
-                    </ul>
-                    </li>
-
-                    <!-- ครูผู้สอน -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            ครูผู้สอน
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ route('class_gender') }}#instructors-female">เพศหญิง</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{{ route('class_gender') }}#instructors-male">เพศชาย</a></li>
-                    </ul>
-                    </li>
-                </ul>
-                
-                <!-- ช่องค้นหา และ ลิงก์เข้าสู่ระบบ -->
-                <div class="d-flex align-items-center ms-3">
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="ค้นหา" aria-label="Search">
-                        <button class="btn btn-primary" type="submit">ค้นหา</button>
-                    </form>
-
-                    <a class="btn btn-primary ms-3" href="{{ route('index') }}" role="button">เข้าสู่ระบบ</a>
-                
-
-                    <a href="profile.html">
-                        <img src="images/kuromi.jpg" alt="Profile" class="rounded-circle ms-3" style="width: 40px; height: 40px;">
-                    </a>
-                    
-                </div>    
-            </div>
-        </div>
-    </nav>
-
-
     <div class="container">
         <div class="form-container">
-            <form>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="memberID" class="form-label">อีเมล</label>
-                        <input type="text" class="form-control" id="memberID" placeholder="กรอกข้อมูลนี้เฉพาะสมาชิกเท่านั้น">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="firstName" class="form-label">ชื่อ <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="firstName" placeholder="ชื่อกลาง (ถ้ามี) และชื่อจริง">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="lastName" class="form-label">นามสกุล <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="lastName" placeholder="นามสกุล">
-                    </div>
+            <form action="{{ route('storeParticipants') }}" method="POST">
+                @csrf
 
-                    <div class="col-md-6">
-                        <label for="gender" class="form-label">เพศ <span class="text-danger">*</span></label>
-                        <select class="form-select" id="gender">
-                            <option selected>กรุณาเลือก</option>
-                            <option value="male">ชาย</option>
-                            <option value="female">หญิง</option>
+                @for ($i = 1; $i <= $amount; $i++)
+                    <h4>ผู้จองคนที่ {{ $i }}</h4>
+                    <div class="mb-3">
+                        <label for="firstName{{ $i }}" class="form-label">ชื่อ:</label>
+                        <input type="text" name="participants[{{ $i }}][first_name]" id="firstName{{ $i }}" class="form-control" placeholder="กรุณาใส่ชื่อ" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastName{{ $i }}" class="form-label">นามสกุล:</label>
+                        <input type="text" name="participants[{{ $i }}][last_name]" id="lastName{{ $i }}" class="form-control" placeholder="กรุณาใส่นามสกุล" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email{{ $i }}" class="form-label">อีเมล:</label>
+                        <input type="email" name="participants[{{ $i }}][email]" id="email{{ $i }}" class="form-control" placeholder="กรุณาใส่อีเมล" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone{{ $i }}" class="form-label">เบอร์โทรศัพท์:</label>
+                        <input type="text" name="participants[{{ $i }}][phone]" id="phone{{ $i }}" class="form-control" placeholder="กรุณาใส่เบอร์โทรศัพท์" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="weight{{ $i }}" class="form-label">นํ้าหนัก (กิโลกรัม):</label>
+                        <input type="number" name="participants[{{ $i }}][weight]" id="weight{{ $i }}" class="form-control" placeholder="กรุณาใส่นํ้าหนัก" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="height{{ $i }}" class="form-label">ส่วนสูง (เซนติเมตร):</label>
+                        <input type="number" name="participants[{{ $i }}][height]" id="height{{ $i }}" class="form-control" placeholder="กรุณาใส่ส่วนสูง" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="gender{{ $i }}" class="form-label">เพศ:</label>
+                        <select name="participants[{{ $i }}][gender]" id="gender{{ $i }}" class="form-control" required>
+                            <option selected>กรุณาเลือกเพศ</option>
+                            <option value="หญิง">หญิง</option>
+                            <option value="ชาย">ชาย</option>
                         </select>
                     </div>
-                    <div class="col-md-6">
-                        <label for="phone" class="form-label">เบอร์โทร <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="phone" placeholder="เบอร์โทร">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="address" class="form-label">ที่อยู่ <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="address" placeholder="ที่อยู่">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="birthdate" class="form-label">วันเกิด (DD/MM/YYYY) <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="birthdate" placeholder="__/__/____">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="height" class="form-label">ส่วนสูง (cm) <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="height" placeholder="ส่วนสูง">
-                    </div>
-                </div>
+                    <hr>
+                @endfor
 
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="weight" class="form-label">น้ำหนัก (kg) <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="weight" placeholder="น้ำหนัก">
-                    </div>
-                </div>
-                <hr class="mt-5">
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="memberID" class="form-label">อีเมล</label>
-                        <input type="text" class="form-control" id="memberID" placeholder="กรอกข้อมูลนี้เฉพาะสมาชิกเท่านั้น">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="firstName" class="form-label">ชื่อ <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="firstName" placeholder="ชื่อกลาง (ถ้ามี) และชื่อจริง">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="lastName" class="form-label">นามสกุล <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="lastName" placeholder="นามสกุล">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="gender" class="form-label">เพศ <span class="text-danger">*</span></label>
-                        <select class="form-select" id="gender">
-                            <option selected>กรุณาเลือก</option>
-                            <option value="male">ชาย</option>
-                            <option value="female">หญิง</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="phone" class="form-label">เบอร์โทร <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="phone" placeholder="เบอร์โทร">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="address" class="form-label">ที่อยู่ <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="address" placeholder="ที่อยู่">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="birthdate" class="form-label">วันเกิด (DD/MM/YYYY) <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="birthdate" placeholder="__/__/____">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="height" class="form-label">ส่วนสูง (cm) <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="height" placeholder="ส่วนสูง">
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="weight" class="form-label">น้ำหนัก (kg) <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="weight" placeholder="น้ำหนัก">
-                    </div>
-                </div>
-                <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-primary" onclick="handleSave()">บันทึก</button>
-                </div>
+                <button type="submit" class="btn btn-primary">ถัดไป</button>
             </form>
-        </div>
-                
-                <script>
-                    function handleSave() {
-                        // เปลี่ยน URL ที่ต้องการให้ไป
-                        window.location.href = "{{ route('Orderlist') }}";
-                    }
-                </script>
-                
-            </form>
+            <button type="button" class="btn btn-danger" id="backButton">ย้อนกลับ</button>
         </div>
     </div>
 
@@ -202,7 +68,24 @@
         </div>
     </footer>
 
+    <script>
+    // ปุ่มยกเลิก
+    document.getElementById('backButton').addEventListener('click', function() {
+        Swal.fire({
+            title: 'คุณต้องการย้อนกลับหรือไม่?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'ยืนยัน',
+            cancelButtonText: 'ยกเลิก'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '{{ url()->previous() }}';
+            }
+        });
+    });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
+@endsection

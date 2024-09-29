@@ -1,3 +1,5 @@
+@extends('layouts.nav')
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,83 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trainer Apply</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/trainer _apply.css">
+    <link rel="stylesheet" href="css/trainer_apply.css">
 </head>
 <body>
-       <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <!-- โลโก้เป็นรูปภาพ -->
-            <a class="navbar-brand" href="{{route('index')}}">
-                <img src="images/logo.jpeg" alt="logo">
-            </a>
-            
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <!-- คลาส-->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            คลาส
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{route('yoga')}}">คลาสโยคะ</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{route('dance')}}">คลาสเต้น</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{route('muaythai')}}">คลาสมวยไทย</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{route('zumba')}}">คลาสซุมบา</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- เวลา -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            เวลา
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ route('class_time') }}#morning">ช่วงเช้า</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ route('class_time') }}#afternoon">ช่วงบ่าย</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- ครูผู้สอน -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            ครูผู้สอน
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ route('class_gender') }}#instructors-female">เพศหญิง</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ route('class_gender') }}#instructors-male">เพศชาย</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                
-                <!-- ช่องค้นหา และ ลิงก์เข้าสู่ระบบ -->
-                <div class="d-flex align-items-center ms-3">
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="ค้นหา" aria-label="Search">
-                        <button class="btn btn-primary" type="submit">ค้นหา</button>
-                    </form>
-
-                    <a class="btn btn-primary ms-3" href="{{ route('login') }}" role="button">เข้าสู่ระบบ</a>
-
-                    <a href="{{ route('profile') }}">
-                        <img src="images/kuromi.jpg" alt="Profile" class="rounded-circle ms-3" style="width: 40px; height: 40px;">
-                    </a>                    
-                    
-            </div>
-        </div>
-    </nav>
-
     <!-- Registration Form Container -->
     <div class="container mt-5">
         <div class="card">
             <div class="card-header">
-                <h3>สมัครสมาชิก</h3>
+                <h3>สมัครเป็นเทรนเนอร์</h3>
             </div>
             <div class="card-body">
                 <div class="registration-container">
@@ -105,14 +38,14 @@
                             <option value="หญิง">หญิง</option>
                             <option value="ชาย">ชาย</option>
                         </select>
-                        <!-- <p>คลาสที่ต้องการสอน</p>
+                        <p>คลาสที่ต้องการสอน</p>
                         <select name="class" required>
                             <option value="โยคะ">โยคะ</option>
                             <option value="เต้น">เต้น</option>
                             <option value="มวยไทย">มวยไทย</option>
                             <option value="ซุมบา">ซุมบา</option>
                         </select>
-                        <button type="submit">สมัคร</button> -->
+                        <button type="submit">สมัคร</button>
                     </form>
                 </div>
             </div>
@@ -132,3 +65,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+@endsection

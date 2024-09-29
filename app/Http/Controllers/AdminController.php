@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -135,7 +137,7 @@ class AdminController extends Controller
     {
         return DB::table('employees')
                 ->where('role_id', 1)
-                ->select('id', 'firstname', 'lastname', 'email', 'phonenum as phone', 'class as course')
+                ->select('id', 'firstname', 'lastname', 'email', 'phonenum as phone')
                 ->get();
     }
 

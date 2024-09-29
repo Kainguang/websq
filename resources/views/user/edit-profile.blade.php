@@ -1,3 +1,5 @@
+@extends('layouts.nav')
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,154 +13,98 @@
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <!-- โลโก้เป็นรูปภาพ -->
-            <a class="navbar-brand" href="{{route('index')}}">
-                <img src="images/logo.jpeg" alt="logo">
-            </a>
-            
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <!-- คลาส-->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            คลาส
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{route('yoga')}}">คลาสโยคะ</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{route('dance')}}">คลาสเต้น</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{route('muaythai')}}">คลาสมวยไทย</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{route('zumba')}}">คลาสซุมบา</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- เวลา -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            เวลา
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ route('class_time') }}#morning">ช่วงเช้า</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ route('class_time') }}#afternoon">ช่วงบ่าย</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- ครูผู้สอน -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            ครูผู้สอน
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ route('class_gender') }}#instructors-female">เพศหญิง</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ route('class_gender') }}#instructors-male">เพศชาย</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                
-                <!-- ช่องค้นหา และ ลิงก์เข้าสู่ระบบ -->
-                <div class="d-flex align-items-center ms-3">
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="ค้นหา" aria-label="Search">
-                        <button class="btn btn-primary" type="submit">ค้นหา</button>
-                    </form>
-
-                    <a class="btn btn-primary ms-3" href="{{ route('login') }}" role="button">เข้าสู่ระบบ</a>
-
-                    <a href="{{ route('profile') }}">
-                        <img src="images/kuromi.jpg" alt="Profile" class="rounded-circle ms-3" style="width: 40px; height: 40px;">
-                    </a>                    
-                    
-            </div>
-        </div>
-    </nav>
-
     <div class="container mt-5">
         <div class="edit-body">
             <h2>แก้ไขข้อมูลส่วนตัว</h2>
-            <form id="edit-profile-form">
-                <div class="mb-3">
-                    <label for="first-name" class="form-label">ชื่อ</label>
-                    <input type="text" class="form-control" id="first-name" placeholder="กรุณาใส่ชื่อ" required>
-                </div> 
-                <div class="mb-3">
-                    <label for="last-name" class="form-label">นามสกุล</label>
-                    <input type="text" class="form-control" id="last-name" placeholder="กรุณาใส่นามสกุล" required>
+            <form action="{{ route('profile_update') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="id" value="{{ $customer->id }}">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="firstname" class="form-label">ชื่อ</label>
+                        <input type="text" class="form-control" id="firstname" name="firstname" value="{{ $customer->firstname }}" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="lastname" class="form-label">นามสกุล</label>
+                        <input type="text" class="form-control" id="lastname" name="lastname" value="{{ $customer->lastname }}" required>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">อีเมล</label>
-                    <input type="email" class="form-control" id="email" placeholder="กรุณาใส่อีเมล" required>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="email" class="form-label">อีเมล</label>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ $customer->email }}" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="phonenum" class="form-label">หมายเลขโทรศัพท์</label>
+                        <input type="text" class="form-control" id="phone" name="phonenum" value="{{ $customer->phonenum }}" required>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="phone" class="form-label">หมายเลขโทรศัพท์</label>
-                    <input type="tel" class="form-control" id="phone" placeholder="กรุณาใส่เบอร์โทรศัพท์" required>
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label for="address" class="form-label">ที่อยู่</label>
+                        <input type="text" class="form-control" id="address" name="address" value="{{ $customer->address }}" required>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="dob" class="form-label">วัน/เดือน/ปี เกิด</label>
-                    <input type="text" class="form-control" id="dob" placeholder="วว/ดด/ปปปป" required>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="birthdate" class="form-label">วัน/เดือน/ปี เกิด</label>
+                        <input type="date" class="form-control" id="birthdate" name="birthdate" value="{{ $customer->birthdate }}" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="weight" class="form-label">น้ำหนัก</label>
+                        <input type="text" class="form-control" id="weight" name="weight" value="{{ $customer->weight }}" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="height" class="form-label">ส่วนสูง</label>
+                        <input type="text" class="form-control" id="height" name="height" value="{{ $customer->height }}" required>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="weight" class="form-label">น้ำหนัก</label>
-                    <input type="text" class="form-control" id="weight" placeholder="กรุณาใส่น้ำหนัก" required>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="gender" class="form-label">เพศ</label>
+                        <select class="form-select" name="gender" id="gender" required>
+                            <option selected>กรุณาเลือกเพศ</option>
+                            <option value="ชาย" @if($customer->gender == "ชาย") selected @endif>ชาย</option>
+                            <option value="หญิง" @if($customer->gender == "หญิง") selected @endif>หญิง</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="profile_picture" class="form-label">อัปโหลดรูปโปรไฟล์</label>
+                        <input type="file" class="form-control" id="profile_picture" name="profile_picture" accept="image/*">
+                        @if($customer->profile_picture)
+                            <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}" alt="Profile Picture" style="width: 100px; height: 100px;" class="mt-3">
+                        @endif
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="height" class="form-label">ส่วนสูง</label>
-                    <input type="text" class="form-control" id="height" placeholder="กรุณาใส่ส่วนสูง" required>
+                <div class="d-flex justify-content-end mt-3">
+                    <button type="submit" id="submitButton" class="btn btn-primary me-2">บันทึก</button>
+                    <button type="button" id="cancelButton" class="btn btn-secondary">ยกเลิก</button>
                 </div>
-                <div class="mb-3">
-                    <label for="gender" class="form-label">เพศ</label>
-                    <select class="form-select" id="gender" required>
-                        <option selected>กรุณาเลือกเพศ</option>
-                        <option value="male">ชาย</option>
-                        <option value="female">หญิง</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">บันทึก</button>
             </form>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer>
+    <!-- Inline CSS สำหรับ Footer -->
+    <footer style="background-color: #000000; color: #ffffff; text-align: center; padding: 10px 0; position: fixed; bottom: -15px; width: 100%;">
         <p>&copy; 2024 Fitness Center. All rights reserved.</p>
     </footer>
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- SweetAlert2 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <!-- Custom JavaScript -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('edit-profile-form').addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevent the form from submitting normally
+            // ปุ่มยกเลิก
+            document.getElementById('cancelButton').addEventListener('click', function() {
                 Swal.fire({
-                    title: 'แก้ไขข้อมูลเสร็จสิ้นแล้ว',
-                    icon: 'success',
-                    width: 600,
-                    padding: '3em',
-                    color: '#716add',
-                    background: '#fff url(/image/trees.png)',
-                    backdrop: `
-                        rgba(0,0,123,0.4)
-                        url("/images/nyan-cat.gif")
-                        top left
-                        no-repeat
-                    `
-                }).then(() => {
-                    window.location.href = '{{ route('profile') }}'; // Redirect using Laravel route
+                    title: 'คุณต้องการย้อนกลับหรือไม่?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'ยืนยัน',
+                    cancelButtonText: 'ยกเลิก'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '{{ url()->previous() }}';
+                    }
                 });
             });
-        });
+        
     </script>
 
 
@@ -166,3 +112,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+@endsection

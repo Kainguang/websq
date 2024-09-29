@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,17 +17,18 @@
             </div>
             <br>
             <br>
-            <form action="#">
-                <p>ชื่อผู้ใช้ หรือ อีเมล</p>
-                <input type="text" placeholder="ชื่อผู้ใช้ หรือ อีเมล" required>
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+                <p>อีเมล</p>
+                <input type="text" name="email" placeholder="อีเมล" required>
                 <p>รหัสผ่าน</p>
-                <input type="password" placeholder="รหัสผ่าน" required>
-                <button type="submit" onclick="window.location.href='{{ route('index') }}'">เข้าสู่ระบบ</button>
-                <div class="signup_links">
-                    มีบัญชีแล้วหรือยัง ?<br>
-                    <a href="{{ route('register') }}">สมัครสมาชิก</a>
-                </div>
+                <input type="password" name="password" placeholder="รหัสผ่าน" required>
+                <button type="submit">เข้าสู่ระบบ</button>
             </form>
+            <div class="signup_links">
+                มีบัญชีแล้วหรือยัง ?<br>
+                <a href="{{ route('show_register') }}">สมัครสมาชิก</a>
+            </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

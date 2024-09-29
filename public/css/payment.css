@@ -4,46 +4,6 @@ body {
     font-family: 'Arial', sans-serif;
 }
 
-/* CSS สำหรับ navbar */ 
-.navbar {
-    background-color: #fff;
-    color: #000;
-    border-bottom: 2px solid #000; /* hr effect */
-}
-
-.navbar-brand, .nav-link {
-    color: #000 !important;
-}
-
-.nav-link:hover {
-    text-decoration: underline; /* เพิ่มเส้นใต้ */
-    text-decoration-color: black; /* กำหนดสีเส้นใต้เป็นสีดำ */
-    text-decoration-thickness: 3px; /* กำหนดความหนาของเส้นใต้ */
-    text-underline-offset: 10px; /* กำหนดระยะห่างระหว่างเส้นใต้กับข้อความ */
-}
-
-.navbar-nav {
-    display: flex;
-    align-items: center; /* Center items vertically */
-}
-
-.navbar-collapse {
-    justify-content: center; /* Center items horizontally */
-    margin-left: 300px;
-}
-
- /* ให้ nav ห่างกัน */
-.nav-item {
-    padding-right: 60px;
-}
-
-/* การปรับขนาดและการจัดตำแหน่งของโลโก้ */
-.navbar-brand img {
-    height: 40px; /* ปรับขนาดของรูปภาพ */
-    width: auto;  /* รักษาสัดส่วนของรูปภาพ */
-}
-
-
 .card {
     background: rgba(255, 255, 255, 0.9);
     border-radius: 15px;

@@ -2,53 +2,6 @@ body {
     background: #000;
 }
 
-/* CSS สำหรับ navbar */
-.navbar {
-    background-color: #fff;
-    color: #000;
-    border-bottom: 2px solid #000;
-}
-
-.navbar-brand,
-.nav-link {
-    color: #000 !important;
-}
-
-.nav-link:hover {
-    text-decoration: underline;
-    text-decoration-color: black;
-    text-decoration-thickness: 3px;
-    text-underline-offset: 10px;
-}
-
-.navbar-nav {
-    display: flex;
-    align-items: center;
-}
-
-.navbar-collapse {
-    justify-content: center;
-    margin-left: 300px;
-}
-
-.nav-item {
-    padding-right: 60px;
-}
-
-.btn {
-    background-color: #000;
-    color: #fff;
-}
-
-.navbar-brand img {
-    height: 40px;
-    width: auto;
-}
-
-.btn {
-    background-color: #000;
-    color: white;
-}
 
 /* Card container for the form */
 .card {

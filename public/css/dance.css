@@ -4,48 +4,14 @@ body {
     color: #000;
 }
 
-/* Navbar styles */
-.navbar {
-    background-color: #fff;
-    color: #000;
-    border-bottom: 2px solid #000; /* hr effect */
-}
-
-.navbar-brand, .nav-link {
-    color: #000 !important;
-}
-
-.nav-link:hover {
-    text-decoration: underline; /* Add underline */
-    text-decoration-color: black; /* Set underline color */
-    text-decoration-thickness: 3px; /* Set underline thickness */
-    text-underline-offset: 10px; /* Set underline offset */
-}
-
-.navbar-nav {
-    display: flex;
-    align-items: center; /* Center items vertically */
-}
-
-.navbar-collapse {
-    justify-content: center; /* Center items horizontally */
-    margin-left: 300px;
-}
-
-.nav-item {
-    padding-right: 60px; /* Add spacing between nav items */
-}
-
 /* Button styles */
 .btn {
     background-color: #000;
-    color: #fff;
 }
 
-/* Logo styles */
-.navbar-brand img {
-    height: 40px;
-    width: auto;
+.submit-btn {
+    color: #fff;
+    text-decoration: none;
 }
 
 /* Card section spacing */

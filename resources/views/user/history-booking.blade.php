@@ -1,5 +1,8 @@
+@extends('layouts.nav')
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,108 +12,66 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 </head>
+
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <!-- โลโก้เป็นรูปภาพ -->
-            <a class="navbar-brand" href="{{route('index')}}">
-                <img src="images/logo.jpeg" alt="logo">
-            </a>
-            
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <!-- คลาส-->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            คลาส
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{route('yoga')}}">คลาสโยคะ</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{route('dance')}}">คลาสเต้น</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{route('muaythai')}}">คลาสมวยไทย</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{route('zumba')}}">คลาสซุมบา</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- เวลา -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            เวลา
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ route('class_time') }}#morning">ช่วงเช้า</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ route('class_time') }}#afternoon">ช่วงบ่าย</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- ครูผู้สอน -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            ครูผู้สอน
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ route('class_gender') }}#instructors-female">เพศหญิง</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ route('class_gender') }}#instructors-male">เพศชาย</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                
-                <!-- ช่องค้นหา และ ลิงก์เข้าสู่ระบบ -->
-                <div class="d-flex align-items-center ms-3">
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="ค้นหา" aria-label="Search">
-                        <button class="btn btn-primary" type="submit">ค้นหา</button>
-                    </form>
-
-                    <a class="btn btn-primary ms-3" href="{{ route('login') }}" role="button">เข้าสู่ระบบ</a>
-
-                    <a href="{{ route('profile') }}">
-                        <img src="images/kuromi.jpg" alt="Profile" class="rounded-circle ms-3" style="width: 40px; height: 40px;">
-                    </a>                    
-                    
-            </div>
-        </div>
-    </nav>
-
-    <main class="container mt-4">
+    <h2>ประวัติการจองทั้งหมด</h2>
+    <div class="container">
         <!-- รายการการจอง -->
-        <div class="row">
-            <!-- คอลัมน์ด้านซ้าย: รูปภาพ -->
-            <div class="col-md-6 mb-4">
+        @foreach ($bookings as $booking)
+        <div class="row mb-4">
+            <div class="col-md-6">
                 <div class="card">
-                    <img src="images/yaga.avif" class="card-img-top" alt="Yoga">
+                    <img src="{{ $booking->course_picture }}" alt="Course Image" class="img-fluid rounded">
                 </div>
             </div>
-
-            <!-- คอลัมน์ด้านขวา: รายละเอียดการจอง -->
-            <div class="col-md-6 mb-4">
+            <div class="col-md-6">
                 <div class="card-body">
-                    <h3>Yoga</h3>
-                    <hr>
+                    <h3 class="mb-3">{{ $booking->course_name }}</h3>
                     <ul class="list-unstyled">
-                        <li><strong>ชื่อครูผู้สอน:</strong> ครูนุสรา สารธิราช (ปูนา)</li>
-                        <li><strong>ราคาต่อคอร์ส:</strong> 1,500 บาท</li>
-                        <li><strong>วันที่เรียน:</strong> จันทร์ , อังคาร</li>
-                        <li><strong>เวลาเริ่ม-สิ้นสุด:</strong> 09:00-12:00 น.</li>
-                        <li><strong>ระยะเวลาคอร์ส:</strong> 8 สัปดาห์ (ฝึกสัปดาห์ละ 2 ครั้ง)</li>
-                        <li><strong>วันที่จอง:</strong> 2024-09-10</li>
-                        <li><strong>วันที่คอร์สสิ้นสุด:</strong> 2024-12-10</li>
+                        <li><strong>ชื่อครูผู้สอน:</strong> {{ $booking->instructor_name }}</li>
+                        <li><strong>วันที่เรียน:</strong> {{ $booking->class_days }}</li>
+                        <li><strong>ระยะเวลาคอร์ส:</strong> {{ $booking->period }} สัปดาห์ (สัปดาห์ละ
+                            {{ $booking->times }} ครั้ง)</li>
+                        <!-- ตรวจสอบสถานะการชำระเงิน -->
+                        @if($booking->payment_status == 0)
+                        <li><strong>วันที่จอง:</strong>
+                            <span class="text-warning">รอยืนยันการชำระเงิน</span>
+                        </li>
+                        <li><strong>วันที่คอร์สสิ้นสุด:</strong>
+                            <span class="text-warning">รอยืนยันการชำระเงิน</span>
+                        </li>
+                        @else
+                        <li><strong>วันที่จอง:</strong> {{ $booking->start_day }}</li>
+                        <li><strong>วันที่คอร์สสิ้นสุด:</strong> {{ $booking->end_day }}</li>
+                        @endif
+                        <li><strong>ราคา:</strong> ฿{{ number_format($booking->price, 2) }}</li>
+                        <hr>
+                        <li><strong>คอร์ส:</strong>
+                            @if($booking->course_status == 1)
+                            <span class="text-success">ดำเนินการอยู่</span>
+                            @else
+                            <span class="text-danger">หมดอายุแล้ว</span>
+                            @endif
+                        </li>
+                        <li><strong>การชำระเงิน:</strong>
+                            @if($booking->payment_status == 1)
+                            <span class="text-success">ยืนยันการชำระเงินแล้ว</span>
+                            @else
+                            <span class="text-warning">รอยืนยันการชำระเงิน</span>
+                            @endif
+                        </li>
                     </ul>
-                    <!-- ปุ่มยกเลิก -->
-                    <button type="button" class="btn btn-danger" id="cancelButton">
-                        ยกเลิกการจอง
-                    </button>
+
+                    <!-- ปุ่มยกเลิกการจอง -->
+                    <form method="POST" action="{{ route('cancel_booking', ['id' => $booking->id]) }}">
+                        @csrf
+                        <button type="submit" class="btn btn-danger w-100">ยกเลิกการจอง</button>
+                    </form>
                 </div>
             </div>
         </div>
-    </main>
+        @endforeach
+    </div> 
 
     <!-- Footer -->
     <footer>
@@ -119,29 +80,35 @@
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- SweetAlert2 JavaScript -->
+
+    <!-- SweetAlert สำหรับยกเลิกการจอง -->
     <script>
-        document.getElementById('cancelButton').addEventListener('click', function() {
-            Swal.fire({
-                title: 'คุณแน่ใจหรือไม่?',
-                text: 'คุณต้องการยกเลิกการจองนี้หรือไม่?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'ใช่ ยกเลิก!',
-                cancelButtonText: 'ยกเลิก'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // เปลี่ยน URL หรือทำการยกเลิกจริงๆ ที่นี่
-                    window.location.href = '{{ route('profile') }}';
-                }
+        document.querySelectorAll('#cancelButton').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault(); // ป้องกันการ submit ฟอร์มทันที
+
+                Swal.fire({
+                    title: 'ยืนยันการยกเลิกการจอง?',
+                    text: "คุณต้องการยกเลิกการจองคอร์สนี้ใช่หรือไม่?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'ยืนยัน',
+                    cancelButtonText: 'ยกเลิก'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // ถ้ายืนยัน ให้ทำการ submit ฟอร์ม
+                        this.closest('form').submit();
+                    }
+                });
             });
         });
     </script>
-    
+
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
+@endsection
