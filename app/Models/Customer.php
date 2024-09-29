@@ -24,7 +24,8 @@ class Customer extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function courses() {
-        return $this->belongsToMany(Course::class, 'enrolls');
+    public function courses(){
+        return $this->belongsToMany(Course::class, 'enrolls', 'customer_id', 'course_id')
+                    ->withPivot('totalprice'); // กรณีมีคอลัมน์จำนวนเงินใน pivot
     }
 }

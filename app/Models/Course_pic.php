@@ -11,6 +11,7 @@ class Course_pic extends Model
     use HasFactory;
     use SoftDeletes;
 
+    
     public function course() {
         return $this->belongsTo(Course::class);
     }

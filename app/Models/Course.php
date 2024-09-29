@@ -11,6 +11,8 @@ class Course extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $fillable = ['course_name', 'course_cost', 'course_sellprice', 'start_time', 'end_time','times','max_participant','description','employee_id','day_id'];
+
     public function employee() {
         return $this->belongsTo(Employee::class);
     }
@@ -19,8 +21,9 @@ class Course extends Model
         return $this->hasMany(Course_pic::class);
     }
 
-    public function customers() {
-        return $this->belongsToMany(Customer::class, 'enrolls');
+    public function customers(){
+        return $this->belongsToMany(Customer::class, 'enrolls', 'course_id', 'customer_id')
+                    ->withPivot('totalprice'); // กรณีมีคอลัมน์จำนวนเงินใน pivot
     }
 
     public function facilities() {
