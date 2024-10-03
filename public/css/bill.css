@@ -1,11 +1,11 @@
-.sidebar {/* กำหนดความกว้าง Sidebar */
+.sidebar {
     background-color: #343a40;
-    height: 200vh; /* Sidebar สูงเต็มหน้าจอ */
-    position: fixed; /* Sidebar อยู่กับที่ ไม่เลื่อน */
+    height: 200vh;
+    position: fixed;
     top: 0;
     left: 0;
     padding-top: 20px;
-    z-index: 1000; /* เพื่อให้ Sidebar อยู่เหนือ Main Content */
+    z-index: 1000;
 }
 
 .profile-section {
@@ -21,7 +21,7 @@
     border-radius: 50%;
 }
 
-.profile-name,.profile-link{
+.profile-name,.profile-link {
     color: white;
     margin-top: 5px;
     text-decoration: none;
@@ -41,10 +41,11 @@
 }
 
 .nav-link.active {
-    background-color: #6c757d; /* สีพื้นหลังเมื่อ active */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4); /* เพิ่มเงา */
+    background-color: #6c757d;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
     border-radius: 5px;
 }
+
 .nav-link i {
     margin-right: 8px;
 }
@@ -56,92 +57,32 @@
     margin-bottom: 1.5rem;
 }
 
-.search-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.search-input {
-    flex-grow: 1;
-    margin-right: 10px;
-}
-
-.btn-add {
-    background-color: #343a40;
-    color: white;
-}
-
 /* Bill Section Styling */
 .bill-card {
     margin-bottom: 20px;
 }
 
-.bill-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+table.dataTable {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.bill-buttons button {
-    margin-left: 5px;
+table.dataTable th, table.dataTable td {
+    border: 1px solid #9a9a9a;
+    padding: 10px;
+    text-align: center;
 }
 
-.card-header {
-    background-color: #343a40;
-    color: white;
+table.dataTable th {
+    background-color: #000000; /* เปลี่ยนสีพื้นหลังหัวตารางเป็นสีดำ */
+    color: #ffffff; /* เปลี่ยนตัวหนังสือหัวตารางเป็นสีขาว */
+    font-weight: bold;
 }
 
-.badge {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 10px;
+table.dataTable td {
+    background-color: #fff;
 }
 
-
-    .form-container {
-        display: flex;
-        flex-direction: column;
-    }
-    .form-group {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-    .form-group label {
-        width: 100px; /* ความกว้างของ label */
-        text-align: right; /* จัดข้อความชิดขวา */
-        margin-right: 10px; /* เว้นระยะห่างระหว่าง label และ input */
-    }
-    .swal2-input {
-        flex-grow: 1;
-    }
-
-    table.dataTable {
-        border-collapse: collapse; /* Ensure borders collapse properly */
-        width: 100%;
-    }
-    
-    table.dataTable th, table.dataTable td {
-        border: 1px solid #9a9a9a; /* Make borders visible */
-        padding: 10px; /* Add padding for better readability */
-        text-align: center; /* Center the text */
-    }
-    
-    table.dataTable th {
-        background-color: #f2f2f2; /* Light gray background for header */
-        font-weight: bold;
-    }
-    
-    table.dataTable td {
-        background-color: #fff; /* White background for rows */
-    }
-    
-    table.dataTable tr:nth-child(even) {
-        background-color: #f9f9f9; /* Light gray background for alternate rows */
-    }
+table.dataTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+}

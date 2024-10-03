@@ -79,30 +79,6 @@ class UserController extends Controller
         return redirect('login');
     }
 
-    // public function insertEmployee(Request $request){
-    //     $new_employee = new Customer;
-    //     $new_employee->first_name = $request->first_name;
-    //     $new_employee->last_name = $request->last_name;
-    //     $new_employee->email = $request->email;
-    //     $new_employee->password = Hash::make($request->password);
-    //     $new_employee->phonenum = $request->phonenum;
-    //     $new_employee->address = $request->address;
-    //     $new_employee->birthdate = $request->birthdate;
-    //     $new_employee->weight = $request->weight;
-    //     $new_employee->height = $request->height;
-    //     $new_employee->class = $request->class;
-    //     $new_employee->save();
-    //     return redirect('user.index');
-    // }
-
-    // public function showProfile(){
-    //     $customer_id = '9063a7d5-7340-11ef-9e5c-940853815102'; // customer id ที่ต้องการ
-    //     $customer = Customer::find($customer_id);
-    //     // ดึงข้อมูล course_bills ที่เชื่อมกับ courses และ course_days
-    //     $courseBills = $customer->Course_bills()->with('courses.days')->get();
-    //     return view('user.profile', compact('customer', 'courseBills'));
-    // }
-
     public function showProfile(){
         // ดึงข้อมูลผู้ใช้ที่ล็อกอินอยู่
         $customer = Auth::user(); // ดึงข้อมูลผู้ใช้ที่ล็อกอิน
@@ -112,14 +88,30 @@ class UserController extends Controller
             return redirect('login');  // ส่งไปหน้า login หากยังไม่ล็อกอิน
         }
 
-        // ดึงประวัติการจองทั้งหมดโดยใช้ bookingHistory
-        $bookings = $this->bookingHistory($customer->id); // ดึงประวัติการจองทั้งหมด
-        
+        // ดึงประวัติการจองเฉพาะที่มี payment_status เป็น 1 หรือ 2
+        $schedules = DB::table('enrolls')
+        ->join('courses', 'enrolls.course_id', '=', 'courses.id')
+        ->join('employees', 'courses.employee_id', '=', 'employees.id')
+        ->leftJoin('course_days', 'courses.id', '=', 'course_days.course_id')
+        ->leftJoin('days', 'course_days.day_id', '=', 'days.id')
+        ->select(
+            'enrolls.id',
+            'courses.course_name',
+            DB::raw('GROUP_CONCAT(DISTINCT days.name ORDER BY days.id ASC SEPARATOR ", ") as class_days'),
+            'courses.start_time',
+            'courses.end_time',
+            'enrolls.payment_status'
+        )
+        ->where('enrolls.customer_id', $customer->id)
+        ->whereIn('enrolls.payment_status', [1, 2]) // เงื่อนไขแสดงเฉพาะ payment_status = 1 หรือ 2
+        ->groupBy('enrolls.id', 'courses.course_name', 'courses.start_time', 'courses.end_time', 'enrolls.payment_status')
+        ->get();
+    
         // ดึงประวัติการจองล่าสุด (รายการแรกสุด)
-        $latestBooking = $bookings->first(); // ใช้ first() เพื่อดึงรายการล่าสุด
+        $latestBooking = $this->bookingHistory($customer->id)->first(); // ใช้ first() เพื่อดึงรายการล่าสุด
         
         // ส่งข้อมูลไปยัง view
-        return view('user.profile', compact('customer', 'latestBooking', 'bookings'));
+        return view('user.profile', compact('customer', 'latestBooking', 'schedules'));
     }
 
     public function editProfile(){
@@ -173,7 +165,6 @@ class UserController extends Controller
         ->join('employees', 'courses.employee_id', '=', 'employees.id')
         ->leftJoin('course_days', 'courses.id', '=', 'course_days.course_id')
         ->leftJoin('days', 'course_days.day_id', '=', 'days.id')
-        ->leftJoin('course_pics', 'courses.id', '=', 'course_pics.course_id')
         ->select(
             'enrolls.id',
             'courses.course_name',
@@ -182,18 +173,19 @@ class UserController extends Controller
             'courses.end_time',
             'courses.period',
             'courses.times',
-            'courses.course_status',
+            'courses.course_status as course',
             DB::raw('GROUP_CONCAT(DISTINCT days.name ORDER BY days.id ASC SEPARATOR ", ") as class_days'),
             'enrolls.start_day',
             'enrolls.end_day',
             'enrolls.payment_status',
+            'enrolls.course_status as your_course',
             'enrolls.totalprice as price',
-            'course_pics.picture as course_picture',
+            'courses.picture_path',
             // นับจำนวนการจองทั้งหมดในคอร์สเดียวกันโดยไม่ใช้ subquery
             DB::raw('COUNT(enrolls.customer_id) as total_booked') // นับจำนวนการจองในคอร์สเดียวกัน
         )
         ->where('enrolls.customer_id', $customer_id)
-        ->groupBy('enrolls.id', 'courses.id', 'employees.firstname', 'employees.lastname', 'courses.course_name', 'courses.start_time', 'courses.end_time', 'courses.period', 'courses.times', 'courses.course_status', 'enrolls.start_day', 'enrolls.end_day', 'enrolls.payment_status', 'enrolls.totalprice', 'course_pics.picture')
+        ->groupBy('enrolls.id', 'courses.id', 'employees.firstname', 'employees.lastname', 'courses.course_name', 'courses.start_time', 'courses.end_time', 'courses.period', 'courses.times', 'courses.course_status', 'enrolls.start_day', 'enrolls.end_day', 'enrolls.payment_status', 'enrolls.course_status', 'enrolls.totalprice', 'courses.picture_path')
         ->orderBy('enrolls.created_at', 'desc') // เรียงลำดับจากวันที่จองล่าสุดไปหาเก่าสุด
         ->get();
         
@@ -215,7 +207,7 @@ class UserController extends Controller
             DB::table('enrolls')
                 ->where('id', $id)
                 ->update([
-                    'course_status' => 3, // 3: รออนุมัติการยกเลิก
+                    'payment_status' => 2, // 2: รออนุมัติการยกเลิก
                     'updated_at' => now(),
                 ]);
     

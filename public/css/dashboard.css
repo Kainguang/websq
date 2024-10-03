@@ -16,7 +16,6 @@
     background-color: #f8f9fa;
 }
 
-
 /* Profile Section */
 .profile-section {
     display: flex;
@@ -202,7 +201,8 @@ table.dataTable th, table.dataTable td {
 }
 
 table.dataTable th {
-    background-color: #f2f2f2;
+    background-color: #000000; /* พื้นหลังสีดำ */
+    color: #ffffff; /* ตัวหนังสือสีขาว */
     font-weight: bold;
 }
 

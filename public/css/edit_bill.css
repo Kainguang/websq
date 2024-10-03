@@ -1,0 +1,124 @@
+
+/* Sidebar Styling */
+.sidebar {/* กำหนดความกว้าง Sidebar */
+    background-color: #343a40;
+    height: 200vh; /* Sidebar สูงเต็มหน้าจอ */
+    position: fixed; /* Sidebar อยู่กับที่ ไม่เลื่อน */
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    z-index: 1000; /* เพื่อให้ Sidebar อยู่เหนือ Main Content */
+}
+
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.profile-picture {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.profile-name ,.profile-link{
+    color: white;
+    margin-top: 5px;
+    text-decoration: none;
+}
+
+.nav-link {
+    color: white;
+    font-size: 18px;
+    padding: 10px 0;
+    text-align: center;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.nav-link:hover {
+    background-color: #495057;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link.active {
+    background-color: #6c757d;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+}
+.nav-link i {
+    margin-right: 8px;
+}
+.form-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap; /* ทำให้คอลัมน์ปรับตามขนาดหน้าจอ */
+    justify-content: space-between;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.form-group {
+    display: block;
+    flex-direction: column;
+    width: 48%; /* กำหนดให้แต่ละฟอร์มอยู่ในพื้นที่ 48% ของคอลัมน์ */
+    margin-bottom: 20px;
+    box-shadow: #000; 
+    
+}
+
+label {
+    font-weight: bold;
+    text-align: left;
+    display: block;
+    margin-bottom: 5px;
+    box-shadow: #000; 
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.form-container select {
+    width: 100%;
+    padding: 10px;
+}
+
+.form-container input[type="file"] {
+    padding: 5px;
+}
+.form-control {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    transition: box-shadow 0.3s ease; /* เพิ่ม transition เพื่อให้การเปลี่ยนแปลงเงาเป็นไปอย่างนุ่มนวล */
+}
+
+.section-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #0056b3;
+}
+
+.hr-divider {
+    border-top: 3px solid #333;
+    margin: 40px 0;
+}

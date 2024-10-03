@@ -25,22 +25,34 @@
                     <h1 class="bill-title">จัดการบิล</h1>
                 </div>
 
-                <!-- Approved Bills -->
-                <div>
-                    <h4>บิลที่อนุมัติแล้ว</h4>
-                    <table id="approvedBillTable" class="table table-striped table-bordered text-center">
+                <!-- Loop for different bill statuses -->
+                @php
+                    $sections = [
+                        'approvedBills' => 'บิลที่ยืนยันการชำระเงินแล้ว',
+                        'pendingBills' => 'บิลที่ยังไม่ยืนยันการชำระเงิน',
+                        'pendingCancelBills' => 'บิลที่รอยืนยันการยกเลิก',
+                        'cancelledBills' => 'บิลที่ยืนยันการยกเลิกแล้ว'
+                    ];
+                @endphp
+
+                @foreach($sections as $status => $title)
+                <div class="mt-5">
+                    <h4>{{ $title }}</h4>
+                    <table id="billTable_{{ $status }}" class="table table-striped table-bordered text-center">
                         <thead>
                             <tr>
                                 <th>ลำดับ</th>
                                 <th>ชื่อ</th>
                                 <th>คอร์ส</th>
                                 <th>สถานะคอร์ส</th>
-                                <th>สถานะการจ่ายเงิน</th> <!-- เพิ่มคอลัมน์สถานะการจ่ายเงิน -->
+                                <th>สถานะการจ่ายเงิน</th>
+                                <th>สลิปโอนเงิน</th>
+                                <th>แก้ไขล่าสุด</th>
                                 <th>การจัดการ</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($approvedBills as $bill)
+                            @foreach($$status as $bill) <!-- ใช้ $$ เพื่อดึงตัวแปรตามชื่อ -->
                             <tr>
                                 <td></td>
                                 <td>{{ $bill->firstname }} {{ $bill->lastname }}</td>
@@ -53,148 +65,126 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if($bill->payment_status == 1)
-                                        <span class="text-success">ยืนยันการชำระเงินแล้ว</span>
-                                    @else
+                                    @if($bill->payment_status == 0)
                                         <span class="text-warning">รอการยืนยันการชำระเงิน</span>
+                                    @elseif($bill->payment_status == 1)
+                                        <span class="text-success">ยืนยันการชำระเงินแล้ว</span>
+                                    @elseif($bill->payment_status == 2)
+                                        <span class="text-warning">รอยืนยันการยกเลิก</span>
+                                    @elseif($bill->payment_status == 3)
+                                        <span class="text-danger">ยืนยันการยกเลิกแล้ว</span>
                                     @endif
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-warning editButton">แก้ไข</button>
-                                    <button class="btn btn-danger deleteButton" onclick="confirmDeleteConfirmedBill('{{ $bill->id }}')">ลบ</button>
+                                    @if($bill->slip_picture)
+                                        <a href="javascript:void(0)" onclick="showSlip('{{ asset('storage/' . $bill->slip_picture) }}')">ดูสลิปโอนเงิน</a>
+                                    @else
+                                        <span class="text-danger">ไม่มีสลิป</span>
+                                    @endif
+                                </td>
+                                <td>{{ date('d/m/Y H:i:s', strtotime($bill->updated_at)) }}</td>
+                                <td>
+                                    <!-- เงื่อนไขการยืนยันหรือลบ -->
+                                    @if($bill->payment_status == 0)
+                                        <a href="{{ route('admin.approveBill', $bill->id) }}" class="btn btn-success">ยืนยัน</a>
+                                    @elseif($bill->payment_status == 1)
+                                    <a href="{{ route('admin.editBill', ['customer_id' => $bill->customer_id, 'course_id' => $bill->course_id]) }}" class="btn btn-warning">แก้ไข</a>
+                                    @elseif($bill->payment_status == 2)
+                                        <a href="{{ route('admin.approveCancel', $bill->id) }}" class="btn btn-warning">ยืนยันการยกเลิก</a>
+                                    @endif
+                                    <button class="btn btn-danger deleteButton" onclick="confirmDeleteBill('{{ $bill->id }}')">ลบ</button>
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
-
-                <!-- Pending Bills -->
-                <div class="mt-5">
-                    <h4>บิลที่ยังไม่อนุมัติ</h4>
-                    <table id="pendingBillTable" class="table table-striped table-bordered text-center">
-                        <thead>
-                            <tr>
-                                <th>ลำดับ</th>
-                                <th>ชื่อ</th>
-                                <th>คอร์ส</th>
-                                <th>สถานะคอร์ส</th>
-                                <th>สถานะการจ่ายเงิน</th> <!-- เพิ่มคอลัมน์สถานะการจ่ายเงิน -->
-                                <th>การจัดการ</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($pendingBills as $bill)
-                            <tr>
-                                <td>{{ $bill->id }}</td>
-                                <td>{{ $bill->firstname }} {{ $bill->lastname }}</td>
-                                <td>{{ $bill->course_name }}</td>
-                                <td>
-                                    @if($bill->course_status == 1)
-                                        <span class="text-success">กำลังดำเนินการ</span>
-                                    @else
-                                        <span class="text-danger">ถูกยกเลิก</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($bill->payment_status == 1)
-                                        <span class="text-success">ยืนยันการชำระเงินแล้ว</span>
-                                    @else
-                                        <span class="text-warning">รอการยืนยันการชำระเงิน</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    <a href="{{ route('admin.approveBill', $bill->id) }}" class="btn btn-success">ยืนยัน</a>
-                                    <button class="btn btn-danger deleteButton" onclick="confirmDeletePendingBill('{{ $bill->id }}')">ลบ</button>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-
+                @endforeach
             </main>
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="slipModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+       <div class="modal-dialog" role="document">
+         <div class="modal-content">
+           <div class="modal-header">
+             <h5 class="modal-title" id="exampleModalLabel">สลิปโอนเงิน</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+             </button>
+           </div>
+           <div class="modal-body">
+             <img id="slipImage" src="" alt="Slip" class="img-fluid">
+           </div>
+         </div>
+       </div>
+     </div>
+
     <!-- DataTable Initialization -->
     <script>
-        $(document).ready(function() {
-            // Initialize DataTable for approved bills
-            var tableApproved = $('#approvedBillTable').DataTable({
-                "columnDefs": [{
-                    "searchable": false,
-                    "orderable": true,
-                    "targets": 0,
-                }],
-                "order": [
-                    [1, 'asc']
-                ],
-                "paging": true,
-                "drawCallback": function(settings) {
-                    var api = this.api();
-                    var start = api.page.info().start;
-                    api.column(0, {page: 'current'}).nodes().each(function(cell, i) {
-                        cell.innerHTML = start + i + 1;
-                    });
-                }
-            });
+    $(document).ready(function() {
+        // สร้างตัวแปรสำหรับเก็บ IDs ของแต่ละตาราง
+        var tableIDs = [
+            'billTable_approvedBills',
+            'billTable_pendingBills',
+            'billTable_pendingCancelBills',
+            'billTable_cancelledBills'
+        ];
 
-            // Initialize DataTable for pending bills
-            var tablePending = $('#pendingBillTable').DataTable({
-                "columnDefs": [{
-                    "searchable": false,
-                    "orderable": true,
-                    "targets": 0,
-                }],
-                "order": [
-                    [0, 'asc']
-                ],
+        // วนลูปเพื่อสร้าง DataTable สำหรับแต่ละตาราง
+        tableIDs.forEach(function(tableID) {
+            $('#' + tableID).DataTable({
                 "paging": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "lengthMenu": [5, 10, 25],
+                "pageLength": 5,
+                "language": {
+                    "lengthMenu": "แสดง _MENU_ รายการต่อหน้า",
+                    "zeroRecords": "ไม่พบข้อมูล",
+                    "info": "แสดงหน้า _PAGE_ จาก _PAGES_",
+                    "infoEmpty": "ไม่มีข้อมูล",
+                    "infoFiltered": "(ค้นหาจากทั้งหมด _MAX_ รายการ)",
+                    "search": "ค้นหา: "
+                },
                 "drawCallback": function(settings) {
                     var api = this.api();
                     var start = api.page.info().start;
                     api.column(0, {page: 'current'}).nodes().each(function(cell, i) {
-                        cell.innerHTML = start + i + 1;
+                        cell.innerHTML = start + i + 1; // อัปเดตลำดับในคอลัมน์แรก
                     });
                 }
             });
         });
-        function confirmDeleteConfirmedBill(bill_id) {
-            Swal.fire({
-                title: 'คุณแน่ใจหรือไม่?',
-                text: "คุณต้องการลบใบเสร็จที่ยืนยันการชำระเงินแล้ว!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'ยืนยัน',
-                cancelButtonText: 'ยกเลิก'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // ส่งคำขอลบไปที่เซิร์ฟเวอร์
-                    window.location.href = '/admin/bill/delete/' + bill_id;
-                }
-            });
-        }
+    });
 
-        function confirmDeletePendingBill(bill_id) {
-            Swal.fire({
-                title: 'คุณต้องการลบใบเสร็จนี้หรือไม่?',
-                text: "บิลยังไม่ยืนยันการชำระเงิน คุณสามารถลบได้",
-                icon: 'info',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'ยืนยัน',
-                cancelButtonText: 'ยกเลิก'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // ส่งคำขอลบไปที่เซิร์ฟเวอร์
-                    window.location.href = '/admin/bill/delete/' + bill_id;
-                }
-            });
-        }
+    function showSlip(url) {
+        Swal.fire({
+            imageUrl: url,
+            imageAlt: 'สลิปโอนเงิน',
+            showCloseButton: true,
+            showConfirmButton: false
+        });
+    }
+
+    function confirmDeleteBill(bill_id) {
+        Swal.fire({
+            title: 'คุณแน่ใจหรือไม่?',
+            text: "คุณต้องการลบบิลนี้!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'ยืนยัน',
+            cancelButtonText: 'ยกเลิก'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '/admin/bill/delete/' + bill_id;
+            }
+        });
+    }
     </script>
 </body>
 

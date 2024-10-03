@@ -1,0 +1,232 @@
+/* Sidebar Styling */
+.sidebar {
+    background-color: #343a40;
+    height: 200vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    z-index: 1000;
+}
+
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.profile-picture {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.profile-name, .profile-link {
+    color: white;
+    margin-top: 5px;
+    text-decoration: none;
+}
+
+.nav-link {
+    color: white;
+    font-size: 18px;
+    padding: 10px 0;
+    text-align: center;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.nav-link:hover {
+    background-color: #495057;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link.active {
+    background-color: #6c757d;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+}
+
+.nav-link i {
+    margin-right: 8px;
+}
+
+/* Form styling in modal */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #343a40;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease-in-out;
+}
+
+input:focus, select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #343a40;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #495057;
+}
+
+/* Styling for Bill Details */
+/* Bill container styling */
+.bill-container {
+    border: 2px solid #000;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 800px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header styling */
+.bill-header {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Bill info item styling */
+.bill-info-item {
+    margin-bottom: 20px;
+}
+
+.bill-label {
+    font-weight: bold;
+    font-size: 18px;
+    color: #555;
+}
+
+.bill-value {
+    font-size: 18px;
+    color: #000;
+    margin-left: 10px;
+}
+
+/* Image styling */
+.slip-image img {
+    display: block;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 5px;
+    background-color: #fff;
+    max-width: 300px;
+}
+
+/* Text Centering */
+.text-center {
+    text-align: center;
+}
+
+/* Button styling */
+.bill-container {
+    border: 2px solid #000;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 800px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ส่วนหัว */
+.bill-header {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* รายละเอียดบิล */
+.bill-info-item {
+    margin-bottom: 15px;
+}
+
+.bill-label {
+    font-weight: bold;
+    font-size: 18px;
+    color: #555;
+}
+
+.bill-value {
+    font-size: 18px;
+    color: #000;
+    margin-left: 10px;
+}
+
+/* จัดรูปแบบภาพสลิป */
+.slip-image img {
+    display: block;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 5px;
+    background-color: #fff;
+    max-width: 300px;
+}
+
+/* ปุ่มกลับ */
+.back-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #5a6268;
+}
+button.back-button {
+    padding: 10px 15px;
+    background-color: #343a40;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+button.back-button:hover {
+    background-color: #495057;
+}

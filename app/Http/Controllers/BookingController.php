@@ -17,7 +17,6 @@ class BookingController extends Controller
         $course = DB::table('courses')
             ->join('employees', 'courses.employee_id', '=', 'employees.id')
             ->leftJoin('enrolls', 'courses.id', '=', 'enrolls.course_id') // เชื่อมกับตาราง enrolls
-            ->leftJoin('course_pics', 'courses.id', '=', 'course_pics.course_id') // เชื่อมกับตาราง course_pics
             ->leftJoin('course_days', 'courses.id', '=', 'course_days.course_id') // เชื่อมกับตาราง course_days
             ->leftJoin('days', 'course_days.day_id', '=', 'days.id') // เชื่อมกับตาราง days เพื่อดึงชื่อวัน
             ->select(
@@ -31,11 +30,11 @@ class BookingController extends Controller
                 'courses.max_participant',
                 DB::raw('CONCAT(employees.firstname, " ", employees.lastname) as instructor_name'),
                 DB::raw('COUNT(DISTINCT enrolls.customer_id) as total_booked'), // นับจำนวนผู้ที่จองจากตาราง enrolls
-                'course_pics.picture',
+                'courses.picture_path',
                 DB::raw('GROUP_CONCAT(DISTINCT days.name ORDER BY days.id ASC SEPARATOR ", ") as class_days') // รวมวันเรียนในรูปแบบ Group_concat
             )
             ->where('courses.id', $course_id)
-            ->groupBy('courses.id', 'courses.course_name', 'courses.course_sellprice', 'courses.start_time', 'courses.end_time', 'courses.times', 'courses.period', 'courses.max_participant', 'employees.firstname', 'employees.lastname', 'course_pics.picture')
+            ->groupBy('courses.id', 'courses.course_name', 'courses.course_sellprice', 'courses.start_time', 'courses.end_time', 'courses.times', 'courses.period', 'courses.max_participant', 'employees.firstname', 'employees.lastname', 'courses.picture_path')
             ->first();
     
         // ส่งข้อมูล $course ไปยัง view

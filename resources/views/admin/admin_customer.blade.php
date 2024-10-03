@@ -23,8 +23,8 @@
             <!-- Main Content -->
             <main class="col-md-10 ms-sm-auto px-md-4 py-4">
                 <h1 class="customer-title">ข้อมูลลูกค้า</h1>
-                <a href="{{ route('customer_create') }}" class="btn btn-dark addButton float-end">เพิ่มเทรนเนอร์</a>
-                <div>
+                <a href="{{ route('customer_create') }}" class="btn btn-dark addButton float-end">เพิ่ม</a>
+                <div>    
                     <table id="customerTable" class="table table-striped table-bordered text-center">
                         <thead>
                             <tr>
@@ -32,7 +32,7 @@
                                 <th>ชื่อ</th>
                                 <th>นามสกุล</th>
                                 <th>อีเมล</th>
-                                <th>เบอร์โทร</th>
+                                <th>เบอร์โทรศัพท์</th>
                                 <th>น้ำหนัก</th>
                                 <th>ส่วนสูง</th>
                                 <th>ที่อยู่</th>
@@ -69,16 +69,33 @@
         var table = $('#customerTable').DataTable({
             "columnDefs": [{
                 "searchable": false, // ไม่ต้องค้นหาที่คอลัมน์ลำดับ
-                "orderable": true, // เปิดใช้งานการเรียงลำดับที่คอลัมน์ลำดับ
-                "targets": 0, // คอลัมน์แรก (ลำดับ)
+                "orderable": true,   // เปิดใช้งานการเรียงลำดับที่คอลัมน์ลำดับ
+                "targets": 0         // คอลัมน์แรก (ลำดับ)
             }],
-            "order": [
-                [0, 'asc']
-            ], // เรียงลำดับตามชื่อ (คอลัมน์ที่ 2)
-            "paging": true, // เปิดใช้งานการแบ่งหน้า
+            "order": [[0, 'asc']],  // เรียงลำดับตามคอลัมน์ที่ 0 (ลำดับ)
+            "paging": true,         // เปิดใช้งานการแบ่งหน้า
+            "lengthMenu": [5, 10, 25], // จำนวนรายการที่แสดงต่อหน้า
+            "pageLength": 5,        // ค่าเริ่มต้นแสดง 5 รายการต่อหน้า
+            "language": {
+                "lengthMenu": "แสดง _MENU_ รายการต่อหน้า",
+                "zeroRecords": "ไม่พบข้อมูล",
+                "info": "แสดงหน้า _PAGE_ จาก _PAGES_",
+                "infoEmpty": "ไม่มีข้อมูล",
+                "infoFiltered": "(ค้นหาจากทั้งหมด _MAX_ รายการ)",
+                "search": "ค้นหา: ",
+                "paginate": {
+                    "first": "หน้าแรก",
+                    "last": "หน้าสุดท้าย",
+                    "next": "ถัดไป",
+                    "previous": "ก่อนหน้า"
+                }
+            },
             "drawCallback": function(settings) {
                 var api = this.api();
                 var start = api.page.info().start; // ดึงข้อมูลการเริ่มต้นของแต่ละหน้า
+                api.column(0, {page: 'current'}).nodes().each(function(cell, i) {
+                    cell.innerHTML = start + i + 1; // อัปเดตลำดับของแต่ละแถวในคอลัมน์แรก
+                });
             }
         });
     });

@@ -1,3 +1,4 @@
+/* Sidebar Styling */
 .sidebar {
     background-color: #343a40;
     height: 200vh;
@@ -45,48 +46,37 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
     border-radius: 5px;
 }
-
-.nav-link i {
-    margin-right: 8px;
-}
-.info-box {
-    background-color: #343a40;
-    color: white;
+/* Styling for course cards */
+.card-body {
     padding: 20px;
+}
+
+.card-title {
+    margin-bottom: 15px;
+}
+
+.card-text {
+    margin-bottom: 10px;
+}
+
+.img-fluid {
+    max-width: 80%;
+    justify-content: center;
     border-radius: 10px;
-    font-size: 1.5rem;
-    text-align: center;
-    margin-bottom: 20px;
 }
 
-
-/* Table Styling */
-table.dataTable, th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-    border-collapse: collapse;
+.text-success {
+    color: #28a745;
 }
 
-table.dataTable {
-    width: 100%;
-    margin-bottom: 1rem;
-    background-color: transparent;
+.text-danger {
+    color: #dc3545;
 }
-
-th {
-    color: #ffffff;
-    font-weight: bold;
+.thead{
+    background-color: #000;
+    color: #fff;
 }
-
-thead {
-    background-color: #000000;
-}
-
-td {
-    background-color: #fff;
-}
-
-table.dataTable tr:nth-child(even) {
-    background-color: #f9f9f9;
+thead tr{
+    background-color: #000;
+    color: #fff;
 }

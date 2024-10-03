@@ -26,6 +26,7 @@ class Customer extends Authenticatable
 
     public function courses(){
         return $this->belongsToMany(Course::class, 'enrolls', 'customer_id', 'course_id')
-                    ->withPivot('totalprice'); // กรณีมีคอลัมน์จำนวนเงินใน pivot
+                    ->withPivot('course_status', 'payment_status', 'slip_picture')
+                    ->withTimestamps();
     }
 }

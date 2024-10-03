@@ -8,7 +8,6 @@
     z-index: 1000; /* เพื่อให้ Sidebar อยู่เหนือ Main Content */
 }
 
-
 .profile-section {
     display: flex;
     flex-direction: column;
@@ -22,7 +21,7 @@
     border-radius: 50%;
 }
 
-.profile-name ,.profile-link{
+.profile-name, .profile-link {
     color: white;
     margin-top: 5px;
     text-decoration: none;
@@ -34,7 +33,6 @@
     padding: 10px 0;
     text-align: center;
     transition: background-color 0.3s, box-shadow 0.3s;
-
 }
 
 .nav-link:hover {
@@ -47,17 +45,17 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4); /* เพิ่มเงา */
     border-radius: 5px;
 }
+
 .nav-link i {
     margin-right: 8px;
 }
-
 
 /* Main Content Styling */
 .course-title {
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 1.5rem;
-    text-align: left; /* จัดให้อยู่ตรงกลางหน้าจอ */
+    text-align: left;
 }
 
 /* จัดเรียงกล่องข้อมูล */
@@ -79,9 +77,10 @@
     text-align: center;
     flex-grow: 1;
     flex-basis: 180%; /* ให้กล่องมีขนาดตามสัดส่วนพื้นที่ที่เหลือ */
-    max-width: 600px; /* กำหนดขนาดสูงสุดให้เหมาะสม */
+    max-width: 600px;
     box-sizing: border-box;
 }
+
 .chart-container {
     background-color: white;
     border: 1px solid #ced4da;
@@ -89,8 +88,6 @@
     padding: 20px;
     margin-bottom: 20px;
 }
-
-
 
 .search-container {
     display: flex;
@@ -120,7 +117,6 @@
     margin-bottom: 10px;
 }
 
-
 .card-header {
     background-color: #343a40;
     color: white;
@@ -136,46 +132,48 @@
 
 /* Table Borders */
 table.dataTable {
-    border-collapse: collapse; /* Ensure borders collapse properly */
+    border-collapse: collapse;
     width: 100%;
 }
 
 table.dataTable th, table.dataTable td {
-    border: 1px solid #9a9a9a; /* Make borders visible */
-    padding: 10px; /* Add padding for better readability */
-    text-align: center; /* Center the text */
+    border: 1px solid #9a9a9a;
+    padding: 10px;
+    text-align: center;
 }
 
+/* เปลี่ยนสีพื้นหลังของ thead */
 table.dataTable th {
-    background-color: #f2f2f2; /* Light gray background for header */
+    background-color: #000000; /* สีพื้นหลังดำ */
+    color: #ffffff; /* ตัวอักษรสีขาว */
     font-weight: bold;
 }
 
 table.dataTable td {
-    background-color: #fff; /* White background for rows */
+    background-color: #fff;
 }
 
 table.dataTable tr:nth-child(even) {
-    background-color: #f9f9f9; /* Light gray background for alternate rows */
+    background-color: #f9f9f9;
 }
 
 /* จัดสไตล์สำหรับฟอร์มในโมดอล */
 form {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* เพิ่มช่องว่างระหว่างแต่ละ input */
+    gap: 15px;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom: 15px; /* เพิ่มช่องว่างระหว่างกลุ่มฟอร์ม */
+    margin-bottom: 15px;
 }
 
 label {
     font-weight: bold;
-    margin-bottom: 5px; /* เพิ่มช่องว่างระหว่าง label และ input */
+    margin-bottom: 5px;
     color: #343a40;
 }
 

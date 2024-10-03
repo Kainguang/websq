@@ -23,7 +23,8 @@ class Course extends Model
 
     public function customers(){
         return $this->belongsToMany(Customer::class, 'enrolls', 'course_id', 'customer_id')
-                    ->withPivot('totalprice'); // กรณีมีคอลัมน์จำนวนเงินใน pivot
+                    ->withPivot('totalprice', 'course_status', 'payment_status', 'slip_picture') // กรณีมีคอลัมน์จำนวนเงินใน pivot
+                    ->withTimestamps();
     }
 
     public function facilities() {

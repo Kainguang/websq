@@ -23,40 +23,39 @@ class AppServiceProvider extends ServiceProvider
     {
         View::composer('layouts.nav', function ($view) {
             $courses = DB::table('courses')
-            ->join('course_pics', 'courses.id', '=', 'course_pics.course_id')
-            ->select('courses.course_name', DB::raw('MAX(course_pics.picture) as picture'))
+            ->select('courses.course_name', 'courses.picture_path')
             ->where(function($query) {
-                $query->where('courses.course_name', 'like', 'yoga%')
-                      ->orWhere('courses.course_name', 'like', 'dance%')
-                      ->orWhere('courses.course_name', 'like', 'muaythai%')
-                      ->orWhere('courses.course_name', 'like', 'zumba%');
+                $query->where('courses.course_name', 'like', 'โยคะ%')
+                    ->orWhere('courses.course_name', 'like', 'เต้น%')
+                    ->orWhere('courses.course_name', 'like', 'มวยไทย%')
+                    ->orWhere('courses.course_name', 'like', 'ซุมบา%');
             })
-            ->groupBy('courses.course_name') // จัดกลุ่มตามชื่อคอร์สเพื่อไม่ให้ซ้ำกัน
+            ->groupBy('courses.course_name', 'courses.picture_path') // เพิ่มการจัดกลุ่มที่ picture_path
             ->get();
-        
-            // กรองเฉพาะประเภทหลัก (ตัดเลขท้ายออกจากชื่อคอร์ส เช่น yoga1, dance2)
-            $filteredCourses = $courses->map(function ($course) {
-                if (strpos(strtolower($course->course_name), 'yoga') !== false) {
-                    $course->course_name = 'Yoga';
-                    $course->course_name_th = 'โยคะ';
-                    $course->order = 1;
-                } elseif (strpos(strtolower($course->course_name), 'dance') !== false) {
-                    $course->course_name = 'Dance';
-                    $course->course_name_th = 'เต้น';
-                    $course->order = 2;
-                } elseif (strpos(strtolower($course->course_name), 'muaythai') !== false) {
-                    $course->course_name = 'Muaythai';
-                    $course->course_name_th = 'มวยไทย';
-                    $course->order = 3;
-                } elseif (strpos(strtolower($course->course_name), 'zumba') !== false) {
-                    $course->course_name = 'Zumba';
-                    $course->course_name_th = 'ซุมบา';
-                    $course->order = 4;
-                }
-                return $course;
-            });
+    
+        // กรองเฉพาะประเภทหลัก
+        $filteredCourses = $courses->map(function ($course) {
+            if (strpos($course->course_name, 'โยคะ') !== false) {
+                $course->course_name = 'โยคะ';
+                $course->course_name_en = 'yoga';
+                $course->order = 1;
+            } elseif (strpos($course->course_name, 'เต้น') !== false) {
+                $course->course_name = 'เต้น';
+                $course->course_name_en = 'dance';
+                $course->order = 2;
+            } elseif (strpos($course->course_name, 'มวยไทย') !== false) {
+                $course->course_name = 'มวยไทย';
+                $course->course_name_en = 'muaythai';
+                $course->order = 3;
+            } elseif (strpos($course->course_name, 'ซุมบา') !== false) {
+                $course->course_name = 'ซุมบา';
+                $course->course_name_en = 'zumba';
+                $course->order = 4;
+            }
+            return $course;
+        });
             // เรียงลำดับตามค่า 'order' และใช้ unique เพื่อกรองไม่ให้แสดงซ้ำ
-            $view->with('filteredCourses', $filteredCourses->unique('course_name')->sortBy('order')->values());
+            $view->with('filteredCourses', $filteredCourses->unique('course_name_en')->sortBy('order')->values());
         });
     }
 }

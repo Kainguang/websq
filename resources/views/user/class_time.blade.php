@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Time</title>
+    <title>คลาส - ช่วงเวลา</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -15,12 +15,12 @@
 <body>
     <section id="morning" class="sectiondetail section-dark">
         <div class="container">
-            <h2 class="sectiondetail-title">Morning Power Sessions</h2>
+            <h2 class="sectiondetail-title">คลาสยามเช้า</h2>
             <div class="row">
                 @foreach($morningCourses as $course)
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="{{ $course->picture }}" class="card-img-top" alt="{{ $course->course_name }}">
+                            <img src="{{ asset('storage/' . $course->picture_path) }}" class="card-img-top" alt="{{ $course->course_name }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $course->course_name }}</h5>
                                 <!-- <p class="card-text">ฝึกสมาธิ และเสริมสร้างความยืดหยุ่นให้กับร่างกายผ่านการฝึกโยคะ</p> -->
@@ -31,8 +31,7 @@
                                     <li><strong>วันที่เรียน:</strong> {{ $course->class_days }}</li>
                                     <li><strong>เวลาเริ่ม-สิ้นสุด:</strong> {{ date('H:i', strtotime($course->start_time)) }} - {{ date('H:i', strtotime($course->end_time)) }} น.</li>
                                     <li><strong>ระยะเวลาคอร์ส:</strong> {{ $course->period }} สัปดาห์ (ฝึกสัปดาห์ละ {{ $course->times }} ครั้ง)</li>
-                                    <li><strong>จำนวนคนสูงสุดต่อคอร์ส:</strong> {{ $course->max_participant }} คน</li>
-                                    <li><strong style="color: green;">จองไปแล้ว: </strong>{{ $course->total_booked }} คน</li>
+                                    <li><strong style="color: green;">จองไปแล้ว: </strong>{{ $course->total_booked }} / {{ $course->max_participant }} คน</li>
                                 </ul>
                                 <button id="bookingButton-{{$course->id}}" class="btn btn-primary">จองคอร์ส</button>
                             </div>
@@ -71,13 +70,13 @@
     <hr>
 
     <section id="afternoon" class="sectiondetail section-dark">
-        <h2 class="sectiondetail-title">Afternoon Boosters</h2>
+        <h2 class="sectiondetail-title">คลาสยามบ่าย</h2>
         <div class="container">
             <div class="row">
             @foreach($afternoonCourses as $course)
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="{{ $course->picture }}" class="card-img-top" alt="{{ $course->course_name }}">
+                            <img src="{{ asset('storage/' . $course->picture_path) }}" class="card-img-top" alt="{{ $course->course_name }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $course->course_name }}</h5>
                                 <!-- <p class="card-text">ฝึกสมาธิ และเสริมสร้างความยืดหยุ่นให้กับร่างกายผ่านการฝึกโยคะ</p> -->
@@ -88,8 +87,7 @@
                                     <li><strong>วันที่เรียน:</strong> {{ $course->class_days }}</li>
                                     <li><strong>เวลาเริ่ม-สิ้นสุด:</strong> {{ date('H:i', strtotime($course->start_time)) }} - {{ date('H:i', strtotime($course->end_time)) }} น.</li>
                                     <li><strong>ระยะเวลาคอร์ส:</strong> {{ $course->period }} สัปดาห์ (ฝึกสัปดาห์ละ {{ $course->times }} ครั้ง)</li>
-                                    <li><strong>จำนวนคนสูงสุดต่อคอร์ส:</strong> {{ $course->max_participant }} คน</li>
-                                    <li><strong style="color: green;">จองไปแล้ว: </strong>{{ $course->total_booked }} คน</li>
+                                    <li><strong style="color: green;">จองไปแล้ว: </strong>{{ $course->total_booked }} / {{ $course->max_participant }} คน</li>
                                 </ul>
                                 <button id="bookingButton-{{$course->id}}" class="btn btn-primary">จองคอร์ส</button>
                             </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>แถบนำทาง</title>
     <link rel="stylesheet" href="{{asset('css/nav.css')}}">
 </head>
 <body>
@@ -26,7 +26,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         @foreach ($filteredCourses as $course)
-                            <li><a class="dropdown-item" href="{{ route(strtolower($course->course_name)) }}">คลาส{{ $course->course_name_th }}</a></li>
+                            <li><a class="dropdown-item" href="{{ route($course->course_name_en) }}">คลาส{{ $course->course_name }}</a></li>
                             <li><hr class="dropdown-divider"></li>
                         @endforeach
                         </ul>
@@ -61,7 +61,7 @@
                 <div class="d-flex align-items-center ms-3">
                 @if(Auth::guard('customer')->check())
                     <a href="{{ route('profile') }}">
-                        <img src="{{ Auth::guard('customer')->user()->profile_picture ? asset('storage/' . Auth::guard('customer')->user()->profile_picture) : asset('profile_picture/default-profile.jpg') }}" alt="User Profile Picture" class="rounded-circle ms-3" style="width: 40px; height: 40px;">
+                        <img src="{{ Auth::guard('customer')->user()->profile_picture ? asset('storage/' . Auth::guard('customer')->user()->profile_picture) : asset('storage/profile_pictures/default-profile.jpg') }}" alt="User Profile Picture" class="rounded-circle ms-3" style="width: 40px; height: 40px;">
                     </a>
                 @else
                     <a class="btn btn-primary ms-3" href="{{ route('show_login') }}" role="button">เข้าสู่ระบบ</a>

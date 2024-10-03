@@ -5,6 +5,7 @@ use App\Models\Customer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class Admin_CustomerController extends Controller
 {
@@ -58,44 +59,27 @@ class Admin_CustomerController extends Controller
         // บันทึกข้อมูลลูกค้าลงฐานข้อมูล
         $customer->save();
 
+                // ตรวจสอบการอัปโหลดไฟล์รูปภาพ
+        if ($request->hasFile('profile_picture')) {
+            // ลบรูปเก่าก่อนถ้ามี
+            if ($customer->profile_picture && Storage::exists('public/' . $customer->profile_picture)) {
+                Storage::delete('public/' . $customer->profile_picture);
+            }
+
+            // อัปโหลดรูปภาพใหม่
+            $file = $request->file('profile_picture');
+            $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $file->getClientOriginalExtension();
+            $filePath = $file->storeAs('customer_pictures', $fileName . '.' . $extension, 'public');
+
+            // บันทึกเส้นทางรูปภาพใหม่ในคอร์ส
+            $customer->profile_picture = $filePath;
+            $customer->save(); // บันทึกเส้นทางรูปภาพลงฐานข้อมูล
+        }
+
         // ส่งผลลัพธ์กลับหลังบันทึกเสร็จ
         return redirect('/admin/customer');
     }
-
-    // public function showAddCustomerForm()
-    // {
-    //     $customer = DB::table('customers')->get();
-    //     return view('admin.admin_addcustomer');
-    // }
-
-    // // ฟังก์ชันบันทึกข้อมูลผู้ใช้งาน
-    // public function storeCustomer(Request $request)
-    // {
-    //     // สร้างข้อมูลเทรนเนอร์ใหม่b
-    //     $new_customer = new Customer();
-    //     $new_customer->firstname = $request->firstname;
-    //     $new_customer->lastname = $request->lastname;
-    //     $new_customer->email = $request->email;
-    //     $new_customer->password = Hash::make($request->password); // เข้ารหัสรหัสผ่าน
-    //     $new_customer->phonenum = $request->phonenum;
-    //     $new_customer->address = $request->address;
-    //     $new_customer->birthdate = $request->birthdate;
-    //     $new_customer->weight = $request->weight;
-    //     $new_customer->height = $request->height;
-    //     $new_customer->gender = $request->gender;
-
-    //     // บันทึกรูปโปรไฟล์ (หากมีการอัพโหลด)
-    //     if ($request->hasFile('profile_picture')) {
-    //         $file = $request->file('profile_picture');
-    //         // $filename = $file->getClientOriginalName();
-    //         $filePath = $file->store('profile_pictures','public');
-    //         $new_customer->profile_picture = $filePath;
-    //     }
-    //     $new_customer->save(); // บันทึกข้อมูลลงในฐานข้อมูล
-
-    //     // กลับไปที่หน้ารายชื่อผู้ใช้งานพร้อมข้อความสำเร็จ
-    //     return redirect('admin/customer');
-    // }
 
     public function delete(Request $request){
         $customer = Customer::find($request->customer_id);

@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muay-Thai</title>
+    <title>คลาสมวยไทย</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -15,7 +15,7 @@
 <body>
     <section id="yoga" class="sectiondetail section-dark">
         <div class="container">
-            <h2 class="sectiondetail-title">Empower Your Strikes</h2>
+            <h2 class="sectiondetail-title">คลาสมวยไทย</h2>
             <div class="row">
             @foreach($muaythaiCourses as $course)
                 <div class="row mb-4">
@@ -23,7 +23,7 @@
                         <!-- คอลัมน์ด้านซ้าย: รูปภาพ -->
                         <div class="col-md-6">
                             <div class="card">
-                                <img src="{{ $course->picture }}" class="card-img-top" alt="{{ $course->course_name }}">
+                                <img src="{{ asset('storage/' . $course->picture_path) }}" class="card-img-top" alt="{{ $course->course_name }}">
                             </div>
                         </div>
                         <!-- คอลัมน์ด้านขวา: รายละเอียด -->
@@ -41,8 +41,7 @@
                                         {{ date('H:i', strtotime($course->end_time)) }} น.
                                     </li>
                                     <li><strong>ระยะเวลาคอร์ส:</strong> {{ $course->period }} สัปดาห์ (ฝึกสัปดาห์ละ {{ $course->times }} ครั้ง)</li>
-                                    <li><strong>จำนวนคนสูงสุดต่อคอร์ส:</strong> {{ $course->max_participant }} คน</li>
-                                    <li><strong style="color: green;">จองไปแล้ว: </strong>{{ $course->total_booked }} คน</li>
+                                    <li><strong style="color: green;">จองไปแล้ว: </strong>{{ $course->total_booked }} / {{ $course->max_participant }} คน</li>
                                 </ul>
                                 <button id="bookingButton-{{$course->id}}" class="btn btn-primary">จองคอร์ส</button>
                             </div>
@@ -63,8 +62,7 @@
                                         {{ date('H:i', strtotime($course->end_time)) }} น.
                                     </li>
                                     <li><strong>ระยะเวลาคอร์ส:</strong> {{ $course->period }} สัปดาห์ (ฝึกสัปดาห์ละ {{ $course->times }} ครั้ง)</li>
-                                    <li><strong>จำนวนคนสูงสุดต่อคอร์ส:</strong> {{ $course->max_participant }} คน</li>
-                                    <li><strong style="color: green;">จองไปแล้ว: </strong>{{ $course->total_booked }} คน</li>
+                                    <li><strong style="color: green;">จองไปแล้ว: </strong>{{ $course->total_booked }} / {{ $course->max_participant }} คน</li>
                                 </ul>
                                 <button id="bookingButton-{{$course->id}}" class="btn btn-primary">จองคอร์ส</button>
                             </div>
@@ -72,7 +70,7 @@
                         <!-- คอลัมน์ด้านขวา: รูปภาพ -->
                         <div class="col-md-6">
                             <div class="card">
-                                <img src="{{ $course->picture }}" class="card-img-top" alt="{{ $course->course_name }}">
+                                <img src="{{ asset('storage/' . $course->picture_path) }}" class="card-img-top" alt="{{ $course->course_name }}">
                             </div>
                         </div>
                     @endif
@@ -110,13 +108,13 @@
     <hr>
 
     <div class="container my-5">
-        <h2 class="text-center mb-4">Facilities for Muaythai Class</h2>
+        <h2 class="text-center mb-4">สิ่งอำนวยความสะดวก</h2>
         <div class="row">
             @foreach($facilities as $facility)
                 <div class="col-md-3 mb-4">
                     <div class="card h-100">
                         <div style="text-align: center; padding: 40px;">
-                            <img src="{{ $facility->picture }}" alt="{{ $facility->facility_name }}" style="width: 150px;">
+                            <img src="{{ asset('storage/' . $facility->picture_path) }}" alt="{{ $facility->facility_name }}" style="width: 150px;">
                         </div>
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title-amenities">{{ $facility->facility_name }}</h5>

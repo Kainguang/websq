@@ -28,18 +28,25 @@ class AdminController extends Controller
                 ->select('courses.course_name', DB::raw('COUNT(enrolls.customer_id) as student_count'))
                 ->groupBy('courses.course_name')
                 ->pluck('student_count', 'courses.course_name');
-
         
         // ดึงข้อมูลบิล
         $approvedBills = DB::table('enrolls')
             ->join('customers', 'enrolls.customer_id', '=', 'customers.id')
             ->join('courses', 'enrolls.course_id', '=', 'courses.id')
-            ->select('enrolls.id', 'customers.firstname', 'customers.lastname', 'courses.course_name', 'enrolls.payment_status', 'enrolls.course_status')
-            ->where('enrolls.payment_status', '=', 1) // เงื่อนไขที่แสดงบิลที่อนุมัติแล้ว
+            ->select('enrolls.id', 'customers.firstname', 'customers.lastname', 'courses.course_name', 'enrolls.payment_status', 'enrolls.course_status', 'enrolls.slip_picture', 'enrolls.updated_at')
+            ->where('enrolls.payment_status', '=', 1)
+            ->orderBy('enrolls.updated_at', 'desc')
             ->get();
 
+        $cancelledBills = DB::table('enrolls')
+            ->join('customers', 'enrolls.customer_id', '=', 'customers.id')
+            ->join('courses', 'enrolls.course_id', '=', 'courses.id')
+            ->select('enrolls.id', 'customers.firstname', 'customers.lastname', 'courses.course_name', 'enrolls.payment_status', 'enrolls.course_status', 'enrolls.slip_picture', 'enrolls.updated_at')
+            ->where('enrolls.payment_status', '=', 3)
+            ->orderBy('enrolls.updated_at', 'desc')
+            ->get();
 
-        return view('admin.admin_dashboard', compact('totalCourses', 'totalEmployees', 'totalRevenue', 'courseNames', 'studentsPerCourse', 'approvedBills'));
+        return view('admin.admin_dashboard', compact('totalCourses', 'totalEmployees', 'totalRevenue', 'courseNames', 'studentsPerCourse', 'approvedBills', 'cancelledBills'));
     }
 
 
@@ -94,30 +101,6 @@ class AdminController extends Controller
                 ->value('avg_revenue');
     }
 
-    public function getAllTrainersWithSchedule()
-    {
-        // ดึงข้อมูลเทรนเนอร์พร้อมกับตารางเวลา
-        $trainers = DB::table('employees')
-            ->join('courses', 'employees.id', '=', 'courses.employee_id')  // join ตาราง courses
-            ->join('course_days', 'courses.id', '=', 'course_days.course_id')  // join ตาราง course_days
-            ->join('days', 'course_days.day_id', '=', 'days.id')  // join ตาราง days
-            ->select(
-                'employees.id',
-                'employees.firstname',
-                'employees.lastname',
-                'employees.email',
-                'employees.phonenum as phone',
-                'courses.course_name as course',
-                'courses.start_time',
-                'courses.end_time',
-                'days.name as day_name'
-            )
-            ->orderBy('employees.id')
-            ->get();
-    
-        return $trainers;
-    }    
-    
     public function allTrainerchart()
     {
         // ดึงข้อมูลจากตาราง employees, courses และ course_course_bills

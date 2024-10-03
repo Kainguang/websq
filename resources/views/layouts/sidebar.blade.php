@@ -13,30 +13,30 @@
     <!-- Sidebar -->
     <nav class="col-md-2 sidebar">
                 <div class="profile-section">
-                    <img src="https://i.pinimg.com/564x/a7/00/79/a7007909daf4cbe86433b4072ffdc6d0.jpg"
-                        alt="Admin profile picture" class="profile-picture">
-                    <a href="/admin/profile" class="profile-link">
-                        <h3 class="profile-name">Adminja</h3>
-                    </a>
+                    @if (Auth::guard('employee')->check())
+                        <img src="{{ Auth::guard('employee')->user()->profile_picture ? asset('storage/' . Auth::guard('employee')->user()->profile_picture) : asset('profile_picture/default-profile.jpg') }}" alt="Admin profile picture" class="profile-picture">
+                        <h3 class="profile-name">{{ Auth::guard('employee')->user()->firstname }}</h3>
+                    @endif
                 </div>
                 <ul class="nav flex-column text-center">
+                    <!-- ตรวจสอบเส้นทางด้วย Request::is() -->
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/dashboard"><i class="fas fa-chart-line"></i>สรุปภาพรวม</a>
+                        <a class="nav-link {{ Request::is('admin/dashboard') ? 'active' : '' }}" href="/admin/dashboard"><i class="fas fa-chart-line"></i>สรุปภาพรวม</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="/admin/customer"><i class="bi bi-people-fill"></i>ผู้ใช้งาน</a>
+                        <a class="nav-link {{ Request::is('admin/customer') ? 'active' : '' }}" href="/admin/customer"><i class="bi bi-people-fill"></i>ผู้ใช้งาน</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/course"><i class="fas fa-book"></i>คอร์ส</a>
+                        <a class="nav-link {{ Request::is('admin/course') ? 'active' : '' }}" href="/admin/course"><i class="fas fa-book"></i>คอร์ส</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="/admin/facility"><i class="bi bi-speaker-fill"></i>สิ่งอำนวยความสะดวก</a>
+                        <a class="nav-link {{ Request::is('admin/facility') ? 'active' : '' }}" href="/admin/facility"><i class="bi bi-speaker-fill"></i>สิ่งอำนวยความสะดวก</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/bill"><i class="fas fa-file-invoice"></i>บิล</a>
+                        <a class="nav-link {{ Request::is('admin/bill') ? 'active' : '' }}" href="/admin/bill"><i class="fas fa-file-invoice"></i>บิล</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/trainer"><i class="fas fa-user-tie"></i>เทรนเนอร์</a>
+                        <a class="nav-link {{ Request::is('admin/trainer') ? 'active' : '' }}" href="/admin/trainer"><i class="fas fa-user-tie"></i>เทรนเนอร์</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/home" style="color: red;"><i class="fas fa-sign-out-alt"></i>ออกจากระบบ</a>

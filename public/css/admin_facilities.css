@@ -33,6 +33,7 @@
     background-color: #495057;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
+
 .profile-container {
     display: flex;
     align-items: center;
@@ -43,16 +44,15 @@
     margin-bottom: 20px;
 }
 
-
 /* DataTable */
 .table-container {
-    overflow-x: auto; /* ให้ตารางเลื่อนได้ในแนวนอนเมื่อเกินขอบ */
+    overflow-x: auto;
     margin: 20px 0;
 }
 
 table.dataTable {
-    width: 100%; /* กำหนดความกว้างตารางให้เต็มพื้นที่ */
-    table-layout: fixed; /* กำหนดตารางให้ขยายเต็มที่ */
+    width: 100%;
+    table-layout: fixed;
 }
 
 table.dataTable th, table.dataTable td {
@@ -61,8 +61,10 @@ table.dataTable th, table.dataTable td {
     text-align: center;
 }
 
+/* เปลี่ยนหัวตารางเป็นสีดำและตัวหนังสือสีขาว */
 table.dataTable th {
-    background-color: #f2f2f2;
+    background-color: #000000;
+    color: #ffffff;
     font-weight: bold;
 }
 

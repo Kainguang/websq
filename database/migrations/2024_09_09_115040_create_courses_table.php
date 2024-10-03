@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->string('course_name');
+            $table->string('course_name_th');
             $table->float('course_cost');
             $table->float('course_sellprice');
             $table->string('course_status',1);
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->integer('times');
             $table->integer('max_participant');
             $table->string('description');
+            $table->string('picture_path')->nullable();
             $table->foreignId('employee_id')->constrained('employees');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();

@@ -21,4 +21,9 @@ class AuthenticateAdmin
 
         return redirect('/admin/login'); // Redirect ไปหน้า login สำหรับ admin ถ้าไม่ได้ล็อกอิน
     }
+    protected function redirectTo($request){
+        if (! $request->expectsJson()) {
+            return route('login'); // หรือกำหนดเส้นทางที่ต้องการให้ผู้ใช้ที่ยังไม่ได้ล็อกอินไป
+        }
+    }
 }

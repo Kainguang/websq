@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\AuthenticateCustomer;
+use App\Http\Middleware\AuthenticateEmployee;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
@@ -26,21 +28,7 @@ Route::get('/', function () {
 //     })->name('dashboard');
 // });
 
-// เส้นทางสำหรับ Customer
-Route::middleware(['authenticateCustomer'])->group(function () {
-    Route::get('/customer/dashboard', function () {
-        return view('customer.dashboard');
-    });
-});
-
-// เส้นทางสำหรับ Admin (Employee with role_id = 2)
-Route::middleware(['auth:employee', 'checkAdminRole'])->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return view('admin.dashboard');
-    });
-});
-
-Route::middleware(['auth:customer'])->group(function () {
+Route::middleware([AuthenticateCustomer::class])->group(function () {
     //user
     Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
     Route::get('/profile/edit/{id}', [UserController::class, 'editProfile'])->name('profile_edit');
@@ -53,11 +41,9 @@ Route::middleware(['auth:customer'])->group(function () {
     Route::get('/payment', [BookingController::class, 'showPayment'])->name('payment');
     Route::post('/store-booking', [BookingController::class, 'storeBooking'])->name('booking.store');
     Route::get('/clearsession', [BookingController::class, 'clearSession'])->name('clearsession');
-
-
 });
 
-Route::middleware('auth:employee')->group(function () {
+Route::middleware([AuthenticateEmployee::class])->group(function () {
     // Admin Dashboard Data
     Route::get('/admin/dashboard', [AdminController::class, 'showDashboard'])->name('admin.dashboard');
     Route::get('/admin/bill/approve/{id}', [AdminController::class, 'approveBill'])->name('admin.approveBill');
@@ -96,8 +82,15 @@ Route::middleware('auth:employee')->group(function () {
     Route::get('/admin/customer/delete', [Admin_CustomerController::class, 'delete'])->name('customer.delete');
 
     // Admin bill
+    Route::get('/admin/bill/details/{id}', [Admin_BillController::class, 'showBillDetails'])->name('admin.billDetails');
     Route::get('/admin/bill/delete/{id}', [Admin_BillController::class, 'delete'])->name('admin.bill.delete');
     Route::get('/admin/approve-bill/{id}', [Admin_BillController::class, 'approveBill'])->name('admin.approveBill');
+    Route::get('/admin/approve-cancel/{id}', [Admin_BillController::class, 'approveCancel'])->name('admin.approveCancel');
+    // Route สำหรับแสดงฟอร์มแก้ไขบิล
+    Route::get('/admin/bill/edit/{customer_id}/{course_id}', [Admin_BillController::class, 'edit'])->name('admin.editBill');
+
+    // Route สำหรับบันทึกการแก้ไขบิล
+    Route::post('/admin/bill/update/{customer_id}/{course_id}', [Admin_BillController::class, 'update'])->name('admin.updateBill');
 
 
     // Admin fac
@@ -116,7 +109,7 @@ Route::get('/home', [CourseController::class, 'showClass'])->name('index');
 Route::get('/register', [UserController::class, 'showRegister'])->name('show_register');
 Route::post('/register_success', [UserController::class, 'register'])->name('register');
 Route::get('/login', [UserController::class, 'showLogin'])->name('show_login');
-Route::post('/login_seccess', [UserController::class, 'login'])->name('login');
+Route::post('/login_success', [UserController::class, 'login'])->name('login');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 
@@ -127,28 +120,4 @@ Route::get('/muaythai', [CourseController::class, 'showMuaythai'])->name('muayth
 Route::get('/zumba', [CourseController::class, 'showZumba'])->name('zumba');
 Route::get('/course_time', [CourseController::class, 'showCoursesTime'])->name('course_time');
 Route::get('/course_gender', [CourseController::class, 'showCoursesGender'])->name('course_gender');
-
-// Route::get('/edit-profile', function () {
-//     return view('user.edit-profile');
-// })->name('edit-profile');
-// Route::get('/profile', function () {
-//     return view('user.profile');
-// })->name('profile');
-
-
-// Route::get('/history-booking', function () {
-//     return view('user.history-booking');
-// })->name('history-booking');
-
-// Route::get('/login', function () {
-//     return view('user.login');
-// })->name('login');
-
-// Route::get('/register', function () {
-//     return view('user.register');
-// })->name('register');
-
-Route::get('/trainer_apply', function () {
-    return view('user.trainer_apply');
-})->name('trainer_apply');
 

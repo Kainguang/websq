@@ -109,43 +109,40 @@
                     </tbody>
                 </table>
 
-                <?php $shownTrainers = []; ?> <!-- กำหนดค่าเริ่มต้นให้ตัวแปร -->
                 <section class="trainer-list">
                     <h5>รายชื่อเทรนเนอร์ทั้งหมด</h5>
-                    <a href="{{ route('trainer_create') }}" class="btn btn-dark addButton float-end">เพิ่มเทรนเนอร์</a>
-                    <table id="trainerListTable" class="table table-bordered display">
-                        <thead class="color">
-                            <tr>
-                                <th >ลำดับ</th>
-                                <th>ชื่อ</th>
-                                <th>นามสกุล</th>
-                                <th>อีเมล</th>
-                                <th>เบอร์โทรศัพท์</th>
-                                <th>คอร์สที่สอน</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($trainers as $trainer)
-                                @if (!in_array($trainer->firstname . ' ' . $trainer->lastname, $shownTrainers)) 
+                    <a href="{{ route('trainer_create') }}" class="btn btn-dark addButton float-end">เพิ่ม</a>
+                    <div>    
+                        <table id="trainerTable" class="table table-striped table-bordered text-center">
+                            <thead class="color">
+                                <tr>
+                                    <th >ลำดับ</th>
+                                    <th>ชื่อ</th>
+                                    <th>นามสกุล</th>
+                                    <th>อีเมล</th>
+                                    <th>เบอร์โทรศัพท์</th>
+
+                                    <th>การจัดการ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($alltrainers as $trainer)
                                     <tr>
                                         <td>{{ $trainer->id }}</td>
                                         <td>{{ $trainer->firstname }}</td>
                                         <td>{{ $trainer->lastname }}</td>
                                         <td>{{ $trainer->email }}</td>
-                                        <td>{{ $trainer->phone }}</td>
-                                        <td>{{ $trainer->course }}</td>
+                                        <td>{{ $trainer->phonenum }}</td>
+
                                         <td>
                                             <a href="{{ route('trainer_edit', $trainer->id) }}" class="btn btn-warning">แก้ไข</a>
                                             <button class="btn btn-danger deleteButton" onclick="confirmDelete('{{ $trainer->id }}')">ลบ</button>
                                         </td>
                                     </tr>
-                                    <!-- เพิ่มชื่อเทรนเนอร์ในตัวแปรเพื่อป้องกันการแสดงซ้ำ -->
-                                    <?php $shownTrainers[] = $trainer->firstname . ' ' . $trainer->lastname; ?>
-                                @endif
-                            @endforeach
-                        </tbody>
-                    </table>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </section>
             </main>
         </div>
@@ -153,8 +150,8 @@
 
     <!-- JavaScript for Chart.js -->
     <script>
-    const trainerNames = @json($alltrainerchart->pluck('Trainer'));
-    const studentCounts = @json($alltrainerchart->pluck('Total_Students'));
+    const trainerNames = @json($alltrainerchart->pluck("Trainer"));
+    const studentCounts = @json($alltrainerchart->pluck("Total_Students"));
 
     const ctx = document.getElementById('alltrainerChart').getContext('2d');
     const trainerChart = new Chart(ctx, {
@@ -182,23 +179,39 @@
     <!-- DataTable Script -->
     <script>
         $(document).ready(function() {
-        $('#trainerListTable').DataTable({
-            paging: true,
-            searching: true,
-            ordering: true,
-            info: true,
-            lengthMenu: [5, 10, 25],
-            pageLength: 5,
-            language: {
-                lengthMenu: "แสดง _MENU_ รายการต่อหน้า",
-                zeroRecords: "ไม่พบข้อมูล",
-                info: "แสดงหน้า _PAGE_ จาก _PAGES_",
-                infoEmpty: "ไม่มีข้อมูล",
-                infoFiltered: "(ค้นหาจากทั้งหมด _MAX_ รายการ)",
-                search: "ค้นหา: "
-            }
+            var table = $('#trainerTable').DataTable({
+                "columnDefs": [{
+                    "searchable": false, // ไม่ต้องค้นหาที่คอลัมน์ลำดับ
+                    "orderable": true,   // เปิดใช้งานการเรียงลำดับที่คอลัมน์ลำดับ
+                    "targets": 0         // คอลัมน์แรก (ลำดับ)
+                }],
+                "order": [[0, 'asc']],  // เรียงลำดับตามคอลัมน์ที่ 0 (ลำดับ)
+                "paging": true,         // เปิดใช้งานการแบ่งหน้า
+                "lengthMenu": [5, 10, 25], // จำนวนรายการที่แสดงต่อหน้า
+                "pageLength": 5,        // ค่าเริ่มต้นแสดง 5 รายการต่อหน้า
+                "language": {
+                    "lengthMenu": "แสดง _MENU_ รายการต่อหน้า",
+                    "zeroRecords": "ไม่พบข้อมูล",
+                    "info": "แสดงหน้า _PAGE_ จาก _PAGES_",
+                    "infoEmpty": "ไม่มีข้อมูล",
+                    "infoFiltered": "(ค้นหาจากทั้งหมด _MAX_ รายการ)",
+                    "search": "ค้นหา: ",
+                    "paginate": {
+                        "first": "หน้าแรก",
+                        "last": "หน้าสุดท้าย",
+                        "next": "ถัดไป",
+                        "previous": "ก่อนหน้า"
+                    }
+                },
+                "drawCallback": function(settings) {
+                    var api = this.api();
+                    var start = api.page.info().start; // ดึงข้อมูลการเริ่มต้นของแต่ละหน้า
+                    api.column(0, {page: 'current'}).nodes().each(function(cell, i) {
+                        cell.innerHTML = start + i + 1; // อัปเดตลำดับของแต่ละแถวในคอลัมน์แรก
+                    });
+                }
+            });
         });
-    });
 
     // ฟังก์ชันสำหรับปุ่มลบพร้อม SweetAlert2
     function confirmDelete(trainer_id) {

@@ -6,8 +6,7 @@
     /* hr effect */
 }
 
-.navbar-brand,
-.nav-link {
+.navbar-brand, .nav-link {
     color: #000 !important;
 }
 
@@ -64,5 +63,3 @@
     margin: 0 15px; /* เพิ่มระยะห่างระหว่างเมนูแต่ละรายการ */
     justify-content: center;
 }
-
-

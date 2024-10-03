@@ -48,7 +48,7 @@
                 <!-- Search and Course Section -->
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4>คอร์สทั้งหมด</h4>
-                    <a href="{{ route('courses_create') }}" class="btn btn-dark addButton float-end">เพิ่มคอร์ส</a>
+                    <a href="{{ route('courses_create') }}" class="btn btn-dark addButton float-end">เพิ่ม</a>
                 </div>
 
                 <table id="coursesTable" class="display table table-striped">
@@ -57,6 +57,7 @@
                             <th>ลำดับ</th>
                             <th>ชื่อคอร์ส</th>
                             <th>จำนวนคนสมัคร</th>
+                            <th>สถานะคอร์ส</th>
                             <th>การจัดการ</th>
                         </tr>
                     </thead>
@@ -66,6 +67,13 @@
                             <td>{{ $course->id }}</td>
                             <td>{{ $course->course_name }}</td>
                             <td>{{ $course->total_booked }}</td>
+                            <td>
+                                @if($course->course_status == 1)
+                                    <span class="text-success">เปิดอยู่</span>
+                                @else
+                                    <span class="text-danger">ถูกปิดแล้ว</span>
+                                @endif
+                            </td>
                             <td>
                                 <a href="{{ route('admin.course.details', $course->id) }}" class="btn btn-primary">ดูรายละเอียด</a>
                                 <a href="{{ route('courses_edit', $course->id) }}" class="btn btn-warning">แก้ไข</a>
@@ -80,97 +88,40 @@
     </div>
 
     <script>
-        $(document).ready(function() {
-        // ดึงรายชื่อผู้จองเมื่อกดปุ่มดูรายชื่อผู้จอง
-        $('.viewParticipantsButton').on('click', function() {
-            const courseId = $(this).data('id');
-            
-            // ส่งคำขอ AJAX เพื่อดึงรายชื่อผู้จอง
-            $.ajax({
-                url: '/admin/course/' + courseId + '/participants',
-                type: 'GET',
-                success: function(data) {
-                    // ล้างรายชื่อเก่าออกก่อน
-                    $('#participantsList').empty();
-                    
-                    // เพิ่มรายชื่อใหม่เข้าไปใน modal
-                    data.forEach(participant => {
-                        $('#participantsList').append('<li class="list-group-item">' + participant.firstname + ' ' + participant.lastname + '</li>');
-                    });
-
-                    // แสดง modal
-                    $('#participantsModal').modal('show');
-                },
-                error: function() {
-                    alert('ไม่สามารถดึงข้อมูลได้');
+    $(document).ready(function() {
+        var table = $('#coursesTable').DataTable({
+            "columnDefs": [{
+                "searchable": false, // ไม่ต้องค้นหาที่คอลัมน์ลำดับ
+                "orderable": true,   // เปิดใช้งานการเรียงลำดับที่คอลัมน์ลำดับ
+                "targets": 0         // คอลัมน์แรก (ลำดับ)
+            }],
+            "order": [[0, 'asc']],  // เรียงลำดับตามคอลัมน์ที่ 0 (ลำดับ)
+            "paging": true,         // เปิดใช้งานการแบ่งหน้า
+            "lengthMenu": [5, 10, 25], // จำนวนรายการที่แสดงต่อหน้า
+            "pageLength": 5,        // ค่าเริ่มต้นแสดง 5 รายการต่อหน้า
+            "language": {
+                "lengthMenu": "แสดง _MENU_ รายการต่อหน้า",
+                "zeroRecords": "ไม่พบข้อมูล",
+                "info": "แสดงหน้า _PAGE_ จาก _PAGES_",
+                "infoEmpty": "ไม่มีข้อมูล",
+                "infoFiltered": "(ค้นหาจากทั้งหมด _MAX_ รายการ)",
+                "search": "ค้นหา: ",
+                "paginate": {
+                    "first": "หน้าแรก",
+                    "last": "หน้าสุดท้าย",
+                    "next": "ถัดไป",
+                    "previous": "ก่อนหน้า"
                 }
-            });
+            },
+            "drawCallback": function(settings) {
+                var api = this.api();
+                var start = api.page.info().start; // ดึงข้อมูลการเริ่มต้นของแต่ละหน้า
+                api.column(0, {page: 'current'}).nodes().each(function(cell, i) {
+                    cell.innerHTML = start + i + 1; // อัปเดตลำดับของแต่ละแถวในคอลัมน์แรก
+                });
+            }
         });
     });
-        $(document).ready(function() {
-            $('#coursesTable').DataTable({
-                "paging": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "lengthMenu": [5, 10, 25, 50],
-                "pageLength": 5,
-                "language": {
-                    "lengthMenu": "แสดง _MENU_ รายการต่อหน้า",
-                    "zeroRecords": "ไม่พบข้อมูล",
-                    "info": "แสดงหน้า _PAGE_ จาก _PAGES_",
-                    "infoEmpty": "ไม่มีข้อมูล",
-                    "infoFiltered": "(ค้นหาจากทั้งหมด _MAX_ รายการ)",
-                    "paginate": {
-                        "first": "หน้าแรก",
-                        "last": "หน้าสุดท้าย",
-                        "next": "ถัดไป",
-                        "previous": "ก่อนหน้า"
-                    },
-                    "search": "ค้นหา : "
-                }
-            });
-        });
-
-        // ฟังก์ชันแก้ไขคอร์ส
-        $('.editButton').on('click', function() {
-            const courseId = $(this).data('id');
-            Swal.fire({
-                title: 'แก้ไขข้อมูลคอร์ส',
-                input: 'text',
-                inputLabel: 'ชื่อคอร์สใหม่',
-                inputValue: '',
-                showCancelButton: true,
-                confirmButtonText: 'บันทึก',
-                cancelButtonText: 'ยกเลิก',
-                preConfirm: (newCourseName) => {
-                    $.ajax({
-                        url: '/admin/course/' + courseId + '/edit',
-                        type: 'POST',
-                        data: {
-                            _token: '{{ csrf_token() }}',
-                            course_name: newCourseName
-                        },
-                        success: function(response) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'แก้ไขเรียบร้อย!',
-                                text: response.success
-                            }).then(() => {
-                                location.reload(); // รีเฟรชหน้าเว็บเพื่ออัปเดตข้อมูล
-                            });
-                        },
-                        error: function(response) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'ผิดพลาด!',
-                                text: response.error
-                            });
-                        }
-                    });
-                }
-            });
-        });
 
     // ฟังก์ชันสำหรับปุ่มลบพร้อม SweetAlert2
     function confirmDelete(course_id) {

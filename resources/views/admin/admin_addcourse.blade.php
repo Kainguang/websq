@@ -15,13 +15,13 @@
 <body>
 <div class="container mt-5">
     <h1>{{ isset($course) ? 'แก้ไขคอร์ส' : 'เพิ่มคอร์สใหม่' }}</h1>
-    <form action="{{ isset($course) ? route('course_update', $course->id) : route('course_create') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ isset($course) ? route('courses_update', $course->id) : route('courses_store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <!-- ชื่อคอร์ส -->
             <div class="form-group col-md-6">
                 <label for="course_name">ชื่อคอร์ส:</label>
-                <input type="text" id="course_name" name="course_name" class="form-control" value="{{ isset($course) ? $course->course_name : '' }}" required>
+                <input type="text" id="course_name" name="course_name" class="form-control" value="{{ isset($course) ? $course->course_name : '' }}" placeholder="กรุณาใส่ชื่อคอร์ส" required>
             </div>
 
             <!-- เวลาที่คอร์สเริ่ม -->
@@ -39,32 +39,32 @@
             <!-- ราคาต้นทุน -->
             <div class="form-group col-md-6">
                 <label for="course_cost">ราคาต้นทุน:</label>
-                <input type="number" id="course_cost" name="course_cost" class="form-control" value="{{ isset($course) ? $course->course_cost : '' }}" required>
+                <input type="number" id="course_cost" name="course_cost" class="form-control" value="{{ isset($course) ? $course->course_cost : '' }}" placeholder="กรุณาใส่ราคาต้นทุน" required>
             </div>
 
             <!-- ราคาขาย -->
             <div class="form-group col-md-6">
                 <label for="course_sellprice">ราคาขาย:</label>
-                <input type="number" id="course_sellprice" name="course_sellprice" class="form-control" value="{{ isset($course) ? $course->course_sellprice : '' }}" required>
+                <input type="number" id="course_sellprice" name="course_sellprice" class="form-control" value="{{ isset($course) ? $course->course_sellprice : '' }}" placeholder="กรุณาใส่ราคาขาย" required>
             </div>
 
             <!-- เรียนกี่สัปดาห์ -->
             <div class="form-group col-md-6">
-                <label for="period">เรียนกี่สัปดาห์:</label>
-                <input type="number" id="period" name="period" class="form-control" value="{{ isset($course) ? $course->period : '' }}" required>
+                <label for="period">ระยะเวลาของคอร์ส (สัปดาห์):</label>
+                <input type="number" id="period" name="period" class="form-control" value="{{ isset($course) ? $course->period : '' }}" placeholder="กรุณาใส่ระยะเวลาของคอร์ส" required>
             </div>
 
             <!-- จำนวนครั้งที่เรียน -->
             <div class="form-group col-md-6">
-                <label for="times">จำนวนครั้งที่เรียน:</label>
-                <input type="number" id="times" name="times" class="form-control" value="{{ isset($course) ? $course->times : '' }}" required>
+                <label for="times">จำนวนครั้งที่เรียน (ต่อสัปดาห์):</label>
+                <input type="number" id="times" name="times" class="form-control" value="{{ isset($course) ? $course->times : '' }}" placeholder="กรุณาใส่จำนวนครั้งที่เรียน" required>
             </div>
 
             <!-- เทรนเนอร์ที่สอน -->
             <div class="form-group col-md-6">
-                <label for="employee_id">เทรนเนอร์ที่สอน:</label>
+                <label for="employee_id">เทรนเนอร์:</label>
                 <select id="employee_id" name="employee_id" class="form-control" required>
-                    <option value="">เลือกเทรนเนอร์ที่สอน</option>
+                    <option value=null>กรุณาเลือกเทรนเนอร์</option>
                     @foreach ($employees as $employee)
                         <option value="{{ $employee->id }}" {{ isset($course) && $course->employee_id == $employee->id ? 'selected' : '' }}>
                             {{ $employee->id }} - {{ $employee->firstname }} {{ $employee->lastname }}
@@ -75,35 +75,24 @@
 
             <!-- จำนวนคนสูงสุดต่อคอร์ส -->
             <div class="form-group col-md-6">
-                <label for="max_participant">จำนวนคนสูงสุดต่อคอร์ส:</label>
-                <input type="number" id="max_participant" name="max_participant" class="form-control" value="{{ isset($course) ? $course->max_participant : '' }}" required>
+                <label for="max_participant">จำนวนคนสูงสุด:</label>
+                <input type="number" id="max_participant" name="max_participant" class="form-control" value="{{ isset($course) ? $course->max_participant : '' }}" placeholder="กรุณาใส่จำนวนคนสูงสุด" required>
             </div>
 
             <!-- คำอธิบาย -->
             <div class="form-group col-12">
                 <label for="description">คำอธิบาย:</label>
-                <textarea id="description" name="description" class="form-control" rows="3" required>{{ isset($course) ? $course->description : '' }}</textarea>
+                <textarea id="description" name="description" class="form-control" placeholder="กรุณาใส่คำอธิบาย" rows="3" required>{{ isset($course) ? $course->description : '' }} </textarea>
             </div>
 
             <!-- รูปภาพคอร์ส -->
-            <div class="form-group col-md-12">
-                <label for="course_pics">รูปภาพคอร์ส:</label>
-                <input type="file" id="course_pics" name="course_pics[]" class="form-control" multiple>
+            <div class="form-group col-md-12 mt-3">
+                <label for="course_pics" class="form-label">อัปโหลดรูปโปรไฟล์</label>
+                <input type="file" class="form-control" id="course_pics" name="picture_path" accept="image/*">
+                @if(isset($course) && $course->picture_path)
+                    <img src="{{ asset('storage/' . $course->picture_path) }}" alt="course Picture" style="width: 100px; height: 100px;" class="mt-3">
+                @endif
             </div>
-
-            <!-- แสดงรูปภาพปัจจุบันของคอร์ส -->
-            @if(isset($course) && $course->pictures)
-                <div class="form-group col-md-12 mt-3">
-                    <label>รูปภาพปัจจุบัน:</label>
-                    <div class="row">
-                        @foreach($course->pictures as $pic)
-                            <div class="col-md-3 mb-3">
-                                <img src="{{ asset('storage/' . $pic->picture_path) }}" class="img-fluid img-thumbnail" alt="Course Image">
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            @endif
 
             <!-- เลือกวัน -->
             <div class="form-group col-12">
@@ -123,14 +112,14 @@
             <div class="form-group col-md-6">
                 <label for="course_status">สถานะคอร์ส:</label>
                 <select id="course_status" name="course_status" class="form-control">
-                    <option value="1" {{ isset($course) && $course->course_status == '1' ? 'selected' : '' }}>เปิด</option>
-                    <option value="0" {{ isset($course) && $course->course_status == '0' ? 'selected' : '' }}>ปิด</option>
+                    <option value="1" {{ isset($course) && $course->course_status == '1' ? 'selected' : '' }}>เปิดอยู่</option>
+                    <option value="0" {{ isset($course) && $course->course_status == '0' ? 'selected' : '' }}>ถูกปิดแล้ว</option>
                 </select>
             </div>
 
             <!-- ปุ่มบันทึก -->
             <div class="col-12 mt-4">
-                <button type="submit" class="btn btn-primary">{{ isset($course) ? 'บันทึกการแก้ไข' : 'เพิ่มคอร์ส' }}</button>
+                <button type="submit" class="btn btn-primary">{{ isset($course) ? 'บันทึก' : 'เพิ่ม' }}</button>
                 <a href="/admin/course" class="btn btn-secondary">กลับ</a>
             </div>
         </div>

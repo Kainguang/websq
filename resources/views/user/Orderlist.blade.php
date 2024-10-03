@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart - Nike</title>
+    <title>การจองคลาส</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/Oderlist.css">
@@ -18,7 +18,7 @@
             <h2 class="mb-4">คลาส {{ $course->course_name }}</h2>
             <div class="row align-items-center mb-4 p-2 border bg-white">
                 <div class="col-md-6">
-                    <img src="{{$course->picture}}" alt="{{$course->course_name}} Class" class="img-fluid rounded mb-3">
+                    <img src="{{ asset('storage/' . $course->picture_path) }}" alt="{{$course->course_name}} Class" class="img-fluid rounded mb-3">
                 </div>
                 <div class="col-md-6 shadow bg-light p-3 mb-4">
                     <h3>{{$course->course_name}}</h3>

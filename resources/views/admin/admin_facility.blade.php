@@ -22,7 +22,7 @@
             <main class="col-md-10 ms-sm-auto px-md-4 py-4 main-content">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4>สิ่งอำนวยความสะดวก</h4>
-                    <a href="{{ route('facility_create') }}" class="btn btn-dark addButton float-end">เพิ่มสิ่งอำนวยความสะดวก</a>
+                    <a href="{{ route('facility_create') }}" class="btn btn-dark addButton float-end">เพิ่ม</a>
                 </div>
 
                 <table id="facilitiesTable" class="display table table-striped">
@@ -63,8 +63,8 @@
                 "searching": true,
                 "ordering": true,
                 "info": true,
-                "lengthMenu": [5, 10, 25, 50],
-                "pageLength": 5,
+                "lengthMenu": [15, 25, 50],
+                "pageLength": 15,
                 "language": {
                     "lengthMenu": "แสดง _MENU_ รายการต่อหน้า",
                     "zeroRecords": "ไม่พบข้อมูล",
