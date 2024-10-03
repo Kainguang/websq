@@ -16,7 +16,7 @@ class AuthenticateEmployee
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::guard('employee')->check()) {
+        if (Auth::guard('employee')->check()) {
             return $next($request);
         }
         return redirect('/login'); // Redirect ไปหน้า login ถ้าไม่ได้ล็อกอิน

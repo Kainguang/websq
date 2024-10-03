@@ -57,7 +57,7 @@ Route::middleware([AuthenticateEmployee::class])->group(function () {
     Route::get('/admin/course/{id}/details', [Admin_CoursesController::class, 'showCourseDetails'])->name('admin.course.details');
     Route::get('/admin/course/edit/{id}', [Admin_CoursesController::class, 'edit'])->name('courses.edit');
     Route::post('/admin/course/update/{id}', [Admin_CoursesController::class, 'update'])->name('courses.update');
-    Route::delete('/admin/course/delete/{id}', [Admin_CoursesController::class, 'destroy'])->name('courses.delete');
+    Route::get('/admin/course/delete', [Admin_CoursesController::class, 'delete'])->name('courses.delete');
 
     // Admin Add Course
     Route::get('/admin/course/add', [Admin_CoursesController::class, 'showCourseForm'])->name('courses_create');
@@ -92,7 +92,6 @@ Route::middleware([AuthenticateEmployee::class])->group(function () {
     // Route สำหรับบันทึกการแก้ไขบิล
     Route::post('/admin/bill/update/{customer_id}/{course_id}', [Admin_BillController::class, 'update'])->name('admin.updateBill');
 
-
     // Admin fac
     Route::get('/admin/facility/add', [Admin_FacilitiesController::class, 'showFacilityForm'])->name('facility_create');
     Route::post('/admin/facility/store', [Admin_FacilitiesController::class, 'storeOrUpdate'])->name('facility_store');
@@ -103,7 +102,6 @@ Route::middleware([AuthenticateEmployee::class])->group(function () {
 
 // user
 Route::get('/home', [CourseController::class, 'showClass'])->name('index');
-
 
 //login/out/register
 Route::get('/register', [UserController::class, 'showRegister'])->name('show_register');

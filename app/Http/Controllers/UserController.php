@@ -20,7 +20,7 @@ class UserController extends Controller
     public function login(Request $request){
         // ตรวจสอบว่ามี email และ password
         $credentials = $request->only('email', 'password');
-    
+
         // พยายามล็อกอินใน Guard ของ Customer ก่อน
         if (Auth::guard('customer')->attempt($credentials)) {
             // ล็อกอินสำเร็จสำหรับ Customer
@@ -81,7 +81,7 @@ class UserController extends Controller
 
     public function showProfile(){
         // ดึงข้อมูลผู้ใช้ที่ล็อกอินอยู่
-        $customer = Auth::user(); // ดึงข้อมูลผู้ใช้ที่ล็อกอิน
+        $customer = Auth::guard('customer')->user();
     
         // ตรวจสอบว่ามีข้อมูลผู้ใช้หรือไม่
         if (!$customer) {

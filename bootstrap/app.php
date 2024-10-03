@@ -16,7 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'authenticateCustomer' => AuthenticateCustomer::class,
-            'authenticateEm' => AuthenticateEmployee::class,
+            'authenticateEmployee' => AuthenticateEmployee::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

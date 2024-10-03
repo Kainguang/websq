@@ -20,7 +20,7 @@
         <!-- ส่วนข้อมูลส่วนตัว -->
         <section class="personal-info mb-4">
             <h5>ข้อมูลส่วนตัว</h5>
-            <img src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('storage/profile_pictures/default-profile.jpg') }}" alt="User Profile Picture" class="profile-pic rounded-circle" style="width: 150px; height: 150px;">
+            <img src="{{ Auth::guard('customer')->user()->profile_picture ? asset('storage/' . Auth::guard('customer')->user()->profile_picture) : asset('storage/profile_pictures/default-profile.jpg') }}" alt="User Profile Picture" class="profile-pic rounded-circle" style="width: 150px; height: 150px;">
             <div class="personal-item mt-3">
                 <p><b>ชื่อ:</b> <span>{{ $customer->firstname }}</span></p>
                 <p><b>นามสกุล:</b> <span>{{ $customer->lastname }}</span></p>
