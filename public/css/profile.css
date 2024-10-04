@@ -3,7 +3,19 @@ body {
     color: #000;
 }
 
+h5{
+    display: block;
+    float: left;
+    margin-right: 430px;
+}
 
+.booking-history{
+    clear: both;
+}
+
+.heading-profile{
+    width: 50%;
+}
 
 /* ปุ่ม */
 .btn {
@@ -20,11 +32,11 @@ body {
 /* CSS สำหรับหน้าโปรไฟล์ */
 .profile-container {
     max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
+    max-height: 2000px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    
 }
 
 .profile-container h2 {
@@ -53,6 +65,7 @@ body {
     border: #000 1px solid;
     object-fit: cover;
 }
+
 
 .edit-btn, .cancel-booking-btn {
     background-color: #000000;
@@ -92,6 +105,7 @@ footer {
     color: #ffffff;
     text-align: center;
     padding: 10px 0;
+    margin-top: 50px;
 }
 
 /* รูปแบบตาราง */
@@ -148,26 +162,20 @@ th {
     background-color: #f44336; /* สีแดงสำหรับปุ่ม */
     color: white;
     border: none;
-    padding: 10px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 10px 2px;
     cursor: pointer;
     border-radius: 4px; /* มุมปุ่มโค้งมน */
+    margin-bottom: 100px !important;
 }
 
 .logout-btn:hover {
     background-color: #d32f2f; /* สีเข้มขึ้นเมื่อ hover */
 }
-.button-history {
-    display: flex;
-    gap: 10px; /* ระยะห่างระหว่างปุ่ม */
-    align-items: center; /* จัดแนวปุ่มให้อยู่ในแนวเดียวกันในแนวตั้ง */
-    margin-bottom: 50px;
-}
 
 .btn {
     padding: 10px 20px;
+    margin-bottom: 20px;
 }

@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>จัดการบิล</title>
+    <title>แอดมิน - บิล</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/bill.css') }}">
@@ -88,7 +88,7 @@
                                     @if($bill->payment_status == 0)
                                         <a href="{{ route('admin.approveBill', $bill->id) }}" class="btn btn-success">ยืนยัน</a>
                                     @elseif($bill->payment_status == 1)
-                                    <a href="{{ route('admin.editBill', ['customer_id' => $bill->customer_id, 'course_id' => $bill->course_id]) }}" class="btn btn-warning">แก้ไข</a>
+                                        <a href="{{ route('admin.editBill', ['customer_id' => $bill->customer_id, 'course_id' => $bill->course_id]) }}" class="btn btn-warning">แก้ไข</a>
                                     @elseif($bill->payment_status == 2)
                                         <a href="{{ route('admin.approveCancel', $bill->id) }}" class="btn btn-warning">ยืนยันการยกเลิก</a>
                                     @endif
@@ -170,21 +170,21 @@
     }
 
     function confirmDeleteBill(bill_id) {
-        Swal.fire({
-            title: 'คุณแน่ใจหรือไม่?',
-            text: "คุณต้องการลบบิลนี้!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'ยืนยัน',
-            cancelButtonText: 'ยกเลิก'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = '/admin/bill/delete/' + bill_id;
-            }
-        });
-    }
+            Swal.fire({
+                title: 'คุณแน่ใจหรือไม่?',
+                text: "คุณต้องการลบบิลนี้!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ยืนยัน',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/admin/bill/delete/' + bill_id;
+                }
+            });
+        }
     </script>
 </body>
 

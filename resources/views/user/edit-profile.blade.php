@@ -16,7 +16,7 @@
     <div class="container mt-5">
         <div class="edit-body">
             <h2>แก้ไขข้อมูลส่วนตัว</h2>
-            <form action="{{ route('profile_update') }}" method="POST" enctype="multipart/form-data">
+            <form id="editProfileForm" action="{{ route('profile_update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="id" value="{{ $customer->id }}">
                 <div class="row">
@@ -72,7 +72,7 @@
                         <label for="profile_picture" class="form-label">อัปโหลดรูปโปรไฟล์</label>
                         <input type="file" class="form-control" id="profile_picture" name="profile_picture" accept="image/*">
                         @if($customer->profile_picture)
-                            <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}" alt="Profile Picture" style="width: 100px; height: 100px;" class="mt-3">
+                            <img src="{{ asset('storage/' . Auth::guard('customer')->user()->profile_picture) }}" alt="Profile Picture" style="width: 100px; height: 100px;" class="mt-3">
                         @endif
                     </div>
                 </div>
@@ -89,26 +89,38 @@
         <p>&copy; 2024 Fitness Center. All rights reserved.</p>
     </footer>
 
-
-
     <script>
-            // ปุ่มยกเลิก
-            document.getElementById('cancelButton').addEventListener('click', function() {
-                Swal.fire({
-                    title: 'คุณต้องการย้อนกลับหรือไม่?',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'ยืนยัน',
-                    cancelButtonText: 'ยกเลิก'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = '{{ url()->previous() }}';
-                    }
-                });
+        // ปุ่มบันทึก
+        document.getElementById('submitButton').addEventListener('click', function(event) {
+            event.preventDefault(); // ป้องกันการส่งฟอร์มทันที
+            
+            Swal.fire({
+                title: 'คุณแน่ใจหรือไม่ว่าต้องการบันทึกข้อมูล?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'บันทึก',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('editProfileForm').submit(); // ส่งฟอร์มเมื่อยืนยัน
+                }
             });
-        
+        });
+        // ปุ่มยกเลิก
+        document.getElementById('cancelButton').addEventListener('click', function() {
+            Swal.fire({
+                title: 'คุณต้องการย้อนกลับหรือไม่?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'ยืนยัน',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '{{ route("profile") }}';
+                }
+            });
+        });    
     </script>
-
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Employee;
-use App\Models\Course;
-use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
@@ -54,7 +52,6 @@ class Admin_TrainerController extends Controller
         return $alltrainers;
     }
     
-
     public function getAllTrainersWithSchedule()
     {
         // ดึงข้อมูลเทรนเนอร์พร้อมกับตารางเวลา
@@ -80,7 +77,8 @@ class Admin_TrainerController extends Controller
     
         return $trainers;
     }
-        // ฟังก์ชันสำหรับแสดงฟอร์มเพิ่มหรือแก้ไขเทรนเนอร์
+
+    // ฟังก์ชันสำหรับแสดงฟอร์มเพิ่มหรือแก้ไขเทรนเนอร์
     public function showTrainerForm($id = null){
         // ถ้ามี $id ให้ดึงข้อมูลเทรนเนอร์มาแก้ไข
         $trainer = $id ? Employee::find($id) : null;
@@ -120,8 +118,7 @@ class Admin_TrainerController extends Controller
             if ($trainer->profile_picture && Storage::exists('public/' . $trainer->profile_picture)) {
                 Storage::delete('public/' . $trainer->profile_picture);
             }
-
-                // อัปโหลดรูปภาพใหม่
+            // อัปโหลดรูปภาพใหม่
             $file = $request->file('profile_picture');
             $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
             $extension = $file->getClientOriginalExtension();
@@ -129,7 +126,7 @@ class Admin_TrainerController extends Controller
 
             // บันทึกเส้นทางรูปภาพใหม่ในคอร์ส
             $trainer->profile_picture = $filePath;
-        }            // บันทึกข้อมูลลูกค้าลงฐานข้อมูล
+        }
         $trainer->save();
     
         return redirect('/admin/trainer');

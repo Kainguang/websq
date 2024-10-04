@@ -20,7 +20,7 @@
 
 <body>
     <div class="content">
-        <div class="container mt-5">
+        <div class="col-md-10 ms-sm-auto px-md-4 py-4">
             <!-- ส่วนบิล -->
             <h1 class="section-header">รายละเอียดบิล</h1>
             <form action="{{ route('admin.updateBill', ['customer_id' => $customer->id, 'course_id' => $course->id]) }}" method="POST" enctype="multipart/form-data">

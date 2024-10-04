@@ -19,7 +19,7 @@
 
         <!-- ส่วนข้อมูลส่วนตัว -->
         <section class="personal-info mb-4">
-            <h5>ข้อมูลส่วนตัว</h5>
+            <h5 class="heading-profile">ข้อมูลส่วนตัว</h5>
             <img src="{{ Auth::guard('customer')->user()->profile_picture ? asset('storage/' . Auth::guard('customer')->user()->profile_picture) : asset('storage/profile_pictures/default-profile.jpg') }}" alt="User Profile Picture" class="profile-pic rounded-circle" style="width: 150px; height: 150px;">
             <div class="personal-item mt-3">
                 <p><b>ชื่อ:</b> <span>{{ $customer->firstname }}</span></p>
@@ -85,6 +85,7 @@
 
         <!-- ประวัติการจองล่าสุด -->
         <h5>ประวัติการจองล่าสุด</h5>
+        <a href="{{ route('history-booking') }}" class="booking-history">ดูประวัติการจองทั้งหมด ></a>
         <section class="booking-info mb-5 p-4 bg-light shadow-sm rounded">
             @if ($latestBooking)
                 <div class="row">
@@ -134,9 +135,9 @@
                         </ul>
                             
                             <!-- ปุ่มยกเลิกการจอง -->
-                            <form method="POST" action="{{ route('cancel_booking', ['id' => $latestBooking->id]) }}">
+                            <form id="cancel" method="POST" action="{{ route('cancel_booking', ['id' => $latestBooking->id]) }}">
                                 @csrf
-                                <button type="submit" class="btn btn-danger w-100">ยกเลิกการจอง</button>
+                                <button type="submit" class="btn btn-danger w-100 cancel-booking">ยกเลิกการจอง</button>
                             </form>
                         </div>
                     </div>
@@ -148,41 +149,57 @@
 
         <!-- ลิงก์ไปยังประวัติการจองทั้งหมด -->
         <div class="button-history">
-            <a href="{{ route('history-booking') }}" class="btn btn-primary">ดูประวัติการจองทั้งหมด</a>
-
-            <form method="POST" action="{{ route('logout') }}">
+            <form id="logout" method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="submit" class="btn btn-danger">ออกจากระบบ</button>
+                <button type="submit" class="btn btn-danger logout-button">ออกจากระบบ</button>
             </form>
-        </div>
+        </div>    
+    </div>
 
-
-
-    <!-- SweetAlert สำหรับยกเลิกการจอง -->
     <script>
-        document.querySelectorAll('#cancelButton').forEach(button => {
-            button.addEventListener('click', function (e) {
-                e.preventDefault(); // ป้องกันการ submit ฟอร์มทันที
+        // สำหรับยกเลิกการจอง
+        document.querySelector('.cancel-booking').addEventListener('click', function (e) {
+            e.preventDefault(); // ป้องกันการ submit ฟอร์มทันที
 
-                Swal.fire({
-                    title: 'ยืนยันการยกเลิกการจอง?',
-                    text: "คุณต้องการยกเลิกการจองคอร์สนี้ใช่หรือไม่?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'ยืนยัน',
-                    cancelButtonText: 'ยกเลิก'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // ถ้ายืนยัน ให้ทำการ submit ฟอร์ม
-                        this.closest('form').submit();
-                    }
-                });
+            Swal.fire({
+                title: 'คุณต้องการยกเลิกการจองคอร์สนี้ใช่หรือไม่?',
+                text: "โปรดทราบ: หากคุณยืนยันที่จะจองคอร์สนี้แล้ว เมื่อยกเลิกคุณจะไม่มีการคืนเงิน เนื่องจากมีการจัดเตรียมทรัพยากร และจองที่นั่ง เพื่อความยุติธรรมต่อผู้เข้าร่วมทุกคน",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'ยืนยัน',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // ถ้ายืนยัน ให้ทำการ submit ฟอร์ม
+                    document.getElementById('cancel').submit();
+                }
+            });
+        });
+
+        // สำหรับ logout
+        document.querySelector('.logout-button').addEventListener('click', function (e) {
+            e.preventDefault(); // ป้องกันการ submit ฟอร์มทันที
+
+            Swal.fire({
+                title: 'ยืนยันการออกจากระบบ?',
+                text: "คุณต้องการออกจากระบบใช่หรือไม่?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'ยืนยัน',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // ถ้ายืนยัน ให้ทำการ submit ฟอร์ม
+                    document.getElementById('logout').submit();
+                }
             });
         });
     </script>
-    </div>
+
 
   <!-- Inline CSS สำหรับ Footer -->
 <footer style="background-color: #000000; color: #ffffff; text-align: center; padding: 10px 0; bottom: -15px; width: 100%;">

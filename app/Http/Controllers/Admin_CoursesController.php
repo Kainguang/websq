@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Course;
-use App\Models\Employee;
-use App\Models\Day; // ดึง Model ของ Day เพื่อใช้ดึงข้อมูลวันจากฐานข้อมูล // ดึง Model ของ Day เพื่อใช้ดึงข้อมูลวันจากฐานข้อมูล
+use App\Models\Day;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-
 
 class Admin_CoursesController extends Controller
 {
@@ -37,7 +35,7 @@ class Admin_CoursesController extends Controller
             'courses.course_sellprice',
             'courses.start_time',
             'courses.end_time',
-            'courses.course_status', // ระบุชัดเจนว่าต้องการใช้จากตาราง courses
+            'courses.course_status',
             DB::raw('COUNT(enrolls.id) as total_booked'),
             DB::raw('CONCAT(employees.firstname, " ", employees.lastname) as trainer_name') // ดึงชื่อเทรนเนอร์
         )
@@ -48,15 +46,6 @@ class Admin_CoursesController extends Controller
         // ส่งข้อมูลไปยังหน้า views
         return view('admin.admin_course', compact('totalCourses', 'totalRevenue', 'averageRevenue', 'coursesData', 'courses'));
     }
-
-
-    // // ฟังก์ชันสำหรับแสดงฟอร์มเพิ่มคอร์ส
-    // public function showAddCourseForm(){
-    //     // ดึงข้อมูลวันทั้งหมดจากตาราง days
-    //     $days = Day::all();
-    //     $employees = DB::table('employees')->where('role_id','1')->get();
-    //     return view('admin.admin_addcourse', compact('days','employees')); // ส่งข้อมูลวันไปยัง view
-    // }
 
     public function showCourseDetails($id)
     {
@@ -77,7 +66,7 @@ class Admin_CoursesController extends Controller
                 'courses.start_time',
                 'courses.end_time',
                 'courses.max_participant',
-                'courses.picture_path', // ใช้ picture_path จากคอลัมน์ในตาราง courses แทน
+                'courses.picture_path',
                 DB::raw('CONCAT(employees.firstname, " ", employees.lastname) as instructor_name'), // รวมชื่อและนามสกุลผู้สอน
                 DB::raw('GROUP_CONCAT(DISTINCT days.name SEPARATOR ", ") as days'), // รวมชื่อวันที่เรียนเป็นสตริง
                 DB::raw('COUNT(DISTINCT enrolls.id) as total_booked') // นับจำนวนคนที่จอง
@@ -128,9 +117,6 @@ class Admin_CoursesController extends Controller
         $course->description = $request->description;
         $course->course_status = $request->course_status ?? '1'; // ถ้าไม่เลือกสถานะให้ใช้ค่าเริ่มต้น
 
-        // บันทึกข้อมูลคอร์สลงฐานข้อมูล
-        $course->save();
-
         // บันทึกวันที่เลือก (กรณีมีการเลือกวัน)
         if ($request->days) {
             $course->days()->sync($request->days); // อัปเดตข้อมูลวันที่
@@ -150,12 +136,11 @@ class Admin_CoursesController extends Controller
 
             // บันทึกเส้นทางรูปภาพใหม่ในคอร์ส
             $course->picture_path = $filePath;
-            $course->save(); // บันทึกเส้นทางรูปภาพลงฐานข้อมูล
         }
+        $course->save();
 
         return redirect('/admin/course');
     }
-
 
     public function delete(Request $request){
         $course = Course::find($request->course_id);
@@ -164,5 +149,4 @@ class Admin_CoursesController extends Controller
         }
         return redirect('admin/course');
     }
-
 }

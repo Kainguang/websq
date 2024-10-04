@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>การจ่ายเงิน</title>
+    <title>ชำระเงิน</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/payment.css">
@@ -30,7 +30,8 @@
                         <input type="file" class="form-control" id="slip_picture" name="slip_picture" accept="image/*" required>
                     </div>
                     <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-dark">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" id="backButton">ย้อนกลับ</button>
+                        <button type="submit" class="btn btn-dark" id="confirmButton">ยืนยันการจอง</button>
                     </div>
                 </form>
             </div>
@@ -40,7 +41,12 @@
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+       document.addEventListener('DOMContentLoaded', function() {
+            // ปุ่มย้อนกลับ
+            document.getElementById('backButton').addEventListener('click', function() {
+                window.location.href = "{{ url()->previous() }}";
+            });
+
             // เมื่อฟอร์มถูกส่ง
             const form = document.querySelector('form');
             form.addEventListener('submit', function(event) {
@@ -49,18 +55,11 @@
                 // แสดง SweetAlert
                 Swal.fire({
                     title: 'ขอบคุณ!',
-                    text: 'จ่ายเงินสำเร็จแล้ว!',
+                    text: 'ยืนยันการจองสำเร็จแล้ว!',
                     icon: 'success',
                     confirmButtonText: 'ตกลง',
                     confirmButtonColor: '#000',
-                    background: '#fff',
-                    color: '#000',
-                    backdrop: `
-                        rgba(0, 0, 0, 0.6)
-                        url('/images/nyan-cat.gif')
-                        center top
-                        no-repeat
-                    `
+                    background: '#fff'
                 }).then(() => {
                     // ส่งฟอร์มหลังจากผู้ใช้กดยืนยัน
                     form.submit();

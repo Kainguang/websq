@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WellnessWave Dashboard</title>
+    <title>แอดมิน - หน้าหลัก</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -107,8 +107,10 @@
                                     </td>
                                     <td>{{ date('d/m/Y H:i:s', strtotime($bill->updated_at)) }}</td>
                                     <td>
-                                        <button class="btn btn-danger deleteButton"
-                                            onclick="confirmDeleteBill('{{ $bill->id }}')">ลบ</button>
+                                        @if($bill->payment_status == 1)
+                                            <a href="{{ route('admin.editBill', ['customer_id' => $bill->customer_id, 'course_id' => $bill->course_id]) }}" class="btn btn-warning">แก้ไข</a>
+                                        @endif
+                                        <button class="btn btn-danger deleteButton"onclick="confirmDeleteBill('{{ $bill->id }}')">ลบ</button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -190,21 +192,21 @@
     }
 
     function confirmDeleteBill(bill_id) {
-        Swal.fire({
-            title: 'คุณแน่ใจหรือไม่?',
-            text: "คุณต้องการลบบิลนี้!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'ยืนยัน',
-            cancelButtonText: 'ยกเลิก'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = '/admin/bill/delete/' + bill_id;
-            }
-        });
-    }
+            Swal.fire({
+                title: 'คุณแน่ใจหรือไม่?',
+                text: "คุณต้องการลบบิลนี้!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ยืนยัน',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/admin/bill/delete/' + bill_id;
+                }
+            });
+        }
 
     var ctx = document.getElementById('studentsChart').getContext('2d');
     var studentsChart = new Chart(ctx, {

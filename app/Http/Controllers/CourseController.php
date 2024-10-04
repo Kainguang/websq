@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Course;
-use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -69,7 +68,7 @@ class CourseController extends Controller
     }
     
     public function showCoursesTime() {
-        // ดึงข้อมูลคอร์สช่วงเช้า พร้อมข้อมูลครูผู้สอนและจำนวนคนจอง โดยใช้ picture_path จากตาราง courses
+        // ดึงข้อมูลคอร์สช่วงเช้า
         $morningCourses = DB::table('courses')
             ->join('employees', 'courses.employee_id', '=', 'employees.id')
             ->leftJoin('course_days', 'courses.id', '=', 'course_days.course_id') // เชื่อมกับ course_days
@@ -81,7 +80,7 @@ class CourseController extends Controller
                 'courses.course_sellprice',
                 'courses.start_time',
                 'courses.end_time',
-                'courses.times', // จำนวนครั้งที่คอร์สจะเกิดขึ้น
+                'courses.times', // จำนวนครั้งต่อสัปดาห์
                 'courses.max_participant',
                 'courses.period',
                 DB::raw('CONCAT(employees.firstname, " ", employees.lastname) as instructor_name'),
@@ -106,7 +105,7 @@ class CourseController extends Controller
                 'courses.course_sellprice',
                 'courses.start_time',
                 'courses.end_time',
-                'courses.times',
+                'courses.times', // จำนวนครั้งต่อสัปดาห์
                 'courses.max_participant',
                 'courses.period',
                 DB::raw('CONCAT(employees.firstname, " ", employees.lastname) as instructor_name'),

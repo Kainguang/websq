@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Course;
-use App\Models\Customer;
-use App\Models\Course_bill;
-use App\Models\Course_participant;
 use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
@@ -42,10 +39,6 @@ class BookingController extends Controller
     }
 
     public function bookCourse($course_id) {
-        // ตรวจสอบว่าผู้ใช้ล็อกอินใน Guard ของ customer หรือไม่
-        if (!Auth::guard('customer')->check()) {
-            return redirect()->route('show_login')->with('message', 'กรุณาล็อกอินก่อนทำการจอง');
-        }
     
         // ถ้าผู้ใช้ล็อกอินอยู่แล้ว ทำงานต่อไปได้ตามปกติ
         $course = Course::find($course_id);
@@ -58,7 +51,7 @@ class BookingController extends Controller
         // เก็บข้อมูล course ลงใน session เพื่อแสดงในหน้า orderlist
         session(['course_id' => $course->id]);
     
-        return redirect()->route('orderlist');
+        return redirect('orderlist/{course_id}');
     }
 
     public function storeOrder(Request $request) {
@@ -87,11 +80,10 @@ class BookingController extends Controller
         return redirect('home');
     }
     
-
     public function storeBooking(Request $request) {
         // ดึงข้อมูลที่เก็บไว้ใน session
         $course_id = session('course_id');
-        $customer = Auth::user();
+        $customer = Auth::guard('customer')->user();
         $customer_id = $customer->id;
     
         $total = session('total'); // ราคารวม
@@ -126,7 +118,7 @@ class BookingController extends Controller
         session()->forget(['course_id', 'total']);
     
         // Redirect ไปยังหน้าการชำระเงินเสร็จสิ้น
-        return redirect('home')->with('success', 'การจองเสร็จสมบูรณ์ กำลังรอยืนยันการชำระเงิน');
+        return redirect('home');
     }
     
     

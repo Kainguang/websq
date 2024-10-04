@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customer;
-use App\Models\Employee;
-use App\Models\Course_bill;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -32,9 +29,6 @@ class UserController extends Controller
             // ล็อกอินสำเร็จสำหรับ Admin
             return redirect('admin/dashboard'); // Redirect ไปหน้า dashboard สำหรับแอดมิน
         }
-    
-        // ถ้าทั้งสองล้มเหลว ให้กลับไปแสดงข้อผิดพลาด
-        return back()->withErrors(['msg' => 'Invalid login details']);
     }
 
     public function logout(Request $request){
@@ -116,7 +110,7 @@ class UserController extends Controller
 
     public function editProfile(){
         // ดึงข้อมูลผู้ใช้ที่ล็อกอินอยู่
-        $customer = Auth::user();  // ดึงข้อมูลลูกค้าที่ล็อกอินอยู่
+        $customer = Auth::guard('customer')->user();
     
         // ตรวจสอบว่ามีข้อมูลผู้ใช้หรือไม่
         if (!$customer) {
@@ -193,7 +187,7 @@ class UserController extends Controller
     }
 
     public function showBookingHistory() {
-        $customer = Auth::user(); // ดึงข้อมูลลูกค้าที่ล็อกอิน
+        $customer = Auth::guard('customer')->user(); // ดึงข้อมูลลูกค้าที่ล็อกอิน
         $bookings = $this->bookingHistory($customer->id); // ส่ง customer_id ไปยังฟังก์ชันเพื่อดึงข้อมูลการจอง
         return view('user.history-booking', compact('bookings')); // ส่งข้อมูล $bookings ไปยัง view
     }
@@ -211,12 +205,7 @@ class UserController extends Controller
                     'updated_at' => now(),
                 ]);
     
-            return redirect()->back()->with('success', 'การขอยกเลิกคอร์สถูกส่งแล้ว กำลังรอการอนุมัติ');
+            return redirect('history-booking');
         }
-    
-        return redirect()->back()->with('error', 'ไม่พบข้อมูลการจอง');
     }
-    
-    
-    
 }

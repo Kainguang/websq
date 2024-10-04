@@ -59,10 +59,6 @@ class Admin_BillController extends Controller
         ->select('enrolls.*', 'courses.period') // ดึงระยะเวลาคอร์ส (period) ด้วย
         ->first();
 
-        if (!$enroll) {
-            return redirect()->back()->with('error', 'ไม่พบข้อมูลการจอง');
-        }
-
         // อัปเดตสถานะการชำระเงินพร้อมกับบันทึกวันที่เริ่มต้นและสิ้นสุดการเรียนในคราวเดียว
         DB::table('enrolls')
             ->where('id', $id)
@@ -72,27 +68,23 @@ class Admin_BillController extends Controller
                 'end_day' => now()->addWeeks($enroll->period), // วันที่สิ้นสุดการเรียน เพิ่มตาม period
                 'updated_at' => now() // อัปเดตวันที่แก้ไขล่าสุด
             ]);
-        return redirect()->back()->with('success', 'บิลถูกอนุมัติแล้ว');
+        return redirect('admin/bill');
     }
 
     public function approveCancel($id){
         // ค้นหาข้อมูลการจอง
         $enroll = DB::table('enrolls')->where('id', $id)->first();
 
-        if (!$enroll) {
-            return redirect()->back()->with('error', 'ไม่พบข้อมูลการจอง');
-        }
-
         // อัปเดตสถานะการจองเป็นยืนยันการยกเลิก (payment_status = 3)
         DB::table('enrolls')
             ->where('id', $id)
             ->update([
                 'payment_status' => 3,  // อัปเดตสถานะเป็น "ยืนยันการยกเลิก"
-                'course_status' => 0,
+                'course_status' => 2,   // อัปเดตสถานะเป็น "ถูกยกเลิก"
                 'updated_at' => now()  // อัปเดตวันที่ล่าสุด
             ]);
 
-        return redirect()->back()->with('success', 'การยกเลิกการจองถูกอนุมัติแล้ว');
+        return redirect('admin/bill');
     }
 
     // ฟังก์ชันสำหรับแสดงฟอร์มแก้ไขการลงทะเบียน
@@ -109,19 +101,13 @@ class Admin_BillController extends Controller
         // ดึงคอร์สทั้งหมดเพื่อเลือกใน dropdown
         $allCourses = Course::all();
         
-        // ตรวจสอบว่าลูกค้าและคอร์สมีอยู่จริง
-        if (!$customer || !$course) {
-            return redirect()->back()->with('error', 'ไม่พบข้อมูลลูกค้าหรือคอร์ส');
-        }
-        
         // ดึงข้อมูลการลงทะเบียนจาก pivot table (enrollments)
         $enrollment = $customer->courses()->where('course_id', $course_id)->first();
         
         return view('admin.admin_editbill', compact('customer', 'course', 'enrollment', 'allCourses'));
     }
 
-    public function update(Request $request, $customer_id, $course_id)
-    {
+    public function update(Request $request, $customer_id, $course_id){
         // ดึงข้อมูลลูกค้าและคอร์สที่เกี่ยวข้อง
         $customer = Customer::find($customer_id);
 
@@ -131,7 +117,7 @@ class Admin_BillController extends Controller
             'payment_status' => $request->input('payment_status'),
         ]);
 
-        return redirect('/admin/bill')->with('success', 'อัปเดตข้อมูลสำเร็จ');
+        return redirect('/admin/bill');
     }
 
     // ฟังก์ชันลบข้อมูลบิล
@@ -139,19 +125,6 @@ class Admin_BillController extends Controller
     {
         // ลบข้อมูลบิลตาม ID
         DB::table('enrolls')->where('id', $id)->delete();
-        return redirect()->back()->with('success', 'บิลถูกลบเรียบร้อยแล้ว');
-    }
-
-    public function showBillDetails($id){
-        // ดึงข้อมูลบิลจากฐานข้อมูล
-        $bill = DB::table('enrolls')
-            ->join('customers', 'enrolls.customer_id', '=', 'customers.id')
-            ->join('courses', 'enrolls.course_id', '=', 'courses.id')
-            ->select('customers.firstname', 'customers.lastname', 'courses.course_name', 'enrolls.totalprice', 'enrolls.created_at', 'courses.start_time', 'courses.end_time', 'enrolls.slip_picture', 'courses.picture_path', 'enrolls.start_day', 'enrolls.end_day')
-            ->where('enrolls.id', $id)
-            ->first();
-
-        // ส่งข้อมูลบิลไปยัง View
-        return view('admin.admin_billdetail', compact('bill'));
+        return redirect('admin/bill');
     }
 }

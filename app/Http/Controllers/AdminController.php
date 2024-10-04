@@ -7,18 +7,16 @@ use App\Models\Course;
 use App\Models\Employee;
 use Illuminate\Support\Facades\DB;
 
-
 class AdminController extends Controller
 {
-    public function showDashboard()
-    {
+    public function showDashboard(){
         // ดึงข้อมูลคอร์สทั้งหมด
         $totalCourses = Course::count(); 
         
-        // ดึงจำนวนเทรนเนอร์ทั้งหมด (สมมติ role_id = 1 คือเทรนเนอร์)
+        // ดึงจำนวนเทรนเนอร์ทั้งหมด
         $totalEmployees = Employee::where('role_id', 1)->count(); 
         
-        // ดึงรายได้สุทธิจากการสมัครคอร์ส (สมมติว่า enroll มีฟิลด์ amount หรือ price)
+        // ดึงรายได้สุทธิจากการสมัครคอร์ส
         $totalRevenue = DB::table('enrolls')->sum('totalprice'); 
         
         // ดึงข้อมูลจำนวนผู้เข้าร่วมต่อคอร์ส
@@ -33,89 +31,27 @@ class AdminController extends Controller
         $approvedBills = DB::table('enrolls')
             ->join('customers', 'enrolls.customer_id', '=', 'customers.id')
             ->join('courses', 'enrolls.course_id', '=', 'courses.id')
-            ->select('enrolls.id', 'customers.firstname', 'customers.lastname', 'courses.course_name', 'enrolls.payment_status', 'enrolls.course_status', 'enrolls.slip_picture', 'enrolls.updated_at')
+            ->select('enrolls.id', 'customers.firstname', 'customers.lastname', 'customers.id as customer_id', 'courses.id as course_id', 'courses.course_name', 'enrolls.payment_status', 'enrolls.course_status', 'enrolls.slip_picture', 'enrolls.updated_at') // เพิ่ม customers.id as customer_id
             ->where('enrolls.payment_status', '=', 1)
             ->orderBy('enrolls.updated_at', 'desc')
-            ->get();
+            ->get();    
 
         $cancelledBills = DB::table('enrolls')
             ->join('customers', 'enrolls.customer_id', '=', 'customers.id')
             ->join('courses', 'enrolls.course_id', '=', 'courses.id')
-            ->select('enrolls.id', 'customers.firstname', 'customers.lastname', 'courses.course_name', 'enrolls.payment_status', 'enrolls.course_status', 'enrolls.slip_picture', 'enrolls.updated_at')
+            ->select('enrolls.id', 'customers.firstname', 'customers.lastname', 'customers.id as customer_id', 'courses.course_name', 'enrolls.payment_status', 'enrolls.course_status', 'enrolls.slip_picture', 'enrolls.updated_at') // เพิ่ม customers.id as customer_id
             ->where('enrolls.payment_status', '=', 3)
             ->orderBy('enrolls.updated_at', 'desc')
             ->get();
+        
 
         return view('admin.admin_dashboard', compact('totalCourses', 'totalEmployees', 'totalRevenue', 'courseNames', 'studentsPerCourse', 'approvedBills', 'cancelledBills'));
     }
 
-
-    public function allCourse()
-    {
-        // ดึงจำนวนคอร์สทั้งหมดจากตาราง courses
-        return DB::table('courses')->count();
-    }
-
-    public function allTrainner()
-    {
-        // ดึงข้อมูลจำนวนเทรนเนอร์จากตาราง employees (สมมติ role_id 1 คือเทรนเนอร์)
-        return DB::table('employees')->where('role_id', 1)->count();
-    }
-
-    public function allRevenue()
-    {
-        // JOIN ตาราง course_course_bills กับ courses ตามเงื่อนไขที่เหมาะสม
-        return DB::table('course_course_bills')
-                ->join('courses', 'course_course_bills.course_id', '=', 'courses.id')
-                ->selectRaw('SUM(course_course_bills.price * course_course_bills.amount) - SUM(courses.course_cost) as total_revenue')
-                ->value('total_revenue');
-    }
-
-    public function allSalary()
-    {
-        return DB::table('employees')->where('role_id', 1)->sum('salary');
-    }
-
-    public function allcoursesname()
-    {
-        // ดึงข้อมูลชื่อคอร์สทั้งหมดจากตาราง courses
-        return DB::table('courses')->select('id', 'course_name')->get();
-    }
-    public function allcoursechart()
-    {
-        // ดึงข้อมูลจำนวนผู้สมัครของแต่ละคอร์ส
-        return DB::table('course_course_bills')
-                ->join('courses', 'course_course_bills.course_id', '=', 'courses.id')
-                ->select('courses.course_name', DB::raw('SUM(course_course_bills.amount) as total_participants'))
-                ->groupBy('courses.course_name')
-                ->orderBy(DB::raw("SUBSTRING_INDEX(courses.course_name, ' ', 1)"))
-                ->orderBy(DB::raw("CAST(SUBSTRING_INDEX(courses.course_name, ' ', -1) AS UNSIGNED)"))
-                ->get();
-    }
-
-    public function averageRevenuePerCourse()
-    {
-        return DB::table('course_course_bills')
-                ->join('courses', 'course_course_bills.course_id', '=', 'courses.id')
-                ->selectRaw('AVG(course_course_bills.price * course_course_bills.amount) as avg_revenue')
-                ->value('avg_revenue');
-    }
-
-    public function allTrainerchart()
-    {
-        // ดึงข้อมูลจากตาราง employees, courses และ course_course_bills
-        return DB::table('employees')
-                ->join('courses', 'employees.id', '=', 'courses.employee_id')
-                ->join('course_course_bills', 'courses.id', '=', 'course_course_bills.course_id')
-                ->select('employees.firstname as Trainer', DB::raw('SUM(course_course_bills.amount) as Total_Students'))
-                ->groupBy('employees.firstname')
-                ->get();
-    }
-    public function delete($id)
-    {
+    public function delete($id){
         // ลบข้อมูลบิลตาม ID
         DB::table('bills')->where('id', $id)->delete();
-        return redirect()->back()->with('success', 'บิลถูกลบเรียบร้อยแล้ว');
+        return redirect('admin/bill');
     }
       
 }

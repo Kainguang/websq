@@ -84,6 +84,18 @@ h2 {
     font-size: 1rem;
 }
 
+.no-course-card {
+    background-color: #d8d8d8; /* สีพื้นหลังที่อ่อน */
+    border-radius: 5px; /* มุมโค้ง */
+    padding: 15px; /* ระยะห่างภายใน */
+    text-align: center; /* จัดให้อยู่กลาง */
+    color: #000000; /* สีข้อความ */
+    font-weight: bold; /* ตัวหนา */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* เงา */
+}
+
+
+
 /* Footer styles */
 footer {
     background-color: #000;

@@ -9,23 +9,15 @@ use Illuminate\Support\Facades\Storage;
 
 class Admin_CustomerController extends Controller
 {
-    public function showCustomers()
-    {
-        $customers = $this->allCustomers();
-        return view("admin.admin_customer", compact('customers'));
-    }
-    public function allCustomers()
-    {
-        // ดึงเฉพาะข้อมูลลูกค้าที่ไม่ได้ถูกลบ (deleted_at เป็น null)
+    public function showCustomers(){
         $customers = DB::table('customers')
         ->whereNull('deleted_at') // ดึงเฉพาะแถวที่ deleted_at เป็น null
         ->get();
-        return $customers; // คืนค่าข้อมูลลูกค้า
+        return view("admin.admin_customer", compact('customers'));
     }
 
     // ฟังก์ชันสำหรับแสดงฟอร์มเพิ่มหรือแก้ไขลูกค้า
-    public function showCustomerForm($id = null)
-    {
+    public function showCustomerForm($id = null){
         // ถ้ามี $id ให้ดึงข้อมูลลูกค้ามาแก้ไข
         $customer = $id ? Customer::find($id) : null;
 
@@ -34,8 +26,7 @@ class Admin_CustomerController extends Controller
     }
 
     // ฟังก์ชันสำหรับบันทึกข้อมูลลูกค้า (เพิ่มหรือแก้ไข)
-    public function storeOrUpdate(Request $request, $id = null)
-    {
+    public function storeOrUpdate(Request $request, $id = null){
         // ถ้ามี $id ให้แก้ไขข้อมูลลูกค้า
         $customer = $id ? Customer::find($id) : new Customer();
 
@@ -56,10 +47,7 @@ class Admin_CustomerController extends Controller
             $customer->password = Hash::make($request->password);
         }
 
-        // บันทึกข้อมูลลูกค้าลงฐานข้อมูล
-        $customer->save();
-
-                // ตรวจสอบการอัปโหลดไฟล์รูปภาพ
+        // ตรวจสอบการอัปโหลดไฟล์รูปภาพ
         if ($request->hasFile('profile_picture')) {
             // ลบรูปเก่าก่อนถ้ามี
             if ($customer->profile_picture && Storage::exists('public/' . $customer->profile_picture)) {
@@ -74,8 +62,8 @@ class Admin_CustomerController extends Controller
 
             // บันทึกเส้นทางรูปภาพใหม่ในคอร์ส
             $customer->profile_picture = $filePath;
-            $customer->save(); // บันทึกเส้นทางรูปภาพลงฐานข้อมูล
         }
+        $customer->save();
 
         // ส่งผลลัพธ์กลับหลังบันทึกเสร็จ
         return redirect('/admin/customer');
@@ -87,10 +75,5 @@ class Admin_CustomerController extends Controller
             $customer->delete();
         }
         return redirect('admin/customer');
-    }
-    
-    }
-
-    
-
-
+    }    
+}

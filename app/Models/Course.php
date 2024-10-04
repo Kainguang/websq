@@ -17,10 +17,6 @@ class Course extends Model
         return $this->belongsTo(Employee::class);
     }
 
-    public function course_pics() {
-        return $this->hasMany(Course_pic::class);
-    }
-
     public function customers(){
         return $this->belongsToMany(Customer::class, 'enrolls', 'course_id', 'customer_id')
                     ->withPivot('totalprice', 'course_status', 'payment_status', 'slip_picture') // กรณีมีคอลัมน์จำนวนเงินใน pivot

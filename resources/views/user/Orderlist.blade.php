@@ -49,6 +49,7 @@
                         ฿{{ number_format($course->course_sellprice, 2) }}
                     </span>
                 </p>
+                <p style="color: red;">*โปรดทราบ: หากคุณยืนยันที่จะจองคอร์สนี้แล้ว เมื่อยกเลิกคุณจะไม่มีการคืนเงิน เนื่องจากมีการจัดเตรียมทรัพยากร และจองที่นั่ง เพื่อความยุติธรรมต่อผู้เข้าร่วมทุกคน</p>
 
                 <!-- ปุ่มยืนยันการจองและย้อนกลับอยู่ภายใน section ของข้อมูลการชำระเงิน -->
                 <div class="d-flex justify-content-between mt-4">
@@ -63,7 +64,7 @@
                         <input type="hidden" name="total" id="total_input" value="{{ $course->course_sellprice }}">
 
                         <!-- ปุ่มยืนยันการจอง -->
-                        <button type="submit" class="btn btn-primary mt-3">ยืนยันการจอง</button>
+                        <button type="submit" class="btn btn-primary mt-3">ชำระเงิน</button>
                     </form>
                 </div>
             </div>

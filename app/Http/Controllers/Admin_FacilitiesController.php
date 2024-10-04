@@ -6,21 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Facility;
-use App\Models\Facility_pic;
 
 class Admin_FacilitiesController extends Controller
 {
-    public function showFacilities()
-    {
-        $facilities = $this->allFacilities(); // เปลี่ยนชื่อฟังก์ชันให้สื่อถึงข้อมูลสิ่งอำนวยความสะดวก
-        return view("admin.admin_facility", compact('facilities'));
-    }
-
-    public function allFacilities()
-    {
+    public function showFacilities(){
         // ดึงข้อมูลจากตาราง facilities
-        $facilities = DB::table('facilities')->select('id', 'facility_name', 'facility_amount', 'description')->get();
-        return $facilities; // คืนค่าข้อมูลสิ่งอำนวยความสะดวก
+        $facilities = DB::table('facilities')
+            ->whereNull('deleted_at')
+            ->get();
+    
+        return view("admin.admin_facility", compact('facilities'));
     }
 
     // ฟังก์ชันสำหรับแสดงฟอร์มเพิ่มหรือแก้ไขสิ่งอำนวยความสะดวก
@@ -42,8 +37,6 @@ class Admin_FacilitiesController extends Controller
         $facility->facility_amount = $request->facility_amount;
         $facility->description = $request->description;
 
-        $facility->save();
-    
         // ตรวจสอบการอัปโหลดไฟล์รูปภาพ
         if ($request->hasFile('picture_path')) {
             // ลบรูปเก่าก่อนถ้ามี
@@ -59,8 +52,9 @@ class Admin_FacilitiesController extends Controller
 
             // บันทึกเส้นทางรูปภาพใหม่ในคอร์ส
             $facility->picture_path = $filePath;
-            $facility->save(); // บันทึกเส้นทางรูปภาพลงฐานข้อมูล
         }
+        $facility->save();
+
         return redirect('/admin/facility');
     }
     
