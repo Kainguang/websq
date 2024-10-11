@@ -14,7 +14,7 @@
 
 <body>
 <div class="container-fluid">
-    <div class="row"></div>
+    <div class="row">
         <main class="col-md-10 ms-sm-auto px-md-4 py-4">
             <h1>{{ isset($facility) ? 'แก้ไขสิ่งอำนวยความสะดวก' : 'เพิ่มสิ่งอำนวยความสะดวก' }}</h1>
             <form action="{{ isset($facility) ? route('facility_update', $facility->id) : route('facility_store') }}" method="POST" enctype="multipart/form-data">

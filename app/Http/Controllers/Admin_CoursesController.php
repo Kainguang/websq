@@ -40,7 +40,7 @@ class Admin_CoursesController extends Controller
             DB::raw('CONCAT(employees.firstname, " ", employees.lastname) as trainer_name') // ดึงชื่อเทรนเนอร์
         )
         ->whereNull('courses.deleted_at')
-        ->groupBy('courses.id', 'courses.course_name', 'courses.course_sellprice', 'courses.start_time', 'courses.end_time', 'courses.course_status', 'employees.firstname', 'employees.lastname')
+        ->groupBy( 'courses.id', 'courses.course_name', 'courses.course_sellprice', 'courses.start_time', 'courses.end_time', 'courses.course_status', 'employees.firstname', 'employees.lastname')
         ->get();
 
         // ส่งข้อมูลไปยังหน้า views
@@ -89,7 +89,7 @@ class Admin_CoursesController extends Controller
     
     // ฟังก์ชันสำหรับแสดงฟอร์มเพิ่มหรือแก้ไขคอร์ส
     public function showCourseForm($id = null){
-        $employees = DB::table('employees')->where('employees.role_id', 1); // ดึงข้อมูลเทรนเนอร์ทั้งหมด
+        $employees = DB::table('employees')->where('employees.role_id', 1)->get(); // ดึงข้อมูลเทรนเนอร์ทั้งหมด
         $days = Day::all(); // ดึงข้อมูลวันทั้งหมด
 
         // ถ้ามี $id ให้ดึงข้อมูลคอร์สมาแก้ไข พร้อมกับข้อมูลวันที่และรูปภาพ
@@ -100,7 +100,7 @@ class Admin_CoursesController extends Controller
     }
 
     // ฟังก์ชันสำหรับบันทึกข้อมูลคอร์ส (เพิ่มหรือแก้ไข)
-    public function storeOrUpdate(Request $request, $id = null){
+    public function storeOrUpdate(Request $request, $id = null) {
         // ตรวจสอบว่ามีการแก้ไขหรือเพิ่มคอร์สใหม่
         $course = $id ? Course::find($id) : new Course();
 
@@ -117,10 +117,6 @@ class Admin_CoursesController extends Controller
         $course->description = $request->description;
         $course->course_status = $request->course_status ?? '1'; // ถ้าไม่เลือกสถานะให้ใช้ค่าเริ่มต้น
 
-        // บันทึกวันที่เลือก (กรณีมีการเลือกวัน)
-        if ($request->days) {
-            $course->days()->sync($request->days); // อัปเดตข้อมูลวันที่
-        }
         // ตรวจสอบการอัปโหลดไฟล์รูปภาพ
         if ($request->hasFile('picture_path')) {
             // ลบรูปเก่าก่อนถ้ามี
@@ -137,7 +133,15 @@ class Admin_CoursesController extends Controller
             // บันทึกเส้นทางรูปภาพใหม่ในคอร์ส
             $course->picture_path = $filePath;
         }
+
+        // บันทึกคอร์สลงในฐานข้อมูล
         $course->save();
+
+        // จัดการกับการบันทึกวันที่ที่เกี่ยวข้อง
+        if ($request->days) {
+            // Sync days with the course
+            $course->days()->sync($request->days);
+        }
 
         return redirect('/admin/course');
     }

@@ -118,12 +118,12 @@
                                 </li>
                                 <hr>
                                 <li><strong>สถานะคอร์สของคุณ:</strong>
-                                    @if($booking->course == 0)
+                                    @if($booking->your_course == 0)
                                         <span class="text-danger">หมดอายุแล้ว</span>
-                                    @elseif($booking->course == 1)
+                                    @elseif($booking->your_course == 1)
                                         <span class="text-success">ดำเนินการอยู่</span>
-                                    @elseif($booking->course == 2)
-                                        <span class="text-success">ยกเลิกแล้ว</span>
+                                    @elseif($booking->your_course == 2)
+                                        <span class="text-danger">ยกเลิกแล้ว</span>
                                     @endif
                                 </li>
                                 <li><strong>การชำระเงิน:</strong>

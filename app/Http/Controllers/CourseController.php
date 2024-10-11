@@ -196,6 +196,7 @@ class CourseController extends Controller
                 DB::raw('GROUP_CONCAT(DISTINCT days.name ORDER BY days.id ASC SEPARATOR ", ") as class_days'),
                 'courses.picture_path' // ใช้ picture_path จากตาราง courses
             )
+            ->whereNull('courses.deleted_at')
             ->where('courses.course_name', 'like', 'โยคะ%')
             ->groupBy('courses.id', 'courses.course_name', 'courses.course_sellprice', 'courses.start_time', 'courses.end_time', 'courses.times', 'courses.max_participant', 'courses.description', 'courses.period', 'employees.firstname', 'employees.lastname', 'courses.picture_path')
             ->get();
@@ -226,6 +227,7 @@ class CourseController extends Controller
                 DB::raw('GROUP_CONCAT(DISTINCT days.name ORDER BY days.id ASC SEPARATOR ", ") as class_days'),
                 'courses.picture_path' // ใช้ picture_path จากตาราง courses
             )
+            ->whereNull('courses.deleted_at')
             ->where('courses.course_name', 'like', 'เต้น%')
             ->groupBy('courses.id', 'courses.course_name', 'courses.course_sellprice', 'courses.start_time', 'courses.end_time', 'courses.times', 'courses.max_participant', 'courses.description', 'courses.period', 'employees.firstname', 'employees.lastname', 'courses.picture_path')
             ->get();
@@ -256,6 +258,7 @@ class CourseController extends Controller
                 DB::raw('GROUP_CONCAT(DISTINCT days.name ORDER BY days.id ASC SEPARATOR ", ") as class_days'),
                 'courses.picture_path' // ใช้ picture_path จากตาราง courses
             )
+            ->whereNull('courses.deleted_at')
             ->where('courses.course_name', 'like', 'มวยไทย%')
             ->groupBy('courses.id', 'courses.course_name', 'courses.course_sellprice', 'courses.start_time', 'courses.end_time', 'courses.times', 'courses.max_participant', 'courses.description', 'courses.period', 'employees.firstname', 'employees.lastname', 'courses.picture_path')
             ->get();
@@ -286,6 +289,7 @@ class CourseController extends Controller
                 DB::raw('GROUP_CONCAT(DISTINCT days.name ORDER BY days.id ASC SEPARATOR ", ") as class_days'),
                 'courses.picture_path' // ใช้ picture_path จากตาราง courses
             )
+            ->whereNull('courses.deleted_at')
             ->where('courses.course_name', 'like', 'ซุมบา%')
             ->groupBy('courses.id', 'courses.course_name', 'courses.course_sellprice', 'courses.start_time', 'courses.end_time', 'courses.times', 'courses.max_participant', 'courses.description', 'courses.period', 'employees.firstname', 'employees.lastname', 'courses.picture_path')
             ->get();

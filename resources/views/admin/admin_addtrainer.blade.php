@@ -19,8 +19,10 @@
 </head>
 
 <body>
-<div class="content">
-<div class="container mt-5">
+<div class="container-fluid">
+        <div class="row">
+            <!-- Main Content -->
+            <main class="col-md-10 ms-sm-auto px-md-4 py-4">
         <h1>{{ isset($trainer) ? 'แก้ไขเทรนเนอร์' : 'เพิ่มเทรนเนอร์ใหม่' }}</h1>
         <form action="{{ isset($trainer) ? route('trainer_update', $trainer->id) : route('trainer_store') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -113,6 +115,7 @@
                 </div>
             </div>
         </form>
+        </main>
     </div>
 </div>
 
