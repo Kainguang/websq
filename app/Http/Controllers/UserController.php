@@ -29,6 +29,9 @@ class UserController extends Controller
             // ล็อกอินสำเร็จสำหรับ Admin
             return redirect('admin/dashboard'); // Redirect ไปหน้า dashboard สำหรับแอดมิน
         }
+
+        return redirect('/login')
+            ->with('error', 'Email or Password incorrect');
     }
 
     public function logout(Request $request){
