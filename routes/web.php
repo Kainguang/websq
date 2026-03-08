@@ -14,9 +14,9 @@ use App\Http\Controllers\Admin_BillController;
 use App\Http\Controllers\Admin_CustomerController;
 use App\Http\Controllers\Admin_FacilitiesController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 // Route::middleware([
 //     'auth:sanctum',
@@ -101,7 +101,7 @@ Route::middleware([AuthenticateEmployee::class])->group(function () {
 });
 
 // user
-Route::get('/home', [CourseController::class, 'showClass'])->name('index');
+Route::get('/', [CourseController::class, 'showClass'])->name('index');
 
 //login/out/register
 Route::get('/register', [UserController::class, 'showRegister'])->name('show_register');

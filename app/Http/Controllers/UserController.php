@@ -21,7 +21,7 @@ class UserController extends Controller
         // พยายามล็อกอินใน Guard ของ Customer ก่อน
         if (Auth::guard('customer')->attempt($credentials)) {
             // ล็อกอินสำเร็จสำหรับ Customer
-            return redirect('home'); // Redirect ไปหน้า home สำหรับลูกค้า
+            return redirect(''); // Redirect ไปหน้า home สำหรับลูกค้า
         }
     
         // หากไม่ได้เป็น Customer, ลองล็อกอินใน Guard ของ Admin
@@ -40,7 +40,7 @@ class UserController extends Controller
             Auth::guard('customer')->logout();
             $request->session()->invalidate(); // ล้าง session
             $request->session()->regenerateToken(); // ป้องกัน CSRF
-            return redirect('home'); // Redirect ไปหน้า Home
+            return redirect(''); // Redirect ไปหน้า Home
         }
 
         // ตรวจสอบว่าเป็น Admin ที่กำลังล็อกอินอยู่หรือไม่
@@ -48,7 +48,7 @@ class UserController extends Controller
             Auth::guard('employee')->logout();
             $request->session()->invalidate(); // ล้าง session
             $request->session()->regenerateToken(); // ป้องกัน CSRF
-            return redirect('home'); // Redirect ไปหน้า login
+            return redirect(''); // Redirect ไปหน้า login
         }
 
         // ถ้าไม่มี Guard ที่ถูกต้องอยู่ ให้กลับไปหน้า Login
