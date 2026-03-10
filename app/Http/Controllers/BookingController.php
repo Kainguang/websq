@@ -118,7 +118,8 @@ class BookingController extends Controller
         session()->forget(['course_id', 'total']);
     
         // Redirect ไปยังหน้าการชำระเงินเสร็จสิ้น
-        return redirect('home');
+        return redirect('
+        ');
     }
     
     
