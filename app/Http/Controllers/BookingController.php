@@ -35,7 +35,7 @@ class BookingController extends Controller
             ->first();
     
         // ส่งข้อมูล $course ไปยัง view
-        return view('user.orderlist', compact('course'));
+        return view('user.Orderlist', compact('course'));
     }
 
     public function bookCourse($course_id) {
